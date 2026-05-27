@@ -78,9 +78,11 @@
     .rest-timer .rt { font-family: var(--font-mono); font-variant-numeric: tabular-nums; font-size: 1.125rem; font-weight: 600; min-width: 46px; text-align: center; }
     .rest-timer button { color: oklch(0.985 0.010 75); font-size: 0.75rem; font-weight: 600; background: oklch(1 0 0 / 0.14); border-radius: 99px; padding: 0.3rem 0.6rem; }
     .rest-timer button:hover { background: oklch(1 0 0 / 0.24); }
-    .ex-demo { width: 30px; height: 30px; border-radius: 8px; display: grid; place-items: center; color: var(--color-action-primary); background: oklch(0.58 0.21 256 / 0.10); flex: none; margin-left: auto; }
-    .ex-demo:hover { background: oklch(0.58 0.21 256 / 0.18); }
-    .ex-demo i { font-size: 1.2rem; }
+    .ex-thumb { position: relative; width: 44px; height: 44px; border-radius: 10px; flex: none; background: var(--color-surface-subtle); border: 1px solid var(--color-border-subtle); display: grid; place-items: center; overflow: hidden; color: var(--color-text-muted); cursor: pointer; }
+    .ex-thumb i { font-size: 1.4rem; }
+    .ex-thumb img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; opacity: 0; filter: grayscale(1) contrast(1.03); transition: opacity 200ms var(--ease-out); }
+    .ex-thumb img.ok { opacity: 1; }
+    .ex-thumb:hover { border-color: var(--color-action-primary); }
     .ex-modal { position: fixed; inset: 0; z-index: 60; display: none; align-items: flex-end; justify-content: center; background: oklch(0.18 0.02 264 / 0.5); }
     .ex-modal.show { display: flex; }
     .ex-modal-card { background: var(--color-surface-raised); border-radius: 20px 20px 0 0; width: 100%; max-width: 440px; max-height: 88vh; overflow-y: auto; padding: 1.25rem 1.25rem calc(1.5rem + env(safe-area-inset-bottom)); position: relative; animation: sheet-up 240ms var(--ease-out); }
@@ -239,7 +241,7 @@
         <button class="ex-modal-x" id="exModalX" aria-label="Fechar"><i class="ph ph-x"></i></button>
         <div class="ex-demo-media">
           <img id="exDemoImg" alt="" />
-          <div class="ex-demo-ph" id="exDemoPh"><i class="ph-duotone ph-person-simple-run"></i><span>Demonstração da execução</span></div>
+          <div class="ex-demo-ph" id="exDemoPh"><i class="ph-duotone ph-film-strip"></i><span>Demonstração da execução</span></div>
         </div>
         <h2 id="exDemoTitle"></h2>
         <div class="ex-demo-chips" id="exDemoChips"></div>
@@ -304,7 +306,9 @@
       var html = '<div class="treino-done-banner ' + (all ? 'is-done' : 'not-done') + '"><i class="ph-duotone ' + (all ? 'ph-check-circle' : 'ph-barbell') + ' tic" style="color:' + (all ? 'var(--color-action-primary)' : 'var(--color-text-muted)') + '"></i><div style="flex:1"><strong style="font-family:var(--font-display);display:block">' + (all ? 'Treino concluído!' : 'Treino de hoje') + '</strong><span style="font-size:0.8125rem;color:var(--color-text-secondary)">Início ' + esc(proto.treinoHorario || '18:00') + ' · ' + prog.done + '/' + prog.total + ' séries</span></div><div class="mono" style="font-weight:600;font-size:1.125rem;color:var(--color-action-primary)">' + pct + '%</div></div>';
       proto.treino.forEach(function (ex, ei) {
         var sets = ex.sets || [], rest = ex.rest || 0;
-        html += '<div class="ex-block"><div class="ex-head"><span class="ex-idx">' + (ei + 1) + '</span><span class="ex-name">' + esc(ex.n) + '</span><button class="ex-demo" data-demo="' + ei + '" aria-label="Ver execução de ' + esc(ex.n) + '"><i class="ph-duotone ph-person-simple-run"></i></button></div>';
+        var exIc = /min|cont[íi]nu|corr/i.test((ex.n || '') + ' ' + ((ex.sets && ex.sets[0] && ex.sets[0].reps) || '')) ? 'ph-heartbeat' : 'ph-barbell';
+        var thumb = '<button class="ex-thumb" data-demo="' + ei + '" aria-label="Ver execução de ' + esc(ex.n) + '"><i class="ph ' + exIc + '"></i>' + (ex.img ? '<img src="https://cdn.jsdelivr.net/gh/yuhonas/free-exercise-db@main/exercises/' + esc(ex.img) + '/0.jpg" alt="" />' : '') + '</button>';
+        html += '<div class="ex-block"><div class="ex-head">' + thumb + '<span class="ex-name">' + esc(ex.n) + '</span></div>';
         html += '<div class="ex-controls"><label class="metodo-wrap"><span>Método</span><select class="metodo-sel" data-metodo="' + ei + '" aria-label="Método de ' + esc(ex.n) + '">' + METODOS.map(function (m) { return '<option value="' + m[0] + '"' + (ex.metodo === m[0] ? ' selected' : '') + '>' + m[1] + '</option>'; }).join('') + '</select></label><span class="rest-pill"><i class="ph ph-timer"></i>' + (rest ? rest + 's' : '—') + '</span></div>';
         if (ex.metodo === 'drop-set' && ex.drops) html += '<div class="ex-hint"><i class="ph ph-info"></i>' + esc(ex.drops) + '</div>';
         sets.forEach(function (st, si) {
@@ -326,6 +330,10 @@
         html += '</div>';
       });
       v.innerHTML = html;
+      v.querySelectorAll('.ex-thumb img').forEach(function (im) {
+        if (im.complete) { if (im.naturalWidth > 0) im.classList.add('ok'); else im.remove(); }
+        else { im.addEventListener('load', function () { im.classList.add('ok'); }); im.addEventListener('error', function () { im.remove(); }); }
+      });
     }
 
     /* ---------- PLANO ---------- */
