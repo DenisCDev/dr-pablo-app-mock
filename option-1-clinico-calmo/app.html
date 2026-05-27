@@ -38,22 +38,43 @@
     .pwa-tabs button:hover { color: var(--color-text-secondary); }
     .pwa-tabs button[aria-current="page"] { color: var(--color-action-primary); }
     .pwa-tabs button[aria-current="page"] i { color: var(--color-action-primary); }
-    /* consult banner */
     .consult-banner { display: flex; align-items: center; gap: 0.625rem; padding: 0.75rem 0.875rem; border-radius: var(--radius-ctrl); background: var(--color-chip-success-bg); border: 1px solid var(--color-chip-success-ring); margin-bottom: 0.875rem; }
     .consult-banner i { color: var(--color-action-primary); font-size: 1.25rem; }
     .consult-banner .ct { flex: 1; font-size: 0.8125rem; }
     .consult-banner .ct strong { display: block; font-family: var(--font-display); }
-    /* treino exercise card */
-    .ex-card { display: flex; align-items: center; gap: 0.75rem; padding: 0.875rem 1rem; background: var(--color-surface-raised); border: 1px solid var(--color-border-subtle); border-radius: var(--radius-ctrl); box-shadow: var(--shadow-sm); margin-bottom: 0.625rem; }
-    .ex-card .exn { font-weight: 600; font-size: 0.9375rem; flex: 1; }
-    .ex-card .exs { font-family: var(--font-mono); font-variant-numeric: tabular-nums; font-size: 0.8125rem; color: var(--color-action-primary); font-weight: 600; }
-    .ex-card .exr { font-size: 0.8125rem; color: var(--color-text-muted); }
     .treino-done-banner { padding: 1rem 1.125rem; border-radius: var(--radius-card); margin-bottom: 1rem; display: flex; align-items: center; gap: 0.75rem; }
     .treino-done-banner.is-done { background: var(--color-chip-success-bg); border: 1px solid var(--color-chip-success-ring); }
     .treino-done-banner.not-done { background: var(--color-surface-subtle); border: 1px solid var(--color-border-subtle); }
     .treino-done-banner .tic { font-size: 1.75rem; }
     .reset-link { display: inline-flex; align-items: center; gap: 0.375rem; margin-top: 1rem; font-size: 0.75rem; color: var(--color-text-muted); background: none; padding: 0.4rem 0; }
     .reset-link:hover { color: var(--color-action-destructive); }
+    /* --- TREINO: blocos de exercício + séries + método + timer --- */
+    .ex-block { background: var(--color-surface-raised); border: 1px solid var(--color-border-subtle); border-radius: var(--radius-card); box-shadow: var(--shadow-sm); padding: 0.875rem 1rem; margin-bottom: 0.875rem; }
+    .ex-head { display: flex; align-items: center; gap: 0.625rem; margin-bottom: 0.625rem; }
+    .ex-idx { width: 24px; height: 24px; border-radius: 7px; background: var(--color-chip-success-bg); color: var(--primitive-sage-700); display: grid; place-items: center; font-family: var(--font-mono); font-size: 0.8125rem; font-weight: 600; flex: none; }
+    .ex-name { font-family: var(--font-display); font-weight: 600; font-size: 1rem; }
+    .ex-controls { display: flex; align-items: flex-end; gap: 0.625rem; margin-bottom: 0.5rem; flex-wrap: wrap; }
+    .metodo-wrap { display: flex; flex-direction: column; gap: 0.2rem; flex: 1; min-width: 170px; }
+    .metodo-wrap span { font-size: 0.625rem; text-transform: uppercase; letter-spacing: 0.1em; color: var(--color-text-muted); font-weight: 600; }
+    .metodo-sel { height: 38px; border-radius: var(--radius-ctrl); border: 1px solid var(--color-border-default); background: var(--color-surface-subtle); color: var(--color-text-primary); font-family: inherit; font-size: 0.8125rem; padding: 0 0.6rem; }
+    .rest-pill { display: inline-flex; align-items: center; gap: 0.3rem; font-family: var(--font-mono); font-size: 0.8125rem; color: var(--color-text-secondary); background: var(--color-surface-subtle); border: 1px solid var(--color-border-subtle); border-radius: var(--radius-pill); padding: 0 0.7rem; height: 38px; }
+    .ex-hint { display: flex; gap: 0.4rem; align-items: flex-start; font-size: 0.75rem; color: var(--color-chip-warning-text); background: var(--color-chip-warning-bg); border: 1px solid var(--color-chip-warning-ring); border-radius: 8px; padding: 0.45rem 0.6rem; margin-bottom: 0.5rem; }
+    .set-row { display: flex; align-items: center; gap: 0.625rem; padding: 0.45rem 0; border-top: 1px dashed var(--color-border-subtle); }
+    .set-row .set-n { font-size: 0.8125rem; color: var(--color-text-secondary); width: 62px; flex: none; }
+    .set-kg { height: 38px !important; width: 76px; flex: none; text-align: center; padding: 0 0.4rem !important; }
+    .set-row .set-reps { font-size: 0.8125rem; color: var(--color-text-muted); flex: 1; }
+    .set-check { width: 36px; height: 36px; border-radius: 10px; border: 2px solid var(--color-border-default); background: var(--color-surface-base); display: grid; place-items: center; flex: none; color: oklch(1 0 0); transition: all var(--motion-base) var(--ease-out); }
+    .set-check i { display: none; }
+    .set-check[aria-pressed="true"] { background: var(--color-action-primary); border-color: var(--color-action-primary); }
+    .set-check[aria-pressed="true"] i { display: block; }
+    .set-row.done .set-n, .set-row.done .set-reps { color: var(--color-text-muted); text-decoration: line-through; }
+    .rest-timer { position: fixed; left: 50%; transform: translateX(-50%); bottom: calc(74px + env(safe-area-inset-bottom)); z-index: 40; display: none; align-items: center; gap: 0.625rem; background: var(--primitive-stone-900); color: oklch(0.985 0.010 75); padding: 0.5rem 0.75rem 0.5rem 1rem; border-radius: var(--radius-pill); box-shadow: var(--shadow-lg); }
+    .rest-timer.show { display: flex; }
+    .rest-timer .lbl { display: flex; align-items: center; gap: 0.35rem; font-size: 0.8125rem; }
+    .rest-timer .lbl i { color: var(--primitive-sage-400); font-size: 1.1rem; }
+    .rest-timer .rt { font-family: var(--font-mono); font-variant-numeric: tabular-nums; font-size: 1.125rem; font-weight: 600; min-width: 46px; text-align: center; }
+    .rest-timer button { color: oklch(0.985 0.010 75); font-size: 0.75rem; font-weight: 600; background: oklch(1 0 0 / 0.14); border-radius: 99px; padding: 0.3rem 0.6rem; }
+    .rest-timer button:hover { background: oklch(1 0 0 / 0.24); }
   </style>
 </head>
 <body>
@@ -70,7 +91,6 @@
       <section class="pwa-view" data-view="plano" id="view-plano" aria-label="Plano"></section>
       <section class="pwa-view" data-view="progresso" id="view-progresso" aria-label="Progresso"></section>
 
-      <!-- Anamnese: formulário estático, persiste ao concluir -->
       <section class="pwa-view" data-view="anamnese" id="view-anamnese" aria-label="Anamnese">
         <div id="wizard">
           <div class="wizard-progress">
@@ -184,97 +204,78 @@
       <button data-view="progresso" aria-current="false"><i class="ph ph-chart-line-up"></i>Progresso</button>
       <button data-view="anamnese" aria-current="false"><i class="ph ph-path"></i>Anamnese</button>
     </nav>
+
+    <div class="rest-timer" id="restTimer" role="timer" aria-live="polite">
+      <span class="lbl"><i class="ph ph-timer"></i>Descanso</span>
+      <span class="rt" id="rtTime">0:00</span>
+      <button id="rtPlus" type="button">+15s</button>
+      <button id="rtSkip" type="button">Pular</button>
+    </div>
   </div>
 
   <div class="toast-host" id="toastHost" aria-live="polite"></div>
 
   <script>
     var PID = (PVDB.currentId && PVDB.currentId()) || 'maria';
-    var FIRST = (PVDB.current() && PVDB.current().nome || 'Maria').split(' ')[0];
+    var FIRST = ((PVDB.current() && PVDB.current().nome) || 'Maria').split(' ')[0];
     var TITLES = { hoje: 'Bom dia, ' + FIRST, treino: 'Treino', plano: 'Meu plano', progresso: 'Minha evolução', anamnese: 'Anamnese' };
+    var METODOS = [['reta', 'Reta (normal)'], ['piramide', 'Pirâmide'], ['drop-set', 'Drop-set (série descendente)'], ['bi-set', 'Bi-set'], ['rest-pause', 'Rest-pause']];
 
     function esc(s) { return String(s == null ? '' : s).replace(/[&<>"]/g, function (c) { return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]; }); }
-    function toast(msg, icon) {
-      var host = document.getElementById('toastHost');
-      var t = document.createElement('div'); t.className = 'toast';
-      t.innerHTML = '<i class="ph ' + (icon || 'ph-check') + '"></i>' + esc(msg);
-      host.appendChild(t);
-      setTimeout(function () { t.style.opacity = '0'; t.style.transition = 'opacity 240ms'; setTimeout(function () { t.remove(); }, 240); }, 2200);
-    }
+    function toast(msg, icon) { var host = document.getElementById('toastHost'); var t = document.createElement('div'); t.className = 'toast'; t.innerHTML = '<i class="ph ' + (icon || 'ph-check') + '"></i>' + esc(msg); host.appendChild(t); setTimeout(function () { t.style.opacity = '0'; t.style.transition = 'opacity 240ms'; setTimeout(function () { t.remove(); }, 240); }, 2200); }
 
     var GROUPS = { sup: { ic: 'ph-pill', lbl: 'Suplementos' }, ref: { ic: 'ph-fork-knife', lbl: 'Refeições' }, trn: { ic: 'ph-barbell', lbl: 'Treino' }, hab: { ic: 'ph-drop', lbl: 'Hábitos' } };
+    function emptyProto() { return '<div class="p-card" style="margin-top:2rem"><div class="empty"><i class="ph-duotone ph-hourglass-medium"></i><strong>Protocolo em preparação</strong><span>Dr. Pablo monta seu plano após a consulta.</span></div></div>'; }
 
     /* ---------- HOJE ---------- */
     function renderHoje() {
       var v = document.getElementById('view-hoje');
       if (!PVDB.hasProtocol(PID)) { v.innerHTML = emptyProto(); return; }
-      var items = PVDB.todayItems(PID);
-      var adh = PVDB.adherenceToday(PID);
-      var wk = PVDB.adherenceWeek(PID);
-      var consult = PVDB.consult(PID);
+      var items = PVDB.todayItems(PID), adh = PVDB.adherenceToday(PID), wk = PVDB.adherenceWeek(PID), consult = PVDB.consult(PID);
       var pending = items.filter(function (i) { return !i.done && i.time; }).sort(function (a, b) { return a.time.localeCompare(b.time); });
       var agora = pending[0];
-
       var html = '';
       if (consult) html += '<div class="consult-banner"><i class="ph-duotone ph-video-camera"></i><div class="ct"><strong>Consulta agendada</strong>' + esc(consult.quando) + '</div><a class="btn btn-primary btn-sm" href="' + esc(consult.link) + '" target="_blank" rel="noopener">Entrar</a></div>';
-
-      if (agora) {
-        html += '<div class="agora-card"><p class="eyebrow">Agora</p>'
-          + '<div class="agora-when"><span class="t mono">' + esc(agora.time) + '</span><span class="n">' + esc(agora.name) + '</span></div>'
-          + (agora.sub ? '<p class="desc">' + esc(agora.sub) + '</p>' : '')
-          + '<button class="btn" data-toggle="' + esc(agora.id) + '"><i class="ph ph-check"></i>Marcar feito</button></div>';
-      } else {
-        html += '<div class="agora-card"><p class="eyebrow">Agora</p><div class="agora-when"><span class="n">Tudo em dia por aqui</span></div><p class="desc">Você concluiu os itens com horário de hoje. Mandou bem!</p></div>';
-      }
-
-      html += '<div class="adesao-hero p-card" style="margin-bottom:0.875rem"><div class="adesao-ring" style="--p:' + wk + '"><div class="inner mono">' + wk + '%</div></div>'
-        + '<div><div class="at">Adesão da semana</div><div class="as">Média dos últimos 7 dias</div></div></div>';
-
-      html += '<div class="p-card"><div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:0.5rem">'
-        + '<strong style="font-family:var(--font-display);font-size:0.9375rem">Checklist do dia</strong>'
-        + '<span class="saved-pill" id="dayProgress"><i class="ph ph-list-checks"></i><span class="mono">' + adh.done + '</span> de <span class="mono">' + adh.total + '</span> · <span class="mono">' + adh.pct + '%</span></span></div>';
-
+      if (agora) html += '<div class="agora-card"><p class="eyebrow">Agora</p><div class="agora-when"><span class="t mono">' + esc(agora.time) + '</span><span class="n">' + esc(agora.name) + '</span></div>' + (agora.sub ? '<p class="desc">' + esc(agora.sub) + '</p>' : '') + '<button class="btn" data-toggle="' + esc(agora.id) + '"><i class="ph ph-check"></i>' + (agora.id === 'trn' ? 'Abrir treino' : 'Marcar feito') + '</button></div>';
+      else html += '<div class="agora-card"><p class="eyebrow">Agora</p><div class="agora-when"><span class="n">Tudo em dia por aqui</span></div><p class="desc">Você concluiu os itens com horário de hoje. Mandou bem!</p></div>';
+      html += '<div class="adesao-hero p-card" style="margin-bottom:0.875rem"><div class="adesao-ring" style="--p:' + wk + '"><div class="inner mono">' + wk + '%</div></div><div><div class="at">Adesão da semana</div><div class="as">Média dos últimos 7 dias</div></div></div>';
+      html += '<div class="p-card"><div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:0.5rem"><strong style="font-family:var(--font-display);font-size:0.9375rem">Checklist do dia</strong><span class="saved-pill" id="dayProgress"><i class="ph ph-list-checks"></i><span class="mono">' + adh.done + '</span> de <span class="mono">' + adh.total + '</span> · <span class="mono">' + adh.pct + '%</span></span></div>';
       var lastGroup = null;
       items.forEach(function (it) {
         if (it.group !== lastGroup) { lastGroup = it.group; var g = GROUPS[it.group]; html += '<div class="p-section-label"><i class="ph ' + g.ic + '"></i>' + g.lbl + '</div>'; }
-        html += '<div class="check-row" data-done="' + it.done + '">'
-          + '<span class="check-box" role="checkbox" aria-checked="' + it.done + '" tabindex="0" data-toggle="' + esc(it.id) + '" aria-label="' + esc(it.name) + '"><i class="ph ph-check"></i></span>'
-          + '<span class="ci-name">' + esc(it.name) + '</span><span class="ci-time">' + esc(it.time) + '</span></div>';
+        html += '<div class="check-row" data-done="' + it.done + '"><span class="check-box" role="checkbox" aria-checked="' + it.done + '" tabindex="0" data-toggle="' + esc(it.id) + '" aria-label="' + esc(it.name) + '"><i class="ph ph-check"></i></span><span class="ci-name">' + esc(it.name) + (it.id === 'trn' ? ' <span style="color:var(--color-text-muted);font-weight:400">· abrir aba</span>' : '') + '</span><span class="ci-time">' + esc(it.time) + '</span></div>';
       });
-      html += '<div class="today-shortcuts"><button class="btn btn-ghost btn-sm" data-go="treino"><i class="ph ph-barbell"></i>Ver treino</button>'
-        + '<button class="btn btn-ghost btn-sm" data-go="progresso"><i class="ph ph-scales"></i>Registrar peso</button></div></div>';
+      html += '<div class="today-shortcuts"><button class="btn btn-ghost btn-sm" data-go="treino"><i class="ph ph-barbell"></i>Ver treino</button><button class="btn btn-ghost btn-sm" data-go="progresso"><i class="ph ph-scales"></i>Registrar peso</button></div></div>';
       v.innerHTML = html;
     }
 
-    /* ---------- TREINO ---------- */
+    /* ---------- TREINO (check por série + kg + reps + timer + método) ---------- */
     function renderTreino() {
       var v = document.getElementById('view-treino');
       var proto = PVDB.protocol(PID);
       if (!proto || !(proto.treino || []).length) { v.innerHTML = emptyProto(); return; }
-      var done = PVDB.isDone(PID, 'trn');
-      var html = '<div class="treino-done-banner ' + (done ? 'is-done' : 'not-done') + '">'
-        + '<i class="ph-duotone ' + (done ? 'ph-check-circle' : 'ph-barbell') + ' tic" style="color:' + (done ? 'var(--color-action-primary)' : 'var(--color-text-muted)') + '"></i>'
-        + '<div style="flex:1"><strong style="font-family:var(--font-display);display:block">' + (done ? 'Treino concluído hoje' : 'Treino de hoje') + '</strong>'
-        + '<span style="font-size:0.8125rem;color:var(--color-text-secondary)">Início sugerido ' + esc(proto.treinoHorario || '18:00') + ' · ' + (proto.treino.length) + ' exercícios</span></div></div>';
-
-      html += '<div class="p-section-label"><i class="ph ph-list-numbers"></i>Exercícios</div>';
-      proto.treino.forEach(function (ex, i) {
-        html += '<div class="ex-card"><span style="font-family:var(--font-mono);color:var(--color-text-muted);font-size:0.8125rem;width:18px">' + (i + 1) + '</span>'
-          + '<span class="exn">' + esc(ex.n) + '</span><span class="exs">' + esc(ex.sets) + '</span><span class="exr">' + esc(ex.rest) + '</span></div>';
+      var prog = PVDB.treinoProgress(PID), pct = prog.total ? Math.round(prog.done / prog.total * 100) : 0, all = prog.total && prog.done >= prog.total;
+      var html = '<div class="treino-done-banner ' + (all ? 'is-done' : 'not-done') + '"><i class="ph-duotone ' + (all ? 'ph-check-circle' : 'ph-barbell') + ' tic" style="color:' + (all ? 'var(--color-action-primary)' : 'var(--color-text-muted)') + '"></i><div style="flex:1"><strong style="font-family:var(--font-display);display:block">' + (all ? 'Treino concluído!' : 'Treino de hoje') + '</strong><span style="font-size:0.8125rem;color:var(--color-text-secondary)">Início ' + esc(proto.treinoHorario || '18:00') + ' · ' + prog.done + '/' + prog.total + ' séries</span></div><div class="mono" style="font-weight:600;font-size:1.125rem;color:var(--color-action-primary)">' + pct + '%</div></div>';
+      proto.treino.forEach(function (ex, ei) {
+        var sets = ex.sets || [], rest = ex.rest || 0;
+        html += '<div class="ex-block"><div class="ex-head"><span class="ex-idx">' + (ei + 1) + '</span><span class="ex-name">' + esc(ex.n) + '</span></div>';
+        html += '<div class="ex-controls"><label class="metodo-wrap"><span>Método</span><select class="metodo-sel" data-metodo="' + ei + '" aria-label="Método de ' + esc(ex.n) + '">' + METODOS.map(function (m) { return '<option value="' + m[0] + '"' + (ex.metodo === m[0] ? ' selected' : '') + '>' + m[1] + '</option>'; }).join('') + '</select></label><span class="rest-pill"><i class="ph ph-timer"></i>' + (rest ? rest + 's' : '—') + '</span></div>';
+        if (ex.metodo === 'drop-set' && ex.drops) html += '<div class="ex-hint"><i class="ph ph-info"></i>' + esc(ex.drops) + '</div>';
+        sets.forEach(function (st, si) {
+          var done = PVDB.isSetDone(PID, ei, si), kg = PVDB.getKg(PID, ei, si);
+          html += '<div class="set-row' + (done ? ' done' : '') + '"><span class="set-n">Série ' + (si + 1) + '</span><input class="set-kg input mono" data-kg="' + ei + '-' + si + '" inputmode="decimal" value="' + esc(kg) + '" placeholder="kg" aria-label="Peso série ' + (si + 1) + '" /><span class="set-reps">× ' + esc(st.reps) + '</span><button class="set-check" data-set="' + ei + '-' + si + '" data-rest="' + rest + '" aria-pressed="' + done + '" aria-label="Concluir série ' + (si + 1) + '"><i class="ph ph-check"></i></button></div>';
+        });
+        html += '</div>';
       });
-      html += '<button class="btn ' + (done ? 'btn-ghost' : 'btn-primary') + '" style="width:100%;margin-top:1rem" data-toggle="trn">'
-        + '<i class="ph ' + (done ? 'ph-arrow-counter-clockwise' : 'ph-check') + '"></i>' + (done ? 'Desmarcar treino' : 'Marcar treino como feito') + '</button>';
       v.innerHTML = html;
     }
 
     /* ---------- PLANO ---------- */
     function renderPlano() {
-      var v = document.getElementById('view-plano');
-      var p = PVDB.protocol(PID);
+      var v = document.getElementById('view-plano'), p = PVDB.protocol(PID);
       if (!p) { v.innerHTML = emptyProto(); return; }
-      function lines(arr, withTime) { return arr.map(function (x) { return '<div class="plan-line"><span class="t">' + (withTime ? esc(x.t) : '<i class="ph ph-dot-outline"></i>') + '</span><div class="b"><strong>' + esc(x.n) + '</strong><span>' + esc(withTime ? x.d : (x.sets + ' · ' + x.rest)) + '</span></div></div>'; }).join(''); }
-      var html = '';
-      html += '<div class="p-section-label"><i class="ph ph-fork-knife"></i>Nutrição</div><div class="p-card" style="padding:0.875rem 1.125rem">' + lines(p.nutricao, true) + '</div>';
+      function lines(arr, withTime) { return arr.map(function (x) { return '<div class="plan-line"><span class="t">' + (withTime ? esc(x.t) : '<i class="ph ph-dot-outline"></i>') + '</span><div class="b"><strong>' + esc(x.n) + '</strong><span>' + esc(withTime ? x.d : ((x.sets ? x.sets.length + ' séries' : '') + (x.metodo && x.metodo !== 'reta' ? ' · ' + x.metodo : '') + (x.rest ? ' · ' + x.rest + 's descanso' : ''))) + '</span></div></div>'; }).join(''); }
+      var html = '<div class="p-section-label"><i class="ph ph-fork-knife"></i>Nutrição</div><div class="p-card" style="padding:0.875rem 1.125rem">' + lines(p.nutricao, true) + '</div>';
       html += '<div class="p-section-label"><i class="ph ph-pill"></i>Suplementação</div><div class="p-card" style="padding:0.875rem 1.125rem">' + lines(p.suplementos, true) + '</div>';
       html += '<div class="p-section-label"><i class="ph ph-barbell"></i>Treino</div><div class="p-card" style="padding:0.875rem 1.125rem">' + lines(p.treino, false) + '</div>';
       html += '<div class="p-section-label"><i class="ph ph-drop"></i>Hábitos</div><div class="habit-grid"><div class="habit-card"><div class="hl"><i class="ph ph-drop"></i>Água</div><div class="hv mono">' + esc(p.habitos.agua) + '</div></div><div class="habit-card"><div class="hl"><i class="ph ph-moon"></i>Sono</div><div class="hv mono">' + esc(p.habitos.sono) + '</div></div></div>';
@@ -283,55 +284,27 @@
 
     /* ---------- PROGRESSO ---------- */
     function renderProgresso() {
-      var v = document.getElementById('view-progresso');
-      var ws = PVDB.weights(PID); var weeks = PVDB.weeks(PID);
+      var v = document.getElementById('view-progresso'), ws = PVDB.weights(PID), weeks = PVDB.weeks(PID);
       var html = '<div class="p-section-label"><i class="ph ph-scales"></i>Peso ao longo do tempo</div>';
-      if (ws.length >= 2) {
-        var cur = ws[ws.length - 1].kg, first = ws[0].kg, delta = (cur - first);
-        html += '<div class="weight-card p-card"><div class="weight-head"><span class="cur mono">' + cur.toLocaleString('pt-BR') + ' kg</span>'
-          + '<span class="trend"><i class="ph ph-trend-' + (delta <= 0 ? 'down' : 'up') + '"></i>' + (delta <= 0 ? '−' : '+') + Math.abs(delta).toFixed(1).replace('.', ',') + ' kg</span></div>'
-          + weightChart(ws) + '</div>';
-      }
-      html += '<div class="p-card" style="margin-top:0.5rem"><div style="display:flex;gap:0.5rem;align-items:flex-end">'
-        + '<div class="field" style="flex:1"><label for="wkg">Registrar peso de hoje (kg)</label><input class="input mono" id="wkg" inputmode="decimal" placeholder="ex: 67,8" /></div>'
-        + '<button class="btn btn-primary" id="addW"><i class="ph ph-plus"></i>Salvar</button></div></div>';
-
-      html += '<div class="p-section-label"><i class="ph ph-chart-bar"></i>Adesão semanal</div><div class="p-card"><div class="adesao-weeks">'
-        + weeks.map(function (w) { return '<div class="wk' + (w.current ? ' current' : '') + '"><div class="bar-track"><div class="bar-fill" style="height:' + w.pct + '%"></div></div><div class="pct mono">' + w.pct + '%</div><div class="wlbl">' + esc(w.wk) + '</div></div>'; }).join('') + '</div></div>';
-
+      if (ws.length >= 2) { var cur = ws[ws.length - 1].kg, first = ws[0].kg, delta = (cur - first); html += '<div class="weight-card p-card"><div class="weight-head"><span class="cur mono">' + cur.toLocaleString('pt-BR') + ' kg</span><span class="trend"><i class="ph ph-trend-' + (delta <= 0 ? 'down' : 'up') + '"></i>' + (delta <= 0 ? '−' : '+') + Math.abs(delta).toFixed(1).replace('.', ',') + ' kg</span></div>' + weightChart(ws) + '</div>'; }
+      html += '<div class="p-card" style="margin-top:0.5rem"><div style="display:flex;gap:0.5rem;align-items:flex-end"><div class="field" style="flex:1"><label for="wkg">Registrar peso de hoje (kg)</label><input class="input mono" id="wkg" inputmode="decimal" placeholder="ex: 67,8" /></div><button class="btn btn-primary" id="addW"><i class="ph ph-plus"></i>Salvar</button></div></div>';
+      html += '<div class="p-section-label"><i class="ph ph-chart-bar"></i>Adesão semanal</div><div class="p-card"><div class="adesao-weeks">' + weeks.map(function (w) { return '<div class="wk' + (w.current ? ' current' : '') + '"><div class="bar-track"><div class="bar-fill" style="height:' + w.pct + '%"></div></div><div class="pct mono">' + w.pct + '%</div><div class="wlbl">' + esc(w.wk) + '</div></div>'; }).join('') + '</div></div>';
       html += '<div class="p-section-label"><i class="ph ph-camera"></i>Fotos de evolução</div><div class="p-card"><div class="empty"><i class="ph-duotone ph-image-square"></i><strong>Sem fotos ainda</strong><span>Adicione uma foto para acompanhar sua evolução</span><button class="btn btn-ghost btn-sm" id="addPhoto" style="margin-top:0.5rem"><i class="ph ph-plus"></i>+ Adicionar foto</button></div></div>';
-
       html += '<div class="p-card" style="opacity:0.7;border-style:dashed"><div style="display:flex;align-items:center;gap:0.75rem"><i class="ph-duotone ph-watch" style="font-size:1.75rem;color:var(--color-text-muted)"></i><div style="flex:1"><strong style="font-family:var(--font-display);font-size:0.9375rem;display:block">Conectar Garmin</strong><span style="font-size:0.8125rem;color:var(--color-text-muted)">Passos, sono e FC — em breve</span></div><span class="chip chip-neutral"><i class="ph ph-lock-simple"></i>Em breve</span></div></div>';
-
       html += '<div style="text-align:center"><button class="reset-link" id="resetBtn"><i class="ph ph-arrow-counter-clockwise"></i>Reiniciar dados de demonstração</button></div>';
       v.innerHTML = html;
     }
-
     function weightChart(ws) {
-      var kgs = ws.map(function (w) { return w.kg; });
-      var min = Math.min.apply(null, kgs), max = Math.max.apply(null, kgs);
-      var pad = (max - min) * 0.25 || 1, lo = min - pad, hi = max + pad;
-      var x0 = 20, x1 = 280, yT = 12, yB = 108, n = ws.length;
-      var pts = ws.map(function (w, i) { var x = x0 + (x1 - x0) * (i / (n - 1 || 1)); var y = yB - (yB - yT) * ((w.kg - lo) / (hi - lo)); return [Math.round(x), Math.round(y)]; });
-      var line = pts.map(function (p) { return p.join(','); }).join(' ');
-      var area = line + ' ' + x1 + ',120 ' + x0 + ',120';
+      var kgs = ws.map(function (w) { return w.kg; }), min = Math.min.apply(null, kgs), max = Math.max.apply(null, kgs), pad = (max - min) * 0.25 || 1, lo = min - pad, hi = max + pad, x0 = 20, x1 = 280, yT = 12, yB = 108, n = ws.length;
+      var pts = ws.map(function (w, i) { var x = x0 + (x1 - x0) * (i / (n - 1 || 1)), y = yB - (yB - yT) * ((w.kg - lo) / (hi - lo)); return [Math.round(x), Math.round(y)]; });
+      var line = pts.map(function (p) { return p.join(','); }).join(' '), area = line + ' ' + x1 + ',120 ' + x0 + ',120';
       var dots = pts.map(function (p, i) { var last = i === pts.length - 1; return '<circle cx="' + p[0] + '" cy="' + p[1] + '" r="' + (last ? 4.5 : 3.5) + '"' + (last ? ' fill="oklch(0.62 0.14 45)"' : '') + ' />'; }).join('');
       var labels = ws.map(function (w) { return '<span>' + esc(w.d) + '</span>'; }).join('');
-      return '<svg class="chart-svg" viewBox="0 0 300 120" preserveAspectRatio="none" role="img" aria-label="Evolução do peso">'
-        + '<defs><linearGradient id="wfill" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="oklch(0.46 0.05 155 / 0.22)" /><stop offset="100%" stop-color="oklch(0.46 0.05 155 / 0)" /></linearGradient></defs>'
-        + '<polyline points="' + area + '" fill="url(#wfill)" stroke="none" />'
-        + '<polyline points="' + line + '" fill="none" stroke="oklch(0.46 0.05 155)" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" />'
-        + '<g fill="oklch(0.46 0.05 155)">' + dots + '</g></svg><div class="chart-x">' + labels + '</div>';
-    }
-
-    function emptyProto() {
-      return '<div class="p-card" style="margin-top:2rem"><div class="empty"><i class="ph-duotone ph-hourglass-medium"></i><strong>Protocolo em preparação</strong><span>Dr. Pablo monta seu plano após a consulta.</span></div></div>';
+      return '<svg class="chart-svg" viewBox="0 0 300 120" preserveAspectRatio="none" role="img" aria-label="Evolução do peso"><defs><linearGradient id="wfill" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="oklch(0.46 0.05 155 / 0.22)" /><stop offset="100%" stop-color="oklch(0.46 0.05 155 / 0)" /></linearGradient></defs><polyline points="' + area + '" fill="url(#wfill)" stroke="none" /><polyline points="' + line + '" fill="none" stroke="oklch(0.46 0.05 155)" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" /><g fill="oklch(0.46 0.05 155)">' + dots + '</g></svg><div class="chart-x">' + labels + '</div>';
     }
 
     /* ---------- view switching ---------- */
-    var tabs = document.querySelectorAll('.pwa-tabs button');
-    var views = document.querySelectorAll('.pwa-view');
-    var titleEl = document.getElementById('pwaTitle');
+    var tabs = document.querySelectorAll('.pwa-tabs button'), views = document.querySelectorAll('.pwa-view'), titleEl = document.getElementById('pwaTitle');
     var RENDER = { hoje: renderHoje, treino: renderTreino, plano: renderPlano, progresso: renderProgresso };
     function showView(name) {
       if (RENDER[name]) RENDER[name]();
@@ -342,27 +315,41 @@
     }
     tabs.forEach(function (t) { t.addEventListener('click', function () { showView(t.dataset.view); }); });
 
-    /* ---------- delegated clicks (toggles, navigation, actions) ---------- */
+    /* ---------- rest timer ---------- */
+    var restInt = null, restLeft = 0;
+    function fmtT(s) { return Math.floor(s / 60) + ':' + ('0' + (s % 60)).slice(-2); }
+    function showTimer(on) { document.getElementById('restTimer').classList.toggle('show', on); }
+    function paintTimer() { document.getElementById('rtTime').textContent = fmtT(Math.max(0, restLeft)); }
+    function startRest(sec) { if (!sec) return; restLeft = sec; clearInterval(restInt); paintTimer(); showTimer(true); restInt = setInterval(function () { restLeft--; paintTimer(); if (restLeft <= 0) { clearInterval(restInt); if (navigator.vibrate) navigator.vibrate(200); setTimeout(function () { showTimer(false); }, 800); } }, 1000); }
+    function stopRest() { clearInterval(restInt); showTimer(false); }
+    document.getElementById('rtSkip').addEventListener('click', stopRest);
+    document.getElementById('rtPlus').addEventListener('click', function () { restLeft += 15; paintTimer(); showTimer(true); });
+
+    /* ---------- delegated clicks ---------- */
     document.getElementById('pwaMain').addEventListener('click', function (e) {
+      var sc = e.target.closest('[data-set]');
+      if (sc) { var pr = sc.dataset.set.split('-'); var nd = PVDB.toggleSet(PID, +pr[0], +pr[1]); var rest = +sc.dataset.rest || 0; renderTreino(); if (nd && rest) startRest(rest); return; }
       var tog = e.target.closest('[data-toggle]');
-      if (tog) { PVDB.toggleItem(PID, tog.dataset.toggle); var active = document.querySelector('.pwa-view[data-active="true"]').dataset.view; showView(active); return; }
+      if (tog) { if (tog.dataset.toggle === 'trn') { showView('treino'); return; } PVDB.toggleItem(PID, tog.dataset.toggle); showView(document.querySelector('.pwa-view[data-active="true"]').dataset.view); return; }
       var go = e.target.closest('[data-go]');
       if (go) { showView(go.dataset.go); return; }
       if (e.target.closest('#addPhoto')) { toast('Abrir câmera — disponível no app instalado', 'ph-camera'); return; }
-      if (e.target.closest('#addW')) {
-        var inp = document.getElementById('wkg'); var val = parseFloat((inp.value || '').replace(',', '.'));
-        if (!val || val < 30 || val > 300) { toast('Informe um peso válido', 'ph-warning'); inp.focus(); return; }
-        PVDB.addWeight(PID, val); toast('Peso registrado: ' + val.toLocaleString('pt-BR') + ' kg', 'ph-scales'); renderProgresso(); return;
-      }
+      if (e.target.closest('#addW')) { var inp = document.getElementById('wkg'); var val = parseFloat((inp.value || '').replace(',', '.')); if (!val || val < 30 || val > 300) { toast('Informe um peso válido', 'ph-warning'); inp.focus(); return; } PVDB.addWeight(PID, val); toast('Peso registrado: ' + val.toLocaleString('pt-BR') + ' kg', 'ph-scales'); renderProgresso(); return; }
       if (e.target.closest('#resetBtn')) { PVDB.reset(); toast('Demonstração reiniciada', 'ph-arrow-counter-clockwise'); showView('hoje'); return; }
     });
+    document.getElementById('pwaMain').addEventListener('change', function (e) {
+      var kg = e.target.closest('[data-kg]'); if (kg) { var p = kg.dataset.kg.split('-'); PVDB.setKg(PID, +p[0], +p[1], kg.value.trim()); return; }
+      var m = e.target.closest('[data-metodo]'); if (m) { PVDB.setMetodo(PID, +m.dataset.metodo, m.value); renderTreino(); return; }
+    });
     document.getElementById('pwaMain').addEventListener('keydown', function (e) {
-      if ((e.key === 'Enter' || e.key === ' ') && e.target.closest('.check-box[data-toggle]')) { e.preventDefault(); var b = e.target.closest('[data-toggle]'); PVDB.toggleItem(PID, b.dataset.toggle); var active = document.querySelector('.pwa-view[data-active="true"]').dataset.view; showView(active); }
+      if (e.key !== 'Enter' && e.key !== ' ') return;
+      var sc = e.target.closest('.set-check[data-set]'); if (sc) { e.preventDefault(); var pr = sc.dataset.set.split('-'); var nd = PVDB.toggleSet(PID, +pr[0], +pr[1]); var rest = +sc.dataset.rest || 0; renderTreino(); if (nd && rest) startRest(rest); return; }
+      var b = e.target.closest('.check-box[data-toggle]'); if (b) { e.preventDefault(); if (b.dataset.toggle === 'trn') { showView('treino'); return; } PVDB.toggleItem(PID, b.dataset.toggle); showView(document.querySelector('.pwa-view[data-active="true"]').dataset.view); }
     });
 
     document.getElementById('bellBtn').addEventListener('click', function () { toast('Sem novas notificações', 'ph-bell'); });
 
-    /* ---------- ANAMNESE wizard (persiste ao concluir) ---------- */
+    /* ---------- ANAMNESE wizard ---------- */
     document.querySelectorAll('.opt-row[data-single]').forEach(function (row) {
       row.querySelectorAll('.opt').forEach(function (opt) {
         opt.addEventListener('click', function () {
@@ -375,8 +362,7 @@
     });
     var STEP_NAMES = { 1: 'Dados pessoais', 2: 'Saúde intestinal', 3: 'Mental & sono', 4: 'Hidratação & hábitos', 5: 'Preferências', 6: 'Atividade física', 7: 'Saúde & expectativas' };
     var cur = 2, totalSteps = 7;
-    var dots = document.querySelectorAll('.wizard-dots .d');
-    var progressbar = document.querySelector('.wizard-dots');
+    var dots = document.querySelectorAll('.wizard-dots .d'), progressbar = document.querySelector('.wizard-dots');
     var stepNum = document.getElementById('stepNum'), stepName = document.getElementById('stepName');
     var btnBack = document.getElementById('btnBack'), btnNext = document.getElementById('btnNext');
     var wizard = document.getElementById('wizard'), wDone = document.getElementById('wizardDone');
@@ -391,20 +377,15 @@
     }
     btnBack.addEventListener('click', function () { if (cur > 1) { cur--; renderStep(); } });
     btnNext.addEventListener('click', function () {
-      var step = document.querySelector('.wizard-step[data-step="' + cur + '"]');
-      var req = step.querySelector('.q-block[data-required]');
+      var step = document.querySelector('.wizard-step[data-step="' + cur + '"]'), req = step.querySelector('.q-block[data-required]');
       if (req && !req.querySelector('.opt[aria-pressed="true"]')) { req.classList.add('invalid'); req.scrollIntoView({ behavior: 'smooth', block: 'center' }); return; }
       if (cur < totalSteps) { cur++; renderStep(); }
-      else {
-        PVDB.saveAnamnese(PID, { submittedRel: 'agora', e1: { nome: PVDB.current().nome, objetivo: PVDB.current().objetivo } });
-        wizard.style.display = 'none'; wDone.dataset.active = 'true'; wDone.style.display = 'block';
-        toast('Anamnese enviada ao Dr. Pablo', 'ph-paper-plane-tilt');
-      }
+      else { PVDB.saveAnamnese(PID, { submittedRel: 'agora', e1: { nome: PVDB.current().nome, objetivo: PVDB.current().objetivo } }); wizard.style.display = 'none'; wDone.dataset.active = 'true'; wDone.style.display = 'block'; toast('Anamnese enviada ao Dr. Pablo', 'ph-paper-plane-tilt'); }
     });
     document.getElementById('btnRestart').addEventListener('click', function () { cur = 1; wizard.style.display = 'block'; wDone.style.display = 'none'; wDone.dataset.active = 'false'; renderStep(); });
     renderStep();
 
-    /* ---------- boot (deep-link via ?view=) ---------- */
+    /* ---------- boot ---------- */
     var qp = new URLSearchParams(location.search);
     if (qp.get('reset') === '1') PVDB.reset();
     var initial = qp.get('view'); if (!RENDER[initial] && initial !== 'anamnese') initial = 'hoje';

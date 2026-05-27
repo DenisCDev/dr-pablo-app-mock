@@ -121,12 +121,33 @@
         + '<input class="input" data-f="d" style="flex:1;min-width:140px" value="'+esc(x.d||'')+'" aria-label="Descrição" placeholder="Descrição" />'
         + '<button class="row-del" data-del aria-label="Remover"><i class="ph ph-x"></i></button></div>';
     }
+    var METODOS=[['reta','Reta (normal)'],['piramide','Pirâmide'],['drop-set','Drop-set (descendente)'],['bi-set','Bi-set'],['rest-pause','Rest-pause']];
     function exerciseRow(x){
-      return '<div class="proto-row" data-row>'
-        + '<input class="input" data-f="n" style="flex:1;min-width:140px" value="'+esc(x.n||'')+'" aria-label="Exercício" placeholder="Exercício" />'
-        + '<input class="input mono" data-f="sets" style="width:96px;flex:none" value="'+esc(x.sets||'')+'" aria-label="Séries" placeholder="4 séries" />'
-        + '<input class="input mono" data-f="rest" style="width:120px;flex:none" value="'+esc(x.rest||'')+'" aria-label="Descanso" placeholder="90s descanso" />'
-        + '<button class="row-del" data-del aria-label="Remover"><i class="ph ph-x"></i></button></div>';
+      x=x||{};
+      var sel=METODOS.map(function(m){return '<option value="'+m[0]+'"'+(x.metodo===m[0]?' selected':'')+'>'+m[1]+'</option>';}).join('');
+      var series=(x.sets&&x.sets.length)||4;
+      var reps=(x.sets&&x.sets.length)?x.sets.map(function(s){return s.reps;}).join(', '):'10';
+      return '<div class="proto-row" data-row style="flex-direction:column;align-items:stretch;gap:0.5rem">'
+        + '<div style="display:flex;gap:0.4rem;align-items:center"><input class="input" data-f="n" style="flex:1" value="'+esc(x.n||'')+'" placeholder="Exercício" aria-label="Exercício" /><button class="row-del" data-del aria-label="Remover"><i class="ph ph-x"></i></button></div>'
+        + '<div style="display:flex;gap:0.4rem;flex-wrap:wrap">'
+        +   '<select class="input" data-f="metodo" style="flex:1;min-width:150px" aria-label="Método de repetição">'+sel+'</select>'
+        +   '<input class="input mono" data-f="rest" style="width:104px" value="'+esc(x.rest!=null?x.rest:90)+'" placeholder="descanso (s)" aria-label="Descanso em segundos" />'
+        +   '<input class="input mono" data-f="series" style="width:84px" value="'+series+'" placeholder="séries" aria-label="Número de séries" />'
+        +   '<input class="input" data-f="reps" style="flex:1;min-width:130px" value="'+esc(reps)+'" placeholder="reps (ex: 10 ou 12,10,8)" aria-label="Repetições por série" />'
+        + '</div></div>';
+    }
+    function collectTreino(){
+      var rows=document.querySelectorAll('[data-list="treino"] [data-row]');
+      return Array.prototype.map.call(rows,function(r){
+        var n=r.querySelector('[data-f="n"]').value.trim(); if(!n)return null;
+        var metodo=r.querySelector('[data-f="metodo"]').value;
+        var rest=parseInt(r.querySelector('[data-f="rest"]').value,10); if(isNaN(rest))rest=0;
+        var series=parseInt(r.querySelector('[data-f="series"]').value,10)||1; if(series>12)series=12;
+        var repsRaw=(r.querySelector('[data-f="reps"]').value||'10').trim();
+        var repsArr=repsRaw.indexOf(',')>=0?repsRaw.split(',').map(function(s){return s.trim();}):null;
+        var sets=[]; for(var i=0;i<series;i++){ sets.push({reps: repsArr?(repsArr[i]||repsArr[repsArr.length-1]):repsRaw}); }
+        return {n:n,metodo:metodo,rest:rest,sets:sets};
+      }).filter(Boolean);
     }
 
     var proto = PVDB.protocol(PID) || { nutricao:[], suplementos:[], treino:[], habitos:{agua:'',sono:''}, treinoHorario:'18:00' };
@@ -161,7 +182,7 @@
     document.getElementById('saveBtn').addEventListener('click',function(){
       var save=this; if(save.dataset.busy==='true')return; save.dataset.busy='true';
       var orig=save.innerHTML; save.innerHTML='<i class="ph ph-spinner"></i>Salvando…';
-      var novo={ nutricao:collect('nutricao',['t','n','d']), suplementos:collect('suplementacao',['t','n','d']), treino:collect('treino',['n','sets','rest']), treinoHorario:document.getElementById('trnH').value.trim()||'18:00', habitos:{agua:document.getElementById('hAgua').value.trim(),sono:document.getElementById('hSono').value.trim()} };
+      var novo={ nutricao:collect('nutricao',['t','n','d']), suplementos:collect('suplementacao',['t','n','d']), treino:collectTreino(), treinoHorario:document.getElementById('trnH').value.trim()||'18:00', habitos:{agua:document.getElementById('hAgua').value.trim(),sono:document.getElementById('hSono').value.trim()} };
       setTimeout(function(){
         PVDB.saveProtocol(PID, novo);
         save.innerHTML='<i class="ph ph-check"></i>Salvo';
