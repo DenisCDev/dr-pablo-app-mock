@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Dr. Pablo Vilela — Plano (paciente)</title>
+  <script>document.documentElement.classList.add('js-loaded');</script>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600&family=DM+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet" />
+  <script src="https://unpkg.com/@phosphor-icons/web"></script>
+  <link rel="stylesheet" href="shared.css" />
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <div class="app">
+    <aside class="sidebar">
+      <div class="sidebar-brand">
+        <div class="brand-mono" aria-hidden="true">PV</div>
+        <div class="brand-text">Dr. Pablo Vilela<small>Mentor de Saúde</small></div>
+      </div>
+      <nav class="nav-group" aria-label="Área do Dr. Pablo">
+        <div class="nav-group-label">Dr. Pablo</div>
+        <a class="nav-link" href="index.html"><i class="ph ph-squares-four"></i>Dashboard</a>
+        <a class="nav-link" href="revisar-anamnese.html"><i class="ph ph-clipboard-text"></i>Revisar anamnese</a>
+        <a class="nav-link" href="montar-protocolo.html"><i class="ph ph-list-checks"></i>Montar protocolo</a>
+      </nav>
+      <nav class="nav-group nav-group--patient" aria-label="App do paciente">
+        <div class="nav-group-label">App do paciente</div>
+        <a class="nav-link" href="anamnese.html"><i class="ph ph-path"></i>Anamnese</a>
+        <a class="nav-link" href="hoje.html"><i class="ph ph-sun-horizon"></i>Hoje</a>
+        <a class="nav-link" href="plano.html" aria-current="page"><i class="ph ph-notebook"></i>Plano</a>
+        <a class="nav-link" href="progresso.html"><i class="ph ph-chart-line-up"></i>Progresso</a>
+      </nav>
+    </aside>
+
+    <div class="shell-main">
+      <header class="topbar">
+        <div class="topbar-title">Dr. Pablo Vilela <small>· Mentor de Saúde e Alta Performance</small></div>
+        <div class="topbar-spacer"></div>
+        <button class="chip-soon" disabled aria-disabled="true" title="Disponível em breve"><i class="ph ph-watch"></i>Conectar Garmin · Em breve</button>
+        <div class="avatar-wrap">
+          <button class="avatar-btn" id="avatarBtn" aria-haspopup="true" aria-expanded="false" aria-label="Menu da conta">PV</button>
+          <div class="avatar-menu" id="avatarMenu" role="menu" aria-label="Conta">
+            <div class="avatar-menu-head"><strong>Dr. Pablo Vilela</strong><span>pablo@vilela.health</span></div>
+            <button role="menuitem"><i class="ph ph-user-gear"></i>Minha conta</button>
+            <button role="menuitem"><i class="ph ph-bell"></i>Notificações</button>
+            <button role="menuitem"><i class="ph ph-sign-out"></i>Sair</button>
+          </div>
+        </div>
+      </header>
+
+      <main class="content">
+        <div class="page-head">
+          <p class="eyebrow">App do paciente · PWA</p>
+          <h1>Plano</h1>
+          <p class="sub">O protocolo do paciente em leitura. O alternador demonstra o estado cheio e o estado de espera.</p>
+        </div>
+
+        <div class="phone-stage">
+          <div class="phone" role="group" aria-label="App do paciente — Plano">
+            <div class="phone-statusbar">
+              <span class="mono">11:12</span>
+              <span class="dots"><i class="ph ph-cell-signal-full"></i><i class="ph ph-wifi-high"></i><i class="ph ph-battery-high"></i></span>
+            </div>
+            <div class="phone-appbar">
+              <div class="pv" aria-hidden="true">PV</div>
+              <h2>Meu plano</h2>
+            </div>
+            <div class="phone-body">
+
+              <!-- toggle demo cheio / vazio -->
+              <div class="plano-toggle" role="tablist" aria-label="Estado do plano">
+                <button role="tab" aria-pressed="true" data-view="full">Plano ativo</button>
+                <button role="tab" aria-pressed="false" data-view="empty">Em preparação</button>
+              </div>
+
+              <!-- ESTADO CHEIO (Maria Clara) -->
+              <div class="plano-view" data-view="full" data-active="true">
+                <div class="p-section-label"><i class="ph ph-fork-knife"></i>Nutrição</div>
+                <div class="p-card" style="padding:0.875rem 1.125rem">
+                  <div class="plan-line"><span class="t">07:00</span><div class="b"><strong>Café da manhã</strong><span>Ovos mexidos (3), pão integral, mamão, café sem açúcar</span></div></div>
+                  <div class="plan-line"><span class="t">10:00</span><div class="b"><strong>Lanche</strong><span>Iogurte sem lactose, castanhas (30g)</span></div></div>
+                  <div class="plan-line"><span class="t">12:30</span><div class="b"><strong>Almoço</strong><span>Frango grelhado, arroz integral, salada, azeite</span></div></div>
+                  <div class="plan-line"><span class="t">18:30</span><div class="b"><strong>Pré-treino</strong><span>Banana com pasta de amendoim</span></div></div>
+                  <div class="plan-line"><span class="t">20:30</span><div class="b"><strong>Jantar</strong><span>Salmão, batata-doce, legumes no vapor</span></div></div>
+                </div>
+
+                <div class="p-section-label"><i class="ph ph-pill"></i>Suplementação</div>
+                <div class="p-card" style="padding:0.875rem 1.125rem">
+                  <div class="plan-line"><span class="t">08:00</span><div class="b"><strong>Creatina</strong><span>5 g · diária</span></div></div>
+                  <div class="plan-line"><span class="t">08:00</span><div class="b"><strong>Vitamina D</strong><span>2000 UI</span></div></div>
+                  <div class="plan-line"><span class="t">12:00</span><div class="b"><strong>Ômega 3</strong><span>1 g · almoço</span></div></div>
+                  <div class="plan-line"><span class="t">19:30</span><div class="b"><strong>Whey</strong><span>30 g · pós-treino</span></div></div>
+                  <div class="plan-line"><span class="t">22:00</span><div class="b"><strong>Magnésio</strong><span>300 mg · antes de dormir</span></div></div>
+                </div>
+
+                <div class="p-section-label"><i class="ph ph-barbell"></i>Treino</div>
+                <div class="p-card" style="padding:0.875rem 1.125rem">
+                  <div class="plan-line"><span class="t"><i class="ph ph-dot-outline"></i></span><div class="b"><strong>Agachamento livre</strong><span>4 séries · 90s descanso</span></div></div>
+                  <div class="plan-line"><span class="t"><i class="ph ph-dot-outline"></i></span><div class="b"><strong>Supino reto</strong><span>4 séries · 75s descanso</span></div></div>
+                  <div class="plan-line"><span class="t"><i class="ph ph-dot-outline"></i></span><div class="b"><strong>Remada curvada</strong><span>3 séries · 60s descanso</span></div></div>
+                  <div class="plan-line"><span class="t"><i class="ph ph-dot-outline"></i></span><div class="b"><strong>Corrida leve</strong><span>1 série · 20 min contínuo</span></div></div>
+                </div>
+
+                <div class="p-section-label"><i class="ph ph-drop"></i>Hábitos</div>
+                <div class="habit-grid" style="margin-bottom:0.5rem">
+                  <div class="habit-card"><div class="hl"><i class="ph ph-drop"></i>Água</div><div class="hv mono">2,5 L</div></div>
+                  <div class="habit-card"><div class="hl"><i class="ph ph-moon"></i>Sono</div><div class="hv mono">8 h</div></div>
+                </div>
+              </div>
+
+              <!-- ESTADO VAZIO (gap #3) -->
+              <div class="plano-view" data-view="empty" data-active="false">
+                <div class="p-card" style="margin-top:2rem">
+                  <div class="empty">
+                    <i class="ph-duotone ph-hourglass-medium"></i>
+                    <strong>Protocolo em preparação</strong>
+                    <span>Dr. Pablo monta seu plano após a consulta.</span>
+                    <span class="chip chip-neutral" style="margin-top:0.5rem"><i class="ph ph-calendar-dots"></i>Sua consulta: a agendar</span>
+                  </div>
+                </div>
+              </div>
+
+            </div>
+            <nav class="phone-nav" aria-label="Navegação do app">
+              <a href="hoje.html"><i class="ph ph-sun-horizon"></i>Hoje</a>
+              <a href="plano.html" aria-current="page"><i class="ph ph-notebook"></i>Plano</a>
+              <a href="progresso.html"><i class="ph ph-chart-line-up"></i>Progresso</a>
+              <a href="anamnese.html"><i class="ph ph-path"></i>Anamnese</a>
+            </nav>
+          </div>
+        </div>
+      </main>
+    </div>
+  </div>
+
+  <script>
+    /* ---- shared: avatar menu ---- */
+    (function () {
+      var btn = document.getElementById('avatarBtn'); var menu = document.getElementById('avatarMenu');
+      if (!btn) return;
+      function close() { menu.dataset.open = 'false'; btn.setAttribute('aria-expanded', 'false'); }
+      btn.addEventListener('click', function (e) { e.stopPropagation(); var open = menu.dataset.open === 'true'; menu.dataset.open = open ? 'false' : 'true'; btn.setAttribute('aria-expanded', String(!open)); });
+      document.addEventListener('click', function (e) { if (!menu.contains(e.target)) close(); });
+      document.addEventListener('keydown', function (e) { if (e.key === 'Escape') close(); });
+    })();
+
+    /* ---- plano: toggle cheio/vazio (handler 12) ---- */
+    var toggles = document.querySelectorAll('.plano-toggle button');
+    toggles.forEach(function (b) {
+      b.addEventListener('click', function () {
+        toggles.forEach(function (x) { x.setAttribute('aria-pressed', 'false'); });
+        b.setAttribute('aria-pressed', 'true');
+        document.querySelectorAll('.plano-view').forEach(function (v) { v.dataset.active = String(v.dataset.view === b.dataset.view); });
+      });
+    });
+  </script>
+</body>
+</html>

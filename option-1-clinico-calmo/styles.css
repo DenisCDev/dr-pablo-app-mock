@@ -1,0 +1,255 @@
+/* ============================================================================
+   Clínico-Calmo — styles.css
+   Per-screen tweaks. shared.css carries tokens + shell; this composes them.
+   ========================================================================== */
+
+/* ===========================================================================
+   TELA 1 — Dashboard por status (board)
+   =========================================================================== */
+.hero-stat {
+  display: flex; align-items: flex-end; gap: 1rem;
+  padding: 1.5rem 1.75rem; margin-bottom: 1.75rem;
+  background: linear-gradient(120deg, var(--color-chip-success-bg), var(--color-surface-raised) 70%);
+  border-radius: var(--radius-card); border: 1px solid var(--color-border-subtle);
+  box-shadow: var(--shadow-sm);
+}
+.hero-stat .num { font-family: var(--font-mono); font-variant-numeric: tabular-nums; font-size: 3.25rem; line-height: 0.9; color: var(--color-action-primary); font-weight: 600; }
+.hero-stat .meta { padding-bottom: 0.5rem; }
+.hero-stat .meta strong { display: block; font-family: var(--font-display); font-size: 1.0625rem; }
+.hero-stat .meta span { font-size: 0.875rem; color: var(--color-text-secondary); }
+.hero-stat-aside { margin-left: auto; display: flex; gap: 2rem; padding-bottom: 0.375rem; }
+.hero-stat-aside .mini { text-align: right; }
+.hero-stat-aside .mini b { display: block; font-family: var(--font-mono); font-variant-numeric: tabular-nums; font-size: 1.5rem; color: var(--color-text-primary); }
+.hero-stat-aside .mini span { font-size: 0.75rem; color: var(--color-text-muted); }
+
+.status-board { display: flex; flex-direction: column; gap: 1.5rem; }
+.status-group { }
+.status-group-head {
+  display: flex; align-items: center; gap: 0.75rem; width: 100%;
+  padding: 0.5rem 0.25rem; border-radius: 10px; text-align: left;
+  transition: background var(--motion-base) var(--ease-out);
+}
+.status-group-head:hover { background: var(--color-surface-subtle); }
+.status-group-head .chevron { font-size: 1.1rem; color: var(--color-text-muted); transition: transform var(--motion-base) var(--ease-out); }
+.status-group[data-collapsed="true"] .chevron { transform: rotate(-90deg); }
+.status-group-head h2 { font-size: 1.125rem; }
+.status-group-head .count {
+  font-family: var(--font-mono); font-variant-numeric: tabular-nums;
+  font-size: 0.875rem; font-weight: 600; padding: 0.0625rem 0.5rem; border-radius: var(--radius-pill);
+  background: var(--color-surface-subtle); color: var(--color-text-secondary);
+}
+.status-group-head .dot { width: 9px; height: 9px; border-radius: 50%; flex: none; }
+.dot-danger { background: var(--color-semantic-danger); }
+.dot-warning { background: var(--color-semantic-warning); }
+.dot-success { background: var(--color-semantic-success); }
+.status-group-body {
+  display: grid; grid-template-columns: repeat(auto-fill, minmax(290px, 1fr)); gap: 0.875rem;
+  margin-top: 0.875rem;
+}
+.status-group[data-collapsed="true"] .status-group-body { display: none; }
+
+.patient-card {
+  display: flex; flex-direction: column; gap: 0.625rem;
+  padding: 1.125rem 1.25rem; cursor: pointer;
+  background: var(--color-surface-raised); border-radius: var(--radius-card);
+  border: 1px solid var(--color-border-subtle); box-shadow: var(--shadow-sm);
+  transition: box-shadow var(--motion-base) var(--ease-out), transform var(--motion-base) var(--ease-out), border-color var(--motion-base) var(--ease-out);
+}
+.patient-card:hover { box-shadow: var(--shadow-md); transform: translateY(-2px); border-color: var(--color-border-default); }
+.patient-card.static { cursor: default; }
+.patient-card.static:hover { transform: none; box-shadow: var(--shadow-sm); }
+.patient-card .pc-top { display: flex; align-items: flex-start; justify-content: space-between; gap: 0.5rem; }
+.patient-card .pc-name { font-family: var(--font-display); font-size: 1.0625rem; font-weight: 600; }
+.patient-card .pc-goal { font-size: 0.8125rem; color: var(--color-text-muted); }
+.patient-card .pc-meta { font-size: 0.8125rem; color: var(--color-text-secondary); display: flex; align-items: center; gap: 0.375rem; }
+.patient-card .pc-foot { display: flex; align-items: center; justify-content: space-between; gap: 0.5rem; margin-top: 0.125rem; }
+.adesao-bar { height: 6px; border-radius: 99px; background: var(--color-surface-subtle); overflow: hidden; flex: 1; }
+.adesao-bar > span { display: block; height: 100%; border-radius: 99px; background: var(--color-action-primary); }
+.adesao-bar.warn > span { background: var(--color-semantic-warning); }
+
+/* ===========================================================================
+   TELA 2 — Revisar anamnese (detail · resumo + flags acima da dobra)
+   =========================================================================== */
+.triage-grid { display: grid; grid-template-columns: 1.35fr 1fr; gap: 1.25rem; align-items: start; }
+.section-title { display: flex; align-items: center; gap: 0.5rem; margin-bottom: 0.875rem; }
+.section-title h2 { font-size: 1.0625rem; }
+.section-title i { color: var(--color-action-primary); font-size: 1.2rem; }
+
+.summary-cards { display: grid; grid-template-columns: 1fr 1fr; gap: 0.75rem; }
+.summary-card { padding: 0.875rem 1rem; border-radius: var(--radius-ctrl); background: var(--color-surface-subtle); border: 1px solid var(--color-border-subtle); }
+.summary-card .lbl { display: flex; align-items: center; gap: 0.4rem; font-size: 0.6875rem; letter-spacing: 0.08em; text-transform: uppercase; color: var(--color-text-muted); font-weight: 600; margin-bottom: 0.3rem; }
+.summary-card .lbl i { font-size: 1rem; color: var(--color-action-primary); }
+.summary-card .val { font-size: 0.9375rem; color: var(--color-text-primary); line-height: 1.4; }
+
+.flags-panel { padding: 1.125rem 1.25rem; }
+.flag-row { display: flex; align-items: flex-start; gap: 0.625rem; padding: 0.625rem 0; border-top: 1px solid var(--color-border-subtle); }
+.flag-row:first-of-type { border-top: none; }
+.flag-row .ic { font-size: 1.3rem; flex: none; margin-top: 0.05rem; }
+.flag-row.danger .ic { color: var(--color-semantic-danger); }
+.flag-row.warning .ic { color: var(--color-semantic-warning); }
+.flag-row .ft strong { display: block; font-size: 0.875rem; font-weight: 600; }
+.flag-row .ft span { font-size: 0.8125rem; color: var(--color-text-secondary); }
+.flag-sev { margin-left: auto; flex: none; }
+
+.accordion { margin-top: 2rem; display: flex; flex-direction: column; gap: 0.625rem; }
+.acc-item { border-radius: var(--radius-card); border: 1px solid var(--color-border-subtle); background: var(--color-surface-raised); box-shadow: var(--shadow-sm); overflow: hidden; }
+.acc-head {
+  display: flex; align-items: center; gap: 0.75rem; width: 100%;
+  padding: 1rem 1.25rem; text-align: left;
+  transition: background var(--motion-base) var(--ease-out);
+}
+.acc-head:hover { background: var(--color-surface-subtle); }
+.acc-step { width: 28px; height: 28px; border-radius: 8px; flex: none; display: grid; place-items: center; font-family: var(--font-mono); font-size: 0.8125rem; font-weight: 600; background: var(--color-chip-success-bg); color: var(--primitive-sage-700); }
+.acc-head .at { font-family: var(--font-display); font-size: 0.9375rem; font-weight: 600; }
+.acc-head .chev { margin-left: auto; font-size: 1.2rem; color: var(--color-text-muted); transition: transform var(--motion-base) var(--ease-out); }
+.acc-item[data-open="true"] .acc-head .chev { transform: rotate(180deg); }
+.acc-panel { display: none; padding: 0.25rem 1.25rem 1.25rem 4rem; }
+.acc-item[data-open="true"] .acc-panel { display: block; }
+.kv { display: grid; grid-template-columns: 180px 1fr; gap: 0.4rem 1rem; padding: 0.4rem 0; border-top: 1px dashed var(--color-border-subtle); }
+.kv:first-child { border-top: none; }
+.kv dt { font-size: 0.8125rem; color: var(--color-text-muted); font-weight: 500; }
+.kv dd { font-size: 0.875rem; color: var(--color-text-primary); margin: 0; }
+
+/* ===========================================================================
+   TELA 3 — Montar protocolo (form · 4 secoes)
+   =========================================================================== */
+.proto-tabs { display: flex; gap: 0.375rem; margin-bottom: 1.5rem; flex-wrap: wrap; border-bottom: 1px solid var(--color-border-subtle); padding-bottom: 0; }
+.proto-tab {
+  display: inline-flex; align-items: center; gap: 0.5rem;
+  padding: 0.625rem 1rem; border-radius: 10px 10px 0 0; font-size: 0.875rem; font-weight: 600;
+  color: var(--color-text-muted); position: relative; top: 1px;
+  transition: color var(--motion-base) var(--ease-out);
+}
+.proto-tab i { font-size: 1.15rem; }
+.proto-tab:hover { color: var(--color-text-secondary); }
+.proto-tab[aria-selected="true"] { color: var(--color-action-primary); box-shadow: inset 0 -2px 0 var(--color-action-primary); }
+.proto-panel { display: none; }
+.proto-panel[data-active="true"] { display: block; }
+
+.proto-list { display: flex; flex-direction: column; gap: 0.625rem; margin-bottom: 1.125rem; }
+.proto-row { display: flex; align-items: center; gap: 0.75rem; padding: 0.875rem 1rem; background: var(--color-surface-raised); border: 1px solid var(--color-border-subtle); border-radius: var(--radius-ctrl); box-shadow: var(--shadow-sm); }
+.proto-row .time { font-family: var(--font-mono); font-variant-numeric: tabular-nums; font-size: 0.875rem; font-weight: 600; color: var(--color-action-primary); flex: none; width: 56px; }
+.proto-row .name { font-weight: 600; font-size: 0.9375rem; flex: none; min-width: 110px; }
+.proto-row .desc { font-size: 0.875rem; color: var(--color-text-secondary); flex: 1; }
+.proto-row .sets { font-family: var(--font-mono); font-variant-numeric: tabular-nums; font-size: 0.8125rem; color: var(--color-text-secondary); }
+.proto-row.is-loading { opacity: 0.6; }
+.proto-row .pin { font-size: 0.85rem; color: var(--color-text-muted); }
+.habit-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 0.875rem; }
+.habit-card { padding: 1rem 1.125rem; border-radius: var(--radius-ctrl); background: var(--color-surface-subtle); border: 1px solid var(--color-border-subtle); }
+.habit-card .hl { font-size: 0.8125rem; color: var(--color-text-muted); font-weight: 600; display: flex; align-items: center; gap: 0.4rem; }
+.habit-card .hv { font-family: var(--font-mono); font-variant-numeric: tabular-nums; font-size: 1.5rem; font-weight: 600; margin-top: 0.3rem; }
+.proto-foot { display: flex; gap: 0.75rem; margin-top: 1.75rem; padding-top: 1.25rem; border-top: 1px solid var(--color-border-subtle); }
+
+/* ===========================================================================
+   PHONE screens (4, 5, 6, 7)
+   =========================================================================== */
+/* generic phone card */
+.p-card { background: var(--color-surface-raised); border-radius: var(--radius-card); border: 1px solid var(--color-border-subtle); box-shadow: var(--shadow-sm); padding: 1rem 1.125rem; margin-bottom: 0.875rem; }
+.p-section-label { display: flex; align-items: center; gap: 0.4rem; margin: 1.125rem 0 0.625rem; font-size: 0.6875rem; letter-spacing: 0.13em; text-transform: uppercase; color: var(--color-text-muted); font-weight: 600; }
+.p-section-label i { font-size: 1rem; color: var(--color-action-primary); }
+
+/* --- Tela 4: anamnese wizard --- */
+.wizard-progress { margin-bottom: 1.25rem; }
+.wizard-dots { display: flex; gap: 0.375rem; margin-bottom: 0.5rem; }
+.wizard-dots .d { flex: 1; height: 6px; border-radius: 99px; background: var(--color-surface-subtle); }
+.wizard-dots .d.done { background: var(--color-action-primary); }
+.wizard-dots .d.current { background: var(--color-action-accent); }
+.wizard-meta { display: flex; align-items: center; justify-content: space-between; }
+.wizard-meta .lbl { font-size: 0.875rem; font-weight: 600; }
+.wizard-meta .lbl .mono { color: var(--color-text-muted); font-weight: 500; }
+.saved-pill { display: inline-flex; align-items: center; gap: 0.3rem; font-size: 0.75rem; color: var(--color-chip-success-text); background: var(--color-chip-success-bg); padding: 0.2rem 0.5rem; border-radius: var(--radius-pill); font-weight: 600; }
+.q-block { margin-bottom: 1.125rem; }
+.q-block .q { font-size: 0.9375rem; font-weight: 600; margin-bottom: 0.5rem; }
+.opt-row { display: flex; flex-wrap: wrap; gap: 0.4375rem; }
+.opt {
+  display: inline-flex; align-items: center; gap: 0.375rem; min-height: 40px;
+  padding: 0.4375rem 0.875rem; border-radius: var(--radius-pill); font-size: 0.8125rem; font-weight: 500;
+  background: var(--color-surface-subtle); border: 1px solid var(--color-border-subtle); color: var(--color-text-secondary);
+  cursor: pointer; transition: all var(--motion-base) var(--ease-out);
+}
+.opt:hover { border-color: var(--color-border-default); }
+.opt[aria-pressed="true"], .opt.sel { background: var(--color-chip-success-bg); border-color: var(--color-action-primary); color: var(--primitive-sage-700); }
+.opt[aria-pressed="true"] i { color: var(--color-action-primary); }
+.wizard-step { display: none; }
+.wizard-step[data-active="true"] { display: block; }
+.wizard-foot { display: flex; gap: 0.625rem; margin-top: 1.5rem; }
+.wizard-foot .btn { flex: 1; }
+.wizard-done { text-align: center; padding-top: 3rem; display: none; }
+.wizard-done[data-active="true"] { display: block; }
+.wizard-done .big-check { width: 76px; height: 76px; border-radius: 50%; margin: 0 auto 1.25rem; display: grid; place-items: center; background: var(--color-chip-success-bg); }
+.wizard-done .big-check i { font-size: 2.5rem; color: var(--color-action-primary); }
+.field-err { font-size: 0.75rem; color: var(--color-chip-danger-text); margin-top: 0.3rem; display: none; }
+.q-block.invalid .field-err { display: block; }
+.q-block.invalid .opt-row { box-shadow: 0 0 0 2px var(--color-chip-danger-ring); border-radius: var(--radius-card); padding: 0.25rem; }
+
+/* --- Tela 5: hoje --- */
+.agora-card {
+  padding: 1.25rem; border-radius: var(--radius-card); margin-bottom: 1rem;
+  background: linear-gradient(135deg, var(--color-action-accent), var(--primitive-terra-600));
+  color: oklch(1 0 0); box-shadow: var(--shadow-md);
+}
+.agora-card .eyebrow { color: oklch(1 0 0 / 0.8); }
+.agora-card .agora-when { display: flex; align-items: baseline; gap: 0.5rem; margin: 0.3rem 0 0.5rem; }
+.agora-card .agora-when .t { font-family: var(--font-mono); font-variant-numeric: tabular-nums; font-size: 1.75rem; font-weight: 600; }
+.agora-card .agora-when .n { font-family: var(--font-display); font-size: 1.25rem; font-weight: 600; }
+.agora-card .desc { font-size: 0.875rem; color: oklch(1 0 0 / 0.92); margin-bottom: 0.875rem; }
+.agora-card .btn { background: oklch(1 0 0); color: var(--color-action-accent); width: 100%; }
+.agora-card .btn:hover { background: oklch(0.96 0.01 75); }
+
+.adesao-hero { display: flex; align-items: center; gap: 1rem; padding: 1rem 1.125rem; margin-bottom: 0.875rem; }
+.adesao-ring { --p: 92; width: 64px; height: 64px; flex: none; border-radius: 50%; display: grid; place-items: center;
+  background: conic-gradient(var(--color-action-primary) calc(var(--p) * 1%), var(--color-surface-subtle) 0); }
+.adesao-ring .inner { width: 50px; height: 50px; border-radius: 50%; background: var(--color-surface-raised); display: grid; place-items: center; font-family: var(--font-mono); font-variant-numeric: tabular-nums; font-weight: 600; font-size: 0.9375rem; }
+.adesao-hero .at { font-family: var(--font-display); font-weight: 600; font-size: 0.9375rem; }
+.adesao-hero .as { font-size: 0.8125rem; color: var(--color-text-secondary); }
+
+.check-row { display: flex; align-items: center; gap: 0.75rem; padding: 0.625rem 0.25rem; min-height: 48px; }
+.check-row + .check-row { border-top: 1px solid var(--color-border-subtle); }
+.check-box {
+  width: 26px; height: 26px; border-radius: 8px; flex: none;
+  border: 2px solid var(--color-border-default); background: var(--color-surface-base);
+  display: grid; place-items: center; cursor: pointer;
+  transition: all var(--motion-base) var(--ease-out);
+}
+.check-box i { font-size: 1rem; color: oklch(1 0 0); display: none; }
+.check-row[data-done="true"] .check-box { background: var(--color-action-primary); border-color: var(--color-action-primary); }
+.check-row[data-done="true"] .check-box i { display: inline-flex; }
+.check-row[data-done="true"] .ci-name { color: var(--color-text-muted); text-decoration: line-through; }
+.check-row .ci-name { font-size: 0.9375rem; font-weight: 500; flex: 1; }
+.check-row .ci-time { font-family: var(--font-mono); font-variant-numeric: tabular-nums; font-size: 0.8125rem; color: var(--color-text-muted); }
+.today-shortcuts { display: flex; gap: 0.625rem; margin-top: 1rem; }
+.today-shortcuts .btn { flex: 1; }
+
+/* --- Tela 6: plano --- */
+.plano-toggle { display: flex; gap: 0.375rem; margin-bottom: 1rem; background: var(--color-surface-subtle); padding: 0.25rem; border-radius: var(--radius-ctrl); }
+.plano-toggle button { flex: 1; padding: 0.4375rem; border-radius: 9px; font-size: 0.75rem; font-weight: 600; color: var(--color-text-muted); }
+.plano-toggle button[aria-pressed="true"] { background: var(--color-surface-raised); color: var(--color-action-primary); box-shadow: var(--shadow-sm); }
+.plano-view { display: none; }
+.plano-view[data-active="true"] { display: block; }
+.plan-line { display: flex; gap: 0.625rem; padding: 0.625rem 0; }
+.plan-line + .plan-line { border-top: 1px solid var(--color-border-subtle); }
+.plan-line .t { font-family: var(--font-mono); font-variant-numeric: tabular-nums; font-size: 0.8125rem; font-weight: 600; color: var(--color-action-primary); flex: none; width: 48px; }
+.plan-line .b strong { display: block; font-size: 0.875rem; }
+.plan-line .b span { font-size: 0.8125rem; color: var(--color-text-secondary); }
+
+/* --- Tela 7: progresso --- */
+.weight-card { padding: 1.125rem 1.25rem; }
+.weight-head { display: flex; align-items: baseline; justify-content: space-between; margin-bottom: 0.875rem; }
+.weight-head .cur { font-family: var(--font-mono); font-variant-numeric: tabular-nums; font-size: 1.75rem; font-weight: 600; }
+.weight-head .trend { font-size: 0.8125rem; font-weight: 600; color: var(--color-action-primary); display: inline-flex; align-items: center; gap: 0.25rem; }
+.chart-svg { width: 100%; height: 130px; display: block; }
+.chart-x { display: flex; justify-content: space-between; margin-top: 0.375rem; font-family: var(--font-mono); font-variant-numeric: tabular-nums; font-size: 0.625rem; color: var(--color-text-muted); }
+.adesao-weeks { display: flex; gap: 0.625rem; }
+.adesao-weeks .wk { flex: 1; text-align: center; }
+.adesao-weeks .bar-track { height: 80px; border-radius: 8px; background: var(--color-surface-subtle); display: flex; align-items: flex-end; overflow: hidden; }
+.adesao-weeks .bar-fill { width: 100%; border-radius: 8px 8px 0 0; background: var(--color-action-primary); }
+.adesao-weeks .wk.current .bar-fill { background: var(--color-action-accent); }
+.adesao-weeks .pct { font-family: var(--font-mono); font-variant-numeric: tabular-nums; font-size: 0.8125rem; font-weight: 600; margin-top: 0.3rem; }
+.adesao-weeks .wlbl { font-size: 0.625rem; color: var(--color-text-muted); }
+
+@media (max-width: 900px) {
+  .triage-grid { grid-template-columns: 1fr; }
+  .summary-cards { grid-template-columns: 1fr; }
+  .hero-stat { flex-wrap: wrap; }
+  .hero-stat-aside { margin-left: 0; }
+}

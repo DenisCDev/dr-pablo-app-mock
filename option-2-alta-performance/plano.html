@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="pt-BR" class="">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Dr. Pablo Vilela — Plano (app do paciente)</title>
+  <script>document.documentElement.classList.add('js-loaded');</script>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600;700&family=Geist+Mono:wght@400;500;600&display=swap" rel="stylesheet" />
+  <script src="https://unpkg.com/@phosphor-icons/web"></script>
+  <link rel="stylesheet" href="shared.css" />
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <div class="app">
+    <aside class="sidebar">
+      <div class="sidebar__brand">
+        <div class="brand-mark">PV</div>
+        <div>
+          <div class="brand-name">Dr. Pablo Vilela</div>
+          <div class="brand-sub">Saúde &amp; Alta Performance</div>
+        </div>
+      </div>
+      <nav class="nav-group" aria-label="Área Dr. Pablo">
+        <div class="nav-group__label">Dr. Pablo</div>
+        <a class="nav-link" href="index.html"><i class="ph ph-squares-four" aria-hidden="true"></i> Dashboard</a>
+        <a class="nav-link" href="revisar-anamnese.html"><i class="ph ph-clipboard-text" aria-hidden="true"></i> Revisar anamnese</a>
+        <a class="nav-link" href="montar-protocolo.html"><i class="ph ph-list-checks" aria-hidden="true"></i> Montar protocolo</a>
+      </nav>
+      <nav class="nav-group" aria-label="App do paciente">
+        <div class="nav-group__label">App do paciente</div>
+        <a class="nav-link" href="anamnese.html"><i class="ph ph-note-pencil" aria-hidden="true"></i> Anamnese</a>
+        <a class="nav-link" href="hoje.html"><i class="ph ph-sun-horizon" aria-hidden="true"></i> Hoje</a>
+        <a class="nav-link" aria-current="page" href="plano.html"><i class="ph ph-cards-three" aria-hidden="true"></i> Plano</a>
+        <a class="nav-link" href="progresso.html"><i class="ph ph-chart-line-up" aria-hidden="true"></i> Progresso</a>
+      </nav>
+    </aside>
+
+    <header class="topbar">
+      <div class="topbar__title">
+        <span class="name">Dr. Pablo Vilela</span>
+        <span class="role">· Mentor de Saúde e Alta Performance</span>
+      </div>
+      <div class="topbar__spacer"></div>
+      <span class="chip-disabled" aria-disabled="true" title="Disponível numa fase futura">
+        <i class="ph ph-watch" aria-hidden="true"></i> Conectar Garmin · Em breve
+      </span>
+      <div class="avatar-menu">
+        <button class="avatar-btn" id="avatarBtn" aria-haspopup="true" aria-expanded="false" aria-controls="avatarMenu">
+          <span class="avatar-circle">PV</span>
+          <i class="ph ph-caret-down" aria-hidden="true"></i>
+        </button>
+        <div class="avatar-dropdown" id="avatarMenu" role="menu" aria-label="Conta">
+          <button class="item" role="menuitem"><i class="ph ph-user-circle" aria-hidden="true"></i> Minha conta</button>
+          <button class="item" role="menuitem"><i class="ph ph-gear" aria-hidden="true"></i> Preferências</button>
+          <div class="sep" role="separator"></div>
+          <button class="item" role="menuitem"><i class="ph ph-sign-out" aria-hidden="true"></i> Sair</button>
+        </div>
+      </div>
+    </header>
+
+    <main class="main" id="main">
+      <div class="page-head reveal">
+        <p class="eyebrow">App do paciente · pré-visualização</p>
+        <h1>Plano</h1>
+        <p class="sub">Protocolo completo em leitura — Maria Clara Souza.</p>
+      </div>
+
+      <div class="phone-stage reveal">
+        <div class="phone" role="group" aria-label="App do paciente (mockup de celular)">
+          <span class="phone__notch" aria-hidden="true"></span>
+          <div class="phone__statusbar">
+            <span class="tnum">11:12</span>
+            <span class="dots"><i class="ph ph-cell-signal-full" aria-hidden="true"></i><i class="ph ph-wifi-high" aria-hidden="true"></i><i class="ph ph-battery-high" aria-hidden="true"></i></span>
+          </div>
+
+          <div class="phone__scroll">
+            <div class="phone-title">Meu plano</div>
+
+            <!-- toggle de estado: demonstra cheio E vazio (gap #3) -->
+            <div class="plano-toggle" role="tablist" aria-label="Demonstração de estado do plano">
+              <button role="tab" aria-selected="true" data-state="full"><i class="ph ph-cards-three" aria-hidden="true"></i> Protocolo ativo</button>
+              <button role="tab" aria-selected="false" data-state="empty"><i class="ph ph-hourglass" aria-hidden="true"></i> Em preparação</button>
+            </div>
+
+            <!-- ESTADO CHEIO -->
+            <div id="state-full">
+              <div class="plano-section">
+                <h3><i class="ph ph-fork-knife" aria-hidden="true"></i> Nutrição</h3>
+                <div class="plano-row"><div class="h"><span class="nm">Café da manhã</span><span class="tm">07:00</span></div><div class="d">Ovos mexidos (3), pão integral, mamão, café sem açúcar</div></div>
+                <div class="plano-row"><div class="h"><span class="nm">Lanche</span><span class="tm">10:00</span></div><div class="d">Iogurte sem lactose, castanhas (30g)</div></div>
+                <div class="plano-row"><div class="h"><span class="nm">Almoço</span><span class="tm">12:30</span></div><div class="d">Frango grelhado, arroz integral, salada, azeite</div></div>
+                <div class="plano-row"><div class="h"><span class="nm">Pré-treino</span><span class="tm">18:30</span></div><div class="d">Banana com pasta de amendoim</div></div>
+                <div class="plano-row"><div class="h"><span class="nm">Jantar</span><span class="tm">20:30</span></div><div class="d">Salmão, batata-doce, legumes no vapor</div></div>
+              </div>
+
+              <div class="plano-section">
+                <h3><i class="ph ph-pill" aria-hidden="true"></i> Suplementação</h3>
+                <div class="plano-row"><div class="h"><span class="nm">Creatina</span><span class="tm">08:00</span></div></div>
+                <div class="plano-row"><div class="h"><span class="nm">Vitamina D</span><span class="tm">08:00</span></div></div>
+                <div class="plano-row"><div class="h"><span class="nm">Ômega 3</span><span class="tm">12:00</span></div></div>
+                <div class="plano-row"><div class="h"><span class="nm">Whey</span><span class="tm">19:30</span></div></div>
+                <div class="plano-row"><div class="h"><span class="nm">Magnésio</span><span class="tm">22:00</span></div></div>
+              </div>
+
+              <div class="plano-section">
+                <h3><i class="ph ph-barbell" aria-hidden="true"></i> Treino</h3>
+                <div class="plano-row"><div class="h"><span class="nm">Agachamento livre</span></div><div class="specs"><span>4 séries</span><span>90s descanso</span></div></div>
+                <div class="plano-row"><div class="h"><span class="nm">Supino reto</span></div><div class="specs"><span>4 séries</span><span>75s descanso</span></div></div>
+                <div class="plano-row"><div class="h"><span class="nm">Remada curvada</span></div><div class="specs"><span>3 séries</span><span>60s descanso</span></div></div>
+                <div class="plano-row"><div class="h"><span class="nm">Corrida leve</span></div><div class="specs"><span>1 série</span><span>20 min contínuo</span></div></div>
+              </div>
+
+              <div class="plano-section">
+                <h3><i class="ph ph-drop" aria-hidden="true"></i> Hábitos</h3>
+                <div class="plano-row"><div class="h"><span class="nm">Meta de água</span><span class="tm">2,5 L/dia</span></div></div>
+                <div class="plano-row"><div class="h"><span class="nm">Meta de sono</span><span class="tm">8 h/noite</span></div></div>
+              </div>
+            </div>
+
+            <!-- ESTADO VAZIO (gap #3) -->
+            <div id="state-empty" hidden>
+              <div class="card" style="margin-top:.5rem">
+                <div class="empty">
+                  <i class="ph-duotone ph-hourglass-medium" aria-hidden="true"></i>
+                  <strong>Protocolo em preparação</strong>
+                  <p style="font-size:.8125rem;margin:0">Dr. Pablo monta seu plano após a consulta.</p>
+                  <span class="chip chip--neutral" style="margin-top:.5rem"><i class="ph ph-calendar-dots" aria-hidden="true"></i> Sua consulta: a agendar</span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <nav class="phone__bottomnav" aria-label="Navegação do app">
+            <a class="bnav-link" href="anamnese.html"><i class="ph ph-note-pencil" aria-hidden="true"></i> Anamnese</a>
+            <a class="bnav-link" href="hoje.html"><i class="ph ph-sun-horizon" aria-hidden="true"></i> Hoje</a>
+            <a class="bnav-link" aria-current="page" href="plano.html"><i class="ph ph-cards-three" aria-hidden="true"></i> Plano</a>
+            <a class="bnav-link" href="progresso.html"><i class="ph ph-chart-line-up" aria-hidden="true"></i> Progresso</a>
+          </nav>
+        </div>
+      </div>
+    </main>
+  </div>
+
+  <script>
+  (function () {
+    'use strict';
+    /* shell: avatar menu + reveal */
+    var avBtn = document.getElementById('avatarBtn'), avMenu = document.getElementById('avatarMenu');
+    if (avBtn && avMenu) {
+      avBtn.addEventListener('click', function (e) { e.stopPropagation(); var o = avMenu.getAttribute('data-open') === 'true'; avMenu.setAttribute('data-open', String(!o)); avBtn.setAttribute('aria-expanded', String(!o)); });
+      document.addEventListener('click', function () { avMenu.setAttribute('data-open', 'false'); avBtn.setAttribute('aria-expanded', 'false'); });
+      document.addEventListener('keydown', function (e) { if (e.key === 'Escape' && avMenu.getAttribute('data-open') === 'true') { avMenu.setAttribute('data-open', 'false'); avBtn.setAttribute('aria-expanded', 'false'); avBtn.focus(); } });
+    }
+    var reveals = document.querySelectorAll('.reveal');
+    if ('IntersectionObserver' in window && reveals.length) {
+      var io = new IntersectionObserver(function (es) { es.forEach(function (en) { if (en.isIntersecting) { en.target.classList.add('is-visible'); io.unobserve(en.target); } }); }, { threshold: 0.06 });
+      reveals.forEach(function (el) { io.observe(el); });
+    } else { reveals.forEach(function (el) { el.classList.add('is-visible'); }); }
+
+    /* plano full/empty state toggle (demonstra gap #3) */
+    var toggles = document.querySelectorAll('.plano-toggle [data-state]');
+    var full = document.getElementById('state-full'), empty = document.getElementById('state-empty');
+    toggles.forEach(function (b) {
+      b.addEventListener('click', function () {
+        toggles.forEach(function (x) { x.setAttribute('aria-selected', 'false'); });
+        b.setAttribute('aria-selected', 'true');
+        var isFull = b.getAttribute('data-state') === 'full';
+        full.hidden = !isFull;
+        empty.hidden = isFull;
+      });
+    });
+  })();
+  </script>
+</body>
+</html>

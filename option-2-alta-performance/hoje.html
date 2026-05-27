@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html lang="pt-BR" class="">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Dr. Pablo Vilela — Hoje (app do paciente)</title>
+  <script>document.documentElement.classList.add('js-loaded');</script>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600;700&family=Geist+Mono:wght@400;500;600&display=swap" rel="stylesheet" />
+  <script src="https://unpkg.com/@phosphor-icons/web"></script>
+  <link rel="stylesheet" href="shared.css" />
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <div class="app">
+    <aside class="sidebar">
+      <div class="sidebar__brand">
+        <div class="brand-mark">PV</div>
+        <div>
+          <div class="brand-name">Dr. Pablo Vilela</div>
+          <div class="brand-sub">Saúde &amp; Alta Performance</div>
+        </div>
+      </div>
+      <nav class="nav-group" aria-label="Área Dr. Pablo">
+        <div class="nav-group__label">Dr. Pablo</div>
+        <a class="nav-link" href="index.html"><i class="ph ph-squares-four" aria-hidden="true"></i> Dashboard</a>
+        <a class="nav-link" href="revisar-anamnese.html"><i class="ph ph-clipboard-text" aria-hidden="true"></i> Revisar anamnese</a>
+        <a class="nav-link" href="montar-protocolo.html"><i class="ph ph-list-checks" aria-hidden="true"></i> Montar protocolo</a>
+      </nav>
+      <nav class="nav-group" aria-label="App do paciente">
+        <div class="nav-group__label">App do paciente</div>
+        <a class="nav-link" href="anamnese.html"><i class="ph ph-note-pencil" aria-hidden="true"></i> Anamnese</a>
+        <a class="nav-link" aria-current="page" href="hoje.html"><i class="ph ph-sun-horizon" aria-hidden="true"></i> Hoje</a>
+        <a class="nav-link" href="plano.html"><i class="ph ph-cards-three" aria-hidden="true"></i> Plano</a>
+        <a class="nav-link" href="progresso.html"><i class="ph ph-chart-line-up" aria-hidden="true"></i> Progresso</a>
+      </nav>
+    </aside>
+
+    <header class="topbar">
+      <div class="topbar__title">
+        <span class="name">Dr. Pablo Vilela</span>
+        <span class="role">· Mentor de Saúde e Alta Performance</span>
+      </div>
+      <div class="topbar__spacer"></div>
+      <span class="chip-disabled" aria-disabled="true" title="Disponível numa fase futura">
+        <i class="ph ph-watch" aria-hidden="true"></i> Conectar Garmin · Em breve
+      </span>
+      <div class="avatar-menu">
+        <button class="avatar-btn" id="avatarBtn" aria-haspopup="true" aria-expanded="false" aria-controls="avatarMenu">
+          <span class="avatar-circle">PV</span>
+          <i class="ph ph-caret-down" aria-hidden="true"></i>
+        </button>
+        <div class="avatar-dropdown" id="avatarMenu" role="menu" aria-label="Conta">
+          <button class="item" role="menuitem"><i class="ph ph-user-circle" aria-hidden="true"></i> Minha conta</button>
+          <button class="item" role="menuitem"><i class="ph ph-gear" aria-hidden="true"></i> Preferências</button>
+          <div class="sep" role="separator"></div>
+          <button class="item" role="menuitem"><i class="ph ph-sign-out" aria-hidden="true"></i> Sair</button>
+        </div>
+      </div>
+    </header>
+
+    <main class="main" id="main">
+      <div class="page-head reveal">
+        <p class="eyebrow">App do paciente · pré-visualização</p>
+        <h1>Hoje</h1>
+        <p class="sub">Hub de adesão do dia — Maria Clara Souza.</p>
+      </div>
+
+      <div class="phone-stage reveal">
+        <div class="phone" role="group" aria-label="App do paciente (mockup de celular)">
+          <span class="phone__notch" aria-hidden="true"></span>
+          <div class="phone__statusbar">
+            <span class="tnum">11:10</span>
+            <span class="dots"><i class="ph ph-cell-signal-full" aria-hidden="true"></i><i class="ph ph-wifi-high" aria-hidden="true"></i><i class="ph ph-battery-high" aria-hidden="true"></i></span>
+          </div>
+
+          <div class="phone__scroll">
+            <div class="phone-title">Olá, Maria Clara</div>
+
+            <!-- AGORA -->
+            <div class="now-card">
+              <span class="tag"><i class="ph-duotone ph-clock-countdown" aria-hidden="true"></i> Agora</span>
+              <div>
+                <div class="what">Almoço · <span class="time">12:30</span></div>
+                <div class="desc">Frango grelhado, arroz integral, salada</div>
+              </div>
+              <button class="btn btn--primary btn--sm" id="nowDone"><i class="ph ph-check" aria-hidden="true"></i> Marcar feito</button>
+            </div>
+
+            <!-- adesão semana -->
+            <div class="card adh-card">
+              <span class="adh-num tnum">92%</span>
+              <div class="adh-meta">
+                <div class="t">Adesão da semana</div>
+                <div class="s">média dos últimos 7 dias</div>
+              </div>
+              <i class="ph ph-trend-up" aria-hidden="true" style="color:var(--color-action-primary);font-size:1.4rem"></i>
+            </div>
+
+            <!-- adesão de hoje (denominador + numerador setados por JS = sempre coerentes com a tela) -->
+            <div class="card">
+              <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:.5rem">
+                <span style="font-size:.8125rem;font-weight:600">Hoje · <span id="doneCount" class="tnum">5</span>/<span id="totalCount" class="tnum">13</span> itens</span>
+                <span class="chip chip--success"><i class="ph ph-check-circle" aria-hidden="true"></i> <span id="todayPct" class="tnum">38%</span></span>
+              </div>
+              <div class="bar-track"><div class="bar-fill" id="todayBar" style="width:38%" role="progressbar" aria-label="Adesão de hoje" aria-valuenow="38" aria-valuemin="0" aria-valuemax="100"></div></div>
+            </div>
+
+            <!-- checklist do dia (13 itens marcáveis; 5 já concluídos no início) -->
+            <div class="check-section">
+              <h3>Suplementos</h3>
+              <button class="check-item" data-check aria-pressed="true"><span class="check-box"><i class="ph ph-check" aria-hidden="true"></i></span><span class="c-label">Creatina</span><span class="c-time tnum">08:00</span></button>
+              <button class="check-item" data-check aria-pressed="true"><span class="check-box"><i class="ph ph-check" aria-hidden="true"></i></span><span class="c-label">Vitamina D</span><span class="c-time tnum">08:00</span></button>
+              <button class="check-item" data-check aria-pressed="false"><span class="check-box"><i class="ph ph-check" aria-hidden="true"></i></span><span class="c-label">Ômega 3</span><span class="c-time tnum">12:00</span></button>
+              <button class="check-item" data-check aria-pressed="false"><span class="check-box"><i class="ph ph-check" aria-hidden="true"></i></span><span class="c-label">Whey</span><span class="c-time tnum">19:30</span></button>
+              <button class="check-item" data-check aria-pressed="false"><span class="check-box"><i class="ph ph-check" aria-hidden="true"></i></span><span class="c-label">Magnésio</span><span class="c-time tnum">22:00</span></button>
+            </div>
+
+            <div class="check-section">
+              <h3>Refeições</h3>
+              <button class="check-item" data-check aria-pressed="true"><span class="check-box"><i class="ph ph-check" aria-hidden="true"></i></span><span class="c-label">Café da manhã</span><span class="c-time tnum">07:00</span></button>
+              <button class="check-item" data-check aria-pressed="true"><span class="check-box"><i class="ph ph-check" aria-hidden="true"></i></span><span class="c-label">Lanche</span><span class="c-time tnum">10:00</span></button>
+              <button class="check-item" data-check aria-pressed="false"><span class="check-box"><i class="ph ph-check" aria-hidden="true"></i></span><span class="c-label">Almoço</span><span class="c-time tnum">12:30</span></button>
+              <button class="check-item" data-check aria-pressed="false"><span class="check-box"><i class="ph ph-check" aria-hidden="true"></i></span><span class="c-label">Pré-treino</span><span class="c-time tnum">18:30</span></button>
+              <button class="check-item" data-check aria-pressed="false"><span class="check-box"><i class="ph ph-check" aria-hidden="true"></i></span><span class="c-label">Jantar</span><span class="c-time tnum">20:30</span></button>
+            </div>
+
+            <div class="check-section">
+              <h3>Treino</h3>
+              <button class="check-item" data-check aria-pressed="false"><span class="check-box"><i class="ph ph-check" aria-hidden="true"></i></span><span class="c-label">Treino de força</span><span class="c-time tnum">18:00</span></button>
+            </div>
+
+            <div class="check-section">
+              <h3>Hábitos</h3>
+              <button class="check-item" data-check aria-pressed="true"><span class="check-box"><i class="ph ph-check" aria-hidden="true"></i></span><span class="c-label">Água 2,5L (1,2L registrado)</span><span class="c-time"><i class="ph ph-drop" aria-hidden="true"></i></span></button>
+              <button class="check-item" data-check aria-pressed="false"><span class="check-box"><i class="ph ph-check" aria-hidden="true"></i></span><span class="c-label">Sono 8h</span><span class="c-time"><i class="ph ph-moon" aria-hidden="true"></i></span></button>
+            </div>
+
+            <div class="shortcuts">
+              <button class="btn btn--ghost btn--sm" id="addWater"><i class="ph ph-drop" aria-hidden="true"></i> + Água</button>
+              <a class="btn btn--ghost btn--sm" href="progresso.html"><i class="ph ph-scales" aria-hidden="true"></i> Registrar peso</a>
+            </div>
+          </div>
+
+          <nav class="phone__bottomnav" aria-label="Navegação do app">
+            <a class="bnav-link" href="anamnese.html"><i class="ph ph-note-pencil" aria-hidden="true"></i> Anamnese</a>
+            <a class="bnav-link" aria-current="page" href="hoje.html"><i class="ph ph-sun-horizon" aria-hidden="true"></i> Hoje</a>
+            <a class="bnav-link" href="plano.html"><i class="ph ph-cards-three" aria-hidden="true"></i> Plano</a>
+            <a class="bnav-link" href="progresso.html"><i class="ph ph-chart-line-up" aria-hidden="true"></i> Progresso</a>
+          </nav>
+        </div>
+      </div>
+    </main>
+  </div>
+
+  <div class="toast-region" id="toastRegion" aria-live="polite" aria-atomic="true"></div>
+
+  <script>
+  (function () {
+    'use strict';
+    /* shell: avatar menu + reveal */
+    var avBtn = document.getElementById('avatarBtn'), avMenu = document.getElementById('avatarMenu');
+    if (avBtn && avMenu) {
+      avBtn.addEventListener('click', function (e) { e.stopPropagation(); var o = avMenu.getAttribute('data-open') === 'true'; avMenu.setAttribute('data-open', String(!o)); avBtn.setAttribute('aria-expanded', String(!o)); });
+      document.addEventListener('click', function () { avMenu.setAttribute('data-open', 'false'); avBtn.setAttribute('aria-expanded', 'false'); });
+      document.addEventListener('keydown', function (e) { if (e.key === 'Escape' && avMenu.getAttribute('data-open') === 'true') { avMenu.setAttribute('data-open', 'false'); avBtn.setAttribute('aria-expanded', 'false'); avBtn.focus(); } });
+    }
+    var reveals = document.querySelectorAll('.reveal');
+    if ('IntersectionObserver' in window && reveals.length) {
+      var io = new IntersectionObserver(function (es) { es.forEach(function (en) { if (en.isIntersecting) { en.target.classList.add('is-visible'); io.unobserve(en.target); } }); }, { threshold: 0.06 });
+      reveals.forEach(function (el) { io.observe(el); });
+    } else { reveals.forEach(function (el) { el.classList.add('is-visible'); }); }
+
+    /* (b) checklist toggle updates visible adesão count/% — denominator + numerator
+       are both computed from the rendered items, so the text ALWAYS matches the screen. */
+    var items = document.querySelectorAll('[data-check]');
+    var total = items.length;
+    var countEl = document.getElementById('doneCount');
+    var totalEl = document.getElementById('totalCount');
+    var pctEl = document.getElementById('todayPct');
+    var barEl = document.getElementById('todayBar');
+    totalEl.textContent = total;
+    function refresh() {
+      var done = 0;
+      items.forEach(function (it) { if (it.getAttribute('aria-pressed') === 'true') done++; });
+      var pct = Math.round((done / total) * 100);
+      countEl.textContent = done;
+      pctEl.textContent = pct + '%';
+      barEl.style.width = pct + '%';
+      barEl.setAttribute('aria-valuenow', String(pct));
+    }
+    items.forEach(function (it) {
+      it.addEventListener('click', function () {
+        it.setAttribute('aria-pressed', it.getAttribute('aria-pressed') === 'true' ? 'false' : 'true');
+        refresh();
+      });
+    });
+    refresh();
+
+    /* AGORA "Marcar feito" -> toast + marca o Almoço */
+    var region = document.getElementById('toastRegion');
+    function toast(msg) {
+      var t = document.createElement('div'); t.className = 'toast';
+      t.innerHTML = '<i class="ph ph-check-circle" aria-hidden="true"></i> ' + msg;
+      region.appendChild(t); setTimeout(function () { t.remove(); }, 2600);
+    }
+    document.getElementById('nowDone').addEventListener('click', function () {
+      var almoco = Array.prototype.find.call(items, function (it) { return /Almoço/.test(it.textContent); });
+      if (almoco && almoco.getAttribute('aria-pressed') !== 'true') { almoco.setAttribute('aria-pressed', 'true'); refresh(); }
+      toast('Almoço marcado como feito');
+    });
+    document.getElementById('addWater').addEventListener('click', function () { toast('+250ml de água registrados'); });
+  })();
+  </script>
+</body>
+</html>

@@ -1,0 +1,269 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Dr. Pablo Vilela — Anamnese (paciente)</title>
+  <script>document.documentElement.classList.add('js-loaded');</script>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600&family=DM+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet" />
+  <script src="https://unpkg.com/@phosphor-icons/web"></script>
+  <link rel="stylesheet" href="shared.css" />
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <div class="app">
+    <aside class="sidebar">
+      <div class="sidebar-brand">
+        <div class="brand-mono" aria-hidden="true">PV</div>
+        <div class="brand-text">Dr. Pablo Vilela<small>Mentor de Saúde</small></div>
+      </div>
+      <nav class="nav-group" aria-label="Área do Dr. Pablo">
+        <div class="nav-group-label">Dr. Pablo</div>
+        <a class="nav-link" href="index.html"><i class="ph ph-squares-four"></i>Dashboard</a>
+        <a class="nav-link" href="revisar-anamnese.html"><i class="ph ph-clipboard-text"></i>Revisar anamnese</a>
+        <a class="nav-link" href="montar-protocolo.html"><i class="ph ph-list-checks"></i>Montar protocolo</a>
+      </nav>
+      <nav class="nav-group nav-group--patient" aria-label="App do paciente">
+        <div class="nav-group-label">App do paciente</div>
+        <a class="nav-link" href="anamnese.html" aria-current="page"><i class="ph ph-path"></i>Anamnese</a>
+        <a class="nav-link" href="hoje.html"><i class="ph ph-sun-horizon"></i>Hoje</a>
+        <a class="nav-link" href="plano.html"><i class="ph ph-notebook"></i>Plano</a>
+        <a class="nav-link" href="progresso.html"><i class="ph ph-chart-line-up"></i>Progresso</a>
+      </nav>
+    </aside>
+
+    <div class="shell-main">
+      <header class="topbar">
+        <div class="topbar-title">Dr. Pablo Vilela <small>· Mentor de Saúde e Alta Performance</small></div>
+        <div class="topbar-spacer"></div>
+        <button class="chip-soon" disabled aria-disabled="true" title="Disponível em breve"><i class="ph ph-watch"></i>Conectar Garmin · Em breve</button>
+        <div class="avatar-wrap">
+          <button class="avatar-btn" id="avatarBtn" aria-haspopup="true" aria-expanded="false" aria-label="Menu da conta">PV</button>
+          <div class="avatar-menu" id="avatarMenu" role="menu" aria-label="Conta">
+            <div class="avatar-menu-head"><strong>Dr. Pablo Vilela</strong><span>pablo@vilela.health</span></div>
+            <button role="menuitem"><i class="ph ph-user-gear"></i>Minha conta</button>
+            <button role="menuitem"><i class="ph ph-bell"></i>Notificações</button>
+            <button role="menuitem"><i class="ph ph-sign-out"></i>Sair</button>
+          </div>
+        </div>
+      </header>
+
+      <main class="content">
+        <div class="page-head">
+          <p class="eyebrow">App do paciente · PWA</p>
+          <h1>Anamnese</h1>
+          <p class="sub">O paciente preenche no celular, no tempo dele. Pré-visualização do app mobile.</p>
+        </div>
+
+        <div class="phone-stage">
+          <div class="phone" role="group" aria-label="App do paciente — Anamnese">
+            <div class="phone-statusbar">
+              <span class="mono">9:41</span>
+              <span class="dots"><i class="ph ph-cell-signal-full"></i><i class="ph ph-wifi-high"></i><i class="ph ph-battery-high"></i></span>
+            </div>
+            <div class="phone-appbar">
+              <div class="pv" aria-hidden="true">PV</div>
+              <h2 id="anamneseTitle">Saúde intestinal</h2>
+            </div>
+            <div class="phone-body">
+
+              <!-- WIZARD (Etapa 2 ativa por padrao) -->
+              <div id="wizard">
+                <div class="wizard-progress">
+                  <div class="wizard-dots" role="progressbar" aria-valuenow="2" aria-valuemin="1" aria-valuemax="7" aria-label="Etapa 2 de 7">
+                    <span class="d done"></span><span class="d current"></span><span class="d"></span><span class="d"></span><span class="d"></span><span class="d"></span><span class="d"></span>
+                  </div>
+                  <div class="wizard-meta">
+                    <span class="lbl">Etapa <span class="mono" id="stepNum">2</span> de 7 · <span id="stepName">Saúde intestinal</span></span>
+                    <span class="saved-pill"><i class="ph ph-cloud-check"></i>Salvo</span>
+                  </div>
+                </div>
+
+                <!-- Etapa 1 -->
+                <div class="wizard-step" data-step="1" data-active="false">
+                  <div class="q-block"><div class="q">Qual seu objetivo principal?</div>
+                    <div class="opt-row" data-single>
+                      <button class="opt sel" aria-pressed="true">Desinflamação</button>
+                      <button class="opt" aria-pressed="false">Emagrecimento</button>
+                      <button class="opt" aria-pressed="false">Ganho de massa</button>
+                      <button class="opt" aria-pressed="false">Performance</button>
+                      <button class="opt" aria-pressed="false">Definição</button>
+                      <button class="opt" aria-pressed="false">Saúde geral</button>
+                    </div>
+                  </div>
+                  <div class="q-block"><div class="q">Idade · Altura · Peso</div>
+                    <div style="display:flex;gap:0.5rem">
+                      <input class="input mono" value="41" aria-label="Idade" />
+                      <input class="input mono" value="1,78 m" aria-label="Altura" />
+                      <input class="input mono" value="94 kg" aria-label="Peso" />
+                    </div>
+                  </div>
+                </div>
+
+                <!-- Etapa 2 (rica, default) -->
+                <div class="wizard-step" data-step="2" data-active="true">
+                  <div class="q-block" data-required><div class="q">Diagnóstico intestinal</div>
+                    <div class="opt-row" data-single>
+                      <button class="opt" aria-pressed="false">Não</button>
+                      <button class="opt" aria-pressed="false">SII</button>
+                      <button class="opt" aria-pressed="false">Crohn</button>
+                      <button class="opt" aria-pressed="false">Colite</button>
+                      <button class="opt" aria-pressed="false">SIBO</button>
+                      <button class="opt sel" aria-pressed="true"><i class="ph ph-check"></i>Disbiose</button>
+                    </div>
+                    <div class="field-err">Selecione uma opção</div>
+                  </div>
+                  <div class="q-block"><div class="q">Intolerância à lactose</div>
+                    <div class="opt-row" data-single>
+                      <button class="opt" aria-pressed="false">Não</button>
+                      <button class="opt" aria-pressed="false">Suspeita</button>
+                      <button class="opt sel" aria-pressed="true"><i class="ph ph-check"></i>Confirmada</button>
+                    </div>
+                  </div>
+                  <div class="q-block"><div class="q">Intolerância ao glúten</div>
+                    <div class="opt-row" data-single>
+                      <button class="opt sel" aria-pressed="true"><i class="ph ph-check"></i>Não</button>
+                      <button class="opt" aria-pressed="false">Suspeita</button>
+                      <button class="opt" aria-pressed="false">Confirmada</button>
+                    </div>
+                  </div>
+                  <div class="q-block"><div class="q">Consistência das fezes</div>
+                    <div class="field">
+                      <select class="select" aria-label="Consistência das fezes">
+                        <option>Normais</option><option selected>Alternadas</option><option>Endurecidas</option><option>Amolecidas</option>
+                      </select>
+                    </div>
+                  </div>
+                  <div class="q-block"><div class="q">Gases com frequência</div>
+                    <div class="opt-row" data-single>
+                      <button class="opt" aria-pressed="false">Não</button>
+                      <button class="opt sel" aria-pressed="true"><i class="ph ph-check"></i>Sim</button>
+                    </div>
+                  </div>
+                  <div class="q-block"><div class="q">Distensão abdominal</div>
+                    <div class="opt-row" data-single>
+                      <button class="opt" aria-pressed="false">Não</button>
+                      <button class="opt sel" aria-pressed="true"><i class="ph ph-check"></i>Depois de comer</button>
+                      <button class="opt" aria-pressed="false">O dia todo</button>
+                    </div>
+                  </div>
+                  <div class="q-block"><div class="q">Alimento que causa desconforto</div>
+                    <div class="field"><input class="input" value="leite e pão integral" aria-label="Alimento que causa desconforto" /></div>
+                  </div>
+                </div>
+
+                <!-- Etapas 3-7 (placeholders leves para nav) -->
+                <div class="wizard-step" data-step="3" data-active="false">
+                  <div class="q-block"><div class="q">Nível de estresse (0–10)</div>
+                    <input class="input mono" type="range" min="0" max="10" value="7" aria-label="Estresse de 0 a 10" />
+                    <div class="mono" style="text-align:center;color:var(--color-action-accent);font-weight:600;margin-top:0.4rem">7 / 10</div>
+                  </div>
+                  <div class="q-block"><div class="q">Horas de sono</div><div class="field"><input class="input mono" value="6h" aria-label="Horas de sono" /></div></div>
+                </div>
+                <div class="wizard-step" data-step="4" data-active="false">
+                  <div class="q-block"><div class="q">Água por dia</div><div class="field"><input class="input mono" value="1,5 L" aria-label="Água por dia" /></div></div>
+                  <div class="q-block"><div class="q">Refeições por dia</div><div class="field"><input class="input mono" value="4" aria-label="Refeições por dia" /></div></div>
+                </div>
+                <div class="wizard-step" data-step="5" data-active="false">
+                  <div class="q-block"><div class="q">Proteínas que gosta</div><div class="field"><input class="input" value="frango, patinho" aria-label="Proteínas" /></div></div>
+                  <div class="q-block"><div class="q">Alimentos que evita</div><div class="field"><input class="input" value="queijo, jiló" aria-label="Evita" /></div></div>
+                </div>
+                <div class="wizard-step" data-step="6" data-active="false">
+                  <div class="q-block"><div class="q">Pratica atividade física?</div>
+                    <div class="opt-row" data-single><button class="opt sel" aria-pressed="true"><i class="ph ph-check"></i>Sim</button><button class="opt" aria-pressed="false">Não</button></div>
+                  </div>
+                  <div class="q-block"><div class="q">Lesão atual</div><div class="field"><input class="input" value="menisco direito" aria-label="Lesão" /></div></div>
+                </div>
+                <div class="wizard-step" data-step="7" data-active="false">
+                  <div class="q-block"><div class="q">Doença diagnosticada</div><div class="field"><input class="input" value="hipertensão" aria-label="Doença" /></div></div>
+                  <div class="q-block"><div class="q">Principal incômodo hoje</div><div class="field"><input class="input" value="inchaço e cansaço à tarde" aria-label="Incômodo" /></div></div>
+                </div>
+
+                <div class="wizard-foot">
+                  <button class="btn btn-ghost" id="btnBack"><i class="ph ph-arrow-left"></i>Voltar</button>
+                  <button class="btn btn-primary" id="btnNext">Próximo<i class="ph ph-arrow-right"></i></button>
+                </div>
+              </div>
+
+              <!-- Estado de conclusao (FR-010) -->
+              <div class="wizard-done" id="wizardDone" data-active="false">
+                <div class="big-check"><i class="ph-duotone ph-check-circle"></i></div>
+                <h2 style="font-size:1.25rem">Anamnese enviada</h2>
+                <p style="color:var(--color-text-secondary);margin-top:0.5rem;font-size:0.9375rem">O Dr. Pablo vai revisar e montar seu protocolo.</p>
+                <button class="btn btn-ghost" id="btnRestart" style="margin-top:1.5rem"><i class="ph ph-arrow-counter-clockwise"></i>Rever respostas</button>
+              </div>
+
+            </div>
+            <nav class="phone-nav" aria-label="Navegação do app">
+              <a href="hoje.html"><i class="ph ph-sun-horizon"></i>Hoje</a>
+              <a href="plano.html"><i class="ph ph-notebook"></i>Plano</a>
+              <a href="progresso.html"><i class="ph ph-chart-line-up"></i>Progresso</a>
+              <a href="anamnese.html" aria-current="page"><i class="ph ph-path"></i>Anamnese</a>
+            </nav>
+          </div>
+        </div>
+      </main>
+    </div>
+  </div>
+
+  <script>
+    /* ---- shared: avatar menu ---- */
+    (function () {
+      var btn = document.getElementById('avatarBtn'); var menu = document.getElementById('avatarMenu');
+      if (!btn) return;
+      function close() { menu.dataset.open = 'false'; btn.setAttribute('aria-expanded', 'false'); }
+      btn.addEventListener('click', function (e) { e.stopPropagation(); var open = menu.dataset.open === 'true'; menu.dataset.open = open ? 'false' : 'true'; btn.setAttribute('aria-expanded', String(!open)); });
+      document.addEventListener('click', function (e) { if (!menu.contains(e.target)) close(); });
+      document.addEventListener('keydown', function (e) { if (e.key === 'Escape') close(); });
+    })();
+
+    /* ---- anamnese: single-select pills (handler 7) ---- */
+    document.querySelectorAll('.opt-row[data-single]').forEach(function (row) {
+      row.querySelectorAll('.opt').forEach(function (opt) {
+        opt.addEventListener('click', function () {
+          row.querySelectorAll('.opt').forEach(function (o) { o.setAttribute('aria-pressed', 'false'); o.classList.remove('sel'); o.querySelectorAll('.ph-check').forEach(function (i) { i.remove(); }); });
+          opt.setAttribute('aria-pressed', 'true'); opt.classList.add('sel');
+          var ic = document.createElement('i'); ic.className = 'ph ph-check'; opt.prepend(ic);
+          var blk = opt.closest('.q-block'); if (blk) blk.classList.remove('invalid');
+        });
+      });
+    });
+
+    /* ---- anamnese: Voltar/Proximo + progresso (handler 8) ---- */
+    var STEP_NAMES = { 1:'Dados pessoais', 2:'Saúde intestinal', 3:'Mental & sono', 4:'Hidratação & hábitos', 5:'Preferências', 6:'Atividade física', 7:'Saúde & expectativas' };
+    var cur = 2, total = 7;
+    var dots = document.querySelectorAll('.wizard-dots .d');
+    var progressbar = document.querySelector('.wizard-dots');
+    var stepNum = document.getElementById('stepNum'), stepName = document.getElementById('stepName'), title = document.getElementById('anamneseTitle');
+    var btnBack = document.getElementById('btnBack'), btnNext = document.getElementById('btnNext');
+    var wizard = document.getElementById('wizard'), done = document.getElementById('wizardDone');
+
+    function render() {
+      document.querySelectorAll('.wizard-step').forEach(function (s) { s.dataset.active = String(Number(s.dataset.step) === cur); });
+      dots.forEach(function (d, i) { d.className = 'd' + (i + 1 < cur ? ' done' : (i + 1 === cur ? ' current' : '')); });
+      stepNum.textContent = cur; stepName.textContent = STEP_NAMES[cur]; title.textContent = STEP_NAMES[cur];
+      progressbar.setAttribute('aria-valuenow', cur);
+      progressbar.setAttribute('aria-label', 'Etapa ' + cur + ' de ' + total);
+      btnBack.disabled = cur === 1;  /* Etapa 1: Voltar desabilitado (FR-009) */
+      btnNext.innerHTML = cur === total ? 'Concluir<i class="ph ph-check"></i>' : 'Próximo<i class="ph ph-arrow-right"></i>';
+      document.querySelector('.phone-body').scrollTop = 0;
+    }
+    btnBack.addEventListener('click', function () { if (cur > 1) { cur--; render(); } });
+    btnNext.addEventListener('click', function () {
+      /* valida obrigatorio da etapa atual (demo de erro inline) */
+      var step = document.querySelector('.wizard-step[data-step="' + cur + '"]');
+      var req = step.querySelector('.q-block[data-required]');
+      if (req) {
+        var picked = req.querySelector('.opt[aria-pressed="true"]');
+        if (!picked) { req.classList.add('invalid'); req.scrollIntoView({ behavior: 'smooth', block: 'center' }); return; }
+      }
+      if (cur < total) { cur++; render(); }
+      else { wizard.style.display = 'none'; done.dataset.active = 'true'; done.style.display = 'block'; }
+    });
+    document.getElementById('btnRestart').addEventListener('click', function () { cur = 1; wizard.style.display = 'block'; done.style.display = 'none'; done.dataset.active = 'false'; render(); });
+    render();
+  </script>
+</body>
+</html>

@@ -1,0 +1,255 @@
+<!DOCTYPE html>
+<html lang="pt-BR" class="">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Dr. Pablo Vilela — Montar protocolo · Maria Clara Souza</title>
+  <script>document.documentElement.classList.add('js-loaded');</script>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600;700&family=Geist+Mono:wght@400;500;600&display=swap" rel="stylesheet" />
+  <script src="https://unpkg.com/@phosphor-icons/web"></script>
+  <link rel="stylesheet" href="shared.css" />
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <div class="app">
+    <aside class="sidebar">
+      <div class="sidebar__brand">
+        <div class="brand-mark">PV</div>
+        <div>
+          <div class="brand-name">Dr. Pablo Vilela</div>
+          <div class="brand-sub">Saúde &amp; Alta Performance</div>
+        </div>
+      </div>
+      <nav class="nav-group" aria-label="Área Dr. Pablo">
+        <div class="nav-group__label">Dr. Pablo</div>
+        <a class="nav-link" href="index.html"><i class="ph ph-squares-four" aria-hidden="true"></i> Dashboard</a>
+        <a class="nav-link" href="revisar-anamnese.html"><i class="ph ph-clipboard-text" aria-hidden="true"></i> Revisar anamnese</a>
+        <a class="nav-link" aria-current="page" href="montar-protocolo.html"><i class="ph ph-list-checks" aria-hidden="true"></i> Montar protocolo</a>
+      </nav>
+      <nav class="nav-group" aria-label="App do paciente">
+        <div class="nav-group__label">App do paciente</div>
+        <a class="nav-link" href="anamnese.html"><i class="ph ph-note-pencil" aria-hidden="true"></i> Anamnese</a>
+        <a class="nav-link" href="hoje.html"><i class="ph ph-sun-horizon" aria-hidden="true"></i> Hoje</a>
+        <a class="nav-link" href="plano.html"><i class="ph ph-cards-three" aria-hidden="true"></i> Plano</a>
+        <a class="nav-link" href="progresso.html"><i class="ph ph-chart-line-up" aria-hidden="true"></i> Progresso</a>
+      </nav>
+    </aside>
+
+    <header class="topbar">
+      <div class="topbar__title">
+        <span class="name">Dr. Pablo Vilela</span>
+        <span class="role">· Mentor de Saúde e Alta Performance</span>
+      </div>
+      <div class="topbar__spacer"></div>
+      <span class="chip-disabled" aria-disabled="true" title="Disponível numa fase futura">
+        <i class="ph ph-watch" aria-hidden="true"></i> Conectar Garmin · Em breve
+      </span>
+      <div class="avatar-menu">
+        <button class="avatar-btn" id="avatarBtn" aria-haspopup="true" aria-expanded="false" aria-controls="avatarMenu">
+          <span class="avatar-circle">PV</span>
+          <i class="ph ph-caret-down" aria-hidden="true"></i>
+        </button>
+        <div class="avatar-dropdown" id="avatarMenu" role="menu" aria-label="Conta">
+          <button class="item" role="menuitem"><i class="ph ph-user-circle" aria-hidden="true"></i> Minha conta</button>
+          <button class="item" role="menuitem"><i class="ph ph-gear" aria-hidden="true"></i> Preferências</button>
+          <div class="sep" role="separator"></div>
+          <button class="item" role="menuitem"><i class="ph ph-sign-out" aria-hidden="true"></i> Sair</button>
+        </div>
+      </div>
+    </header>
+
+    <main class="main" id="main">
+      <a class="breadcrumb" href="index.html"><i class="ph ph-arrow-left" aria-hidden="true"></i> Dashboard</a>
+      <div class="page-head reveal">
+        <p class="eyebrow">Maria Clara Souza · Emagrecimento</p>
+        <h1>Montar protocolo</h1>
+      </div>
+
+      <!-- (d) tab switch -->
+      <div class="proto-tabs reveal" role="tablist" aria-label="Seções do protocolo">
+        <button class="proto-tab" role="tab" id="tab-nutri" aria-selected="true" aria-controls="panel-nutri" data-tab="nutri"><i class="ph ph-fork-knife" aria-hidden="true"></i> Nutrição</button>
+        <button class="proto-tab" role="tab" id="tab-supp" aria-selected="false" aria-controls="panel-supp" data-tab="supp"><i class="ph ph-pill" aria-hidden="true"></i> Suplementação</button>
+        <button class="proto-tab" role="tab" id="tab-treino" aria-selected="false" aria-controls="panel-treino" data-tab="treino"><i class="ph ph-barbell" aria-hidden="true"></i> Treino</button>
+        <button class="proto-tab" role="tab" id="tab-habitos" aria-selected="false" aria-controls="panel-habitos" data-tab="habitos"><i class="ph ph-drop" aria-hidden="true"></i> Hábitos</button>
+      </div>
+
+      <!-- NUTRIÇÃO -->
+      <section class="proto-panel" id="panel-nutri" role="tabpanel" aria-labelledby="tab-nutri" data-active="true">
+        <h2>Refeições</h2>
+        <div data-list="meal">
+          <div class="item-row item-row--meal">
+            <div class="field"><label>Refeição</label><input class="input" value="Café da manhã" aria-label="Nome da refeição" /></div>
+            <div class="field"><label>Horário</label><input class="input tnum" value="07:00" aria-label="Horário" /></div>
+            <div class="field"><label>Descrição</label><textarea class="textarea" aria-label="Descrição">Ovos mexidos (3), pão integral, mamão, café sem açúcar</textarea></div>
+          </div>
+          <div class="item-row item-row--meal">
+            <div class="field"><label>Refeição</label><input class="input" value="Lanche" aria-label="Nome da refeição" /></div>
+            <div class="field"><label>Horário</label><input class="input tnum" value="10:00" aria-label="Horário" /></div>
+            <div class="field"><label>Descrição</label><textarea class="textarea" aria-label="Descrição">Iogurte sem lactose, castanhas (30g)</textarea></div>
+          </div>
+          <div class="item-row item-row--meal">
+            <div class="field"><label>Refeição</label><input class="input" value="Almoço" aria-label="Nome da refeição" /></div>
+            <div class="field"><label>Horário</label><input class="input tnum" value="12:30" aria-label="Horário" /></div>
+            <div class="field"><label>Descrição</label><textarea class="textarea" aria-label="Descrição">Frango grelhado, arroz integral, salada, azeite</textarea></div>
+          </div>
+          <div class="item-row item-row--meal">
+            <div class="field"><label>Refeição</label><input class="input" value="Pré-treino" aria-label="Nome da refeição" /></div>
+            <div class="field"><label>Horário</label><input class="input tnum" value="18:30" aria-label="Horário" /></div>
+            <div class="field"><label>Descrição</label><textarea class="textarea" aria-label="Descrição">Banana com pasta de amendoim</textarea></div>
+          </div>
+          <div class="item-row item-row--meal">
+            <div class="field"><label>Refeição</label><input class="input" value="Jantar" aria-label="Nome da refeição" /></div>
+            <div class="field"><label>Horário</label><input class="input tnum" value="20:30" aria-label="Horário" /></div>
+            <div class="field"><label>Descrição</label><textarea class="textarea" aria-label="Descrição">Salmão, batata-doce, legumes no vapor</textarea></div>
+          </div>
+        </div>
+        <button class="btn btn--ghost btn--sm" data-add="meal"><i class="ph ph-plus" aria-hidden="true"></i> Refeição</button>
+      </section>
+
+      <!-- SUPLEMENTAÇÃO -->
+      <section class="proto-panel" id="panel-supp" role="tabpanel" aria-labelledby="tab-supp" data-active="false">
+        <h2>Suplementação</h2>
+        <div data-list="supp">
+          <div class="item-row item-row--supp">
+            <div class="field"><label>Suplemento</label><input class="input" value="Creatina" aria-label="Suplemento" /></div>
+            <div class="field"><label>Horário</label><input class="input tnum" value="08:00" aria-label="Horário" /></div>
+          </div>
+          <div class="item-row item-row--supp">
+            <div class="field"><label>Suplemento</label><input class="input" value="Vitamina D" aria-label="Suplemento" /></div>
+            <div class="field"><label>Horário</label><input class="input tnum" value="08:00" aria-label="Horário" /></div>
+          </div>
+          <div class="item-row item-row--supp">
+            <div class="field"><label>Suplemento</label><input class="input" value="Ômega 3" aria-label="Suplemento" /></div>
+            <div class="field"><label>Horário</label><input class="input tnum" value="12:00" aria-label="Horário" /></div>
+          </div>
+          <div class="item-row item-row--supp">
+            <div class="field"><label>Suplemento</label><input class="input" value="Whey" aria-label="Suplemento" /></div>
+            <div class="field"><label>Horário</label><input class="input tnum" value="19:30" aria-label="Horário" /></div>
+          </div>
+          <div class="item-row item-row--supp">
+            <div class="field"><label>Suplemento</label><input class="input" value="Magnésio" aria-label="Suplemento" /></div>
+            <div class="field"><label>Horário</label><input class="input tnum" value="22:00" aria-label="Horário" /></div>
+          </div>
+        </div>
+        <button class="btn btn--ghost btn--sm" data-add="supp"><i class="ph ph-plus" aria-hidden="true"></i> Suplemento</button>
+      </section>
+
+      <!-- TREINO -->
+      <section class="proto-panel" id="panel-treino" role="tabpanel" aria-labelledby="tab-treino" data-active="false">
+        <h2>Treino</h2>
+        <div data-list="ex">
+          <div class="item-row item-row--ex">
+            <div class="field"><label>Exercício</label><input class="input" value="Agachamento livre" aria-label="Exercício" /></div>
+            <div class="field"><label>Séries</label><input class="input tnum" value="4" aria-label="Séries" /></div>
+            <div class="field"><label>Descanso</label><input class="input tnum" value="90s" aria-label="Descanso" /></div>
+          </div>
+          <div class="item-row item-row--ex">
+            <div class="field"><label>Exercício</label><input class="input" value="Supino reto" aria-label="Exercício" /></div>
+            <div class="field"><label>Séries</label><input class="input tnum" value="4" aria-label="Séries" /></div>
+            <div class="field"><label>Descanso</label><input class="input tnum" value="75s" aria-label="Descanso" /></div>
+          </div>
+          <div class="item-row item-row--ex">
+            <div class="field"><label>Exercício</label><input class="input" value="Remada curvada" aria-label="Exercício" /></div>
+            <div class="field"><label>Séries</label><input class="input tnum" value="3" aria-label="Séries" /></div>
+            <div class="field"><label>Descanso</label><input class="input tnum" value="60s" aria-label="Descanso" /></div>
+          </div>
+          <div class="item-row item-row--ex">
+            <div class="field"><label>Exercício</label><input class="input" value="Corrida leve" aria-label="Exercício" /></div>
+            <div class="field"><label>Séries</label><input class="input tnum" value="1" aria-label="Séries" /></div>
+            <div class="field"><label>Descanso</label><input class="input" value="20 min contínuo" aria-label="Descanso" /></div>
+          </div>
+        </div>
+        <button class="btn btn--ghost btn--sm" data-add="ex"><i class="ph ph-plus" aria-hidden="true"></i> Exercício</button>
+      </section>
+
+      <!-- HÁBITOS -->
+      <section class="proto-panel" id="panel-habitos" role="tabpanel" aria-labelledby="tab-habitos" data-active="false">
+        <h2>Hábitos</h2>
+        <div class="habit-grid">
+          <div class="field"><label>Meta de água</label><input class="input tnum" value="2,5 L/dia" aria-label="Meta de água" /></div>
+          <div class="field"><label>Meta de sono</label><input class="input tnum" value="8 h/noite" aria-label="Meta de sono" /></div>
+        </div>
+      </section>
+
+      <div class="proto-actions reveal">
+        <button class="btn btn--accent" id="saveBtn"><i class="ph ph-check" aria-hidden="true"></i> Salvar protocolo</button>
+        <a class="btn btn--ghost" href="index.html">Cancelar</a>
+      </div>
+    </main>
+  </div>
+
+  <div class="toast-region" id="toastRegion" aria-live="polite" aria-atomic="true"></div>
+
+  <script>
+  (function () {
+    'use strict';
+    /* shell: avatar menu + reveal */
+    var avBtn = document.getElementById('avatarBtn'), avMenu = document.getElementById('avatarMenu');
+    if (avBtn && avMenu) {
+      avBtn.addEventListener('click', function (e) { e.stopPropagation(); var o = avMenu.getAttribute('data-open') === 'true'; avMenu.setAttribute('data-open', String(!o)); avBtn.setAttribute('aria-expanded', String(!o)); });
+      document.addEventListener('click', function () { avMenu.setAttribute('data-open', 'false'); avBtn.setAttribute('aria-expanded', 'false'); });
+      document.addEventListener('keydown', function (e) { if (e.key === 'Escape' && avMenu.getAttribute('data-open') === 'true') { avMenu.setAttribute('data-open', 'false'); avBtn.setAttribute('aria-expanded', 'false'); avBtn.focus(); } });
+    }
+    var reveals = document.querySelectorAll('.reveal');
+    if ('IntersectionObserver' in window && reveals.length) {
+      var io = new IntersectionObserver(function (es) { es.forEach(function (en) { if (en.isIntersecting) { en.target.classList.add('is-visible'); io.unobserve(en.target); } }); }, { threshold: 0.06 });
+      reveals.forEach(function (el) { io.observe(el); });
+    } else { reveals.forEach(function (el) { el.classList.add('is-visible'); }); }
+
+    /* (d) tab switch */
+    var tabs = document.querySelectorAll('.proto-tab');
+    tabs.forEach(function (t) {
+      t.addEventListener('click', function () {
+        tabs.forEach(function (x) { x.setAttribute('aria-selected', 'false'); });
+        t.setAttribute('aria-selected', 'true');
+        document.querySelectorAll('.proto-panel').forEach(function (p) { p.setAttribute('data-active', 'false'); });
+        document.getElementById('panel-' + t.getAttribute('data-tab')).setAttribute('data-active', 'true');
+      });
+      t.addEventListener('keydown', function (e) {
+        var arr = Array.prototype.slice.call(tabs), i = arr.indexOf(t);
+        if (e.key === 'ArrowRight') { arr[(i + 1) % arr.length].focus(); arr[(i + 1) % arr.length].click(); }
+        if (e.key === 'ArrowLeft') { arr[(i - 1 + arr.length) % arr.length].focus(); arr[(i - 1 + arr.length) % arr.length].click(); }
+      });
+    });
+
+    /* (d) add-row appends a blank row of the matching shape */
+    var tpl = {
+      meal: '<div class="field"><label>Refeição</label><input class="input" placeholder="Nome da refeição" aria-label="Nome da refeição" /></div><div class="field"><label>Horário</label><input class="input tnum" placeholder="00:00" aria-label="Horário" /></div><div class="field"><label>Descrição</label><textarea class="textarea" placeholder="Descrição livre" aria-label="Descrição"></textarea></div>',
+      supp: '<div class="field"><label>Suplemento</label><input class="input" placeholder="Nome" aria-label="Suplemento" /></div><div class="field"><label>Horário</label><input class="input tnum" placeholder="00:00" aria-label="Horário" /></div>',
+      ex: '<div class="field"><label>Exercício</label><input class="input" placeholder="Nome" aria-label="Exercício" /></div><div class="field"><label>Séries</label><input class="input tnum" placeholder="0" aria-label="Séries" /></div><div class="field"><label>Descanso</label><input class="input tnum" placeholder="00s" aria-label="Descanso" /></div>'
+    };
+    document.querySelectorAll('[data-add]').forEach(function (btn) {
+      btn.addEventListener('click', function () {
+        var kind = btn.getAttribute('data-add');
+        var list = document.querySelector('[data-list="' + kind + '"]');
+        var row = document.createElement('div');
+        row.className = 'item-row item-row--' + kind + ' is-new';
+        row.innerHTML = tpl[kind];
+        list.appendChild(row);
+        var first = row.querySelector('input'); if (first) first.focus();
+      });
+    });
+
+    /* toast on save (loading -> success) */
+    var saveBtn = document.getElementById('saveBtn'), region = document.getElementById('toastRegion');
+    if (saveBtn) {
+      saveBtn.addEventListener('click', function () {
+        var original = saveBtn.innerHTML;
+        saveBtn.disabled = true;
+        saveBtn.innerHTML = '<i class="ph ph-circle-notch" aria-hidden="true"></i> Salvando…';
+        setTimeout(function () {
+          saveBtn.disabled = false; saveBtn.innerHTML = original;
+          var t = document.createElement('div');
+          t.className = 'toast';
+          t.innerHTML = '<i class="ph ph-check-circle" aria-hidden="true"></i> Protocolo salvo';
+          region.appendChild(t);
+          setTimeout(function () { t.remove(); }, 3000);
+        }, 800);
+      });
+    }
+  })();
+  </script>
+</body>
+</html>

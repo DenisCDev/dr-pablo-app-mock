@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html lang="pt-BR" class="">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Dr. Pablo Vilela — Anamnese (app do paciente)</title>
+  <script>document.documentElement.classList.add('js-loaded');</script>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600;700&family=Geist+Mono:wght@400;500;600&display=swap" rel="stylesheet" />
+  <script src="https://unpkg.com/@phosphor-icons/web"></script>
+  <link rel="stylesheet" href="shared.css" />
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <div class="app">
+    <aside class="sidebar">
+      <div class="sidebar__brand">
+        <div class="brand-mark">PV</div>
+        <div>
+          <div class="brand-name">Dr. Pablo Vilela</div>
+          <div class="brand-sub">Saúde &amp; Alta Performance</div>
+        </div>
+      </div>
+      <nav class="nav-group" aria-label="Área Dr. Pablo">
+        <div class="nav-group__label">Dr. Pablo</div>
+        <a class="nav-link" href="index.html"><i class="ph ph-squares-four" aria-hidden="true"></i> Dashboard</a>
+        <a class="nav-link" href="revisar-anamnese.html"><i class="ph ph-clipboard-text" aria-hidden="true"></i> Revisar anamnese</a>
+        <a class="nav-link" href="montar-protocolo.html"><i class="ph ph-list-checks" aria-hidden="true"></i> Montar protocolo</a>
+      </nav>
+      <nav class="nav-group" aria-label="App do paciente">
+        <div class="nav-group__label">App do paciente</div>
+        <a class="nav-link" aria-current="page" href="anamnese.html"><i class="ph ph-note-pencil" aria-hidden="true"></i> Anamnese</a>
+        <a class="nav-link" href="hoje.html"><i class="ph ph-sun-horizon" aria-hidden="true"></i> Hoje</a>
+        <a class="nav-link" href="plano.html"><i class="ph ph-cards-three" aria-hidden="true"></i> Plano</a>
+        <a class="nav-link" href="progresso.html"><i class="ph ph-chart-line-up" aria-hidden="true"></i> Progresso</a>
+      </nav>
+    </aside>
+
+    <header class="topbar">
+      <div class="topbar__title">
+        <span class="name">Dr. Pablo Vilela</span>
+        <span class="role">· Mentor de Saúde e Alta Performance</span>
+      </div>
+      <div class="topbar__spacer"></div>
+      <span class="chip-disabled" aria-disabled="true" title="Disponível numa fase futura">
+        <i class="ph ph-watch" aria-hidden="true"></i> Conectar Garmin · Em breve
+      </span>
+      <div class="avatar-menu">
+        <button class="avatar-btn" id="avatarBtn" aria-haspopup="true" aria-expanded="false" aria-controls="avatarMenu">
+          <span class="avatar-circle">PV</span>
+          <i class="ph ph-caret-down" aria-hidden="true"></i>
+        </button>
+        <div class="avatar-dropdown" id="avatarMenu" role="menu" aria-label="Conta">
+          <button class="item" role="menuitem"><i class="ph ph-user-circle" aria-hidden="true"></i> Minha conta</button>
+          <button class="item" role="menuitem"><i class="ph ph-gear" aria-hidden="true"></i> Preferências</button>
+          <div class="sep" role="separator"></div>
+          <button class="item" role="menuitem"><i class="ph ph-sign-out" aria-hidden="true"></i> Sair</button>
+        </div>
+      </div>
+    </header>
+
+    <main class="main" id="main">
+      <div class="page-head reveal">
+        <p class="eyebrow">App do paciente · pré-visualização</p>
+        <h1>Anamnese</h1>
+        <p class="sub">Como o paciente preenche no celular — link direto, sem login.</p>
+      </div>
+
+      <!-- PHONE FRAME -->
+      <div class="phone-stage reveal">
+        <div class="phone" role="group" aria-label="App do paciente (mockup de celular)">
+          <span class="phone__notch" aria-hidden="true"></span>
+          <div class="phone__statusbar">
+            <span class="tnum">9:41</span>
+            <span class="dots"><i class="ph ph-cell-signal-full" aria-hidden="true"></i><i class="ph ph-wifi-high" aria-hidden="true"></i><i class="ph ph-battery-high" aria-hidden="true"></i></span>
+          </div>
+
+          <div class="phone__scroll">
+            <div class="phone-title">Sua anamnese</div>
+
+            <!-- progress -->
+            <div class="wizard-progress">
+              <div class="row">
+                <span class="step-label" id="stepLabel">Etapa 2 de 7 · Saúde intestinal</span>
+                <span class="autosave"><i class="ph ph-cloud-check" aria-hidden="true"></i> Salvo ✓</span>
+              </div>
+              <div class="bar-track"><div class="bar-fill" id="wizBar" style="width:28%" role="progressbar" aria-valuenow="2" aria-valuemin="1" aria-valuemax="7" aria-label="Progresso da anamnese"></div></div>
+              <div class="dots-progress" aria-hidden="true">
+                <span class="d on"></span><span class="d on" id="dot2"></span><span class="d"></span><span class="d"></span><span class="d"></span><span class="d"></span><span class="d"></span>
+              </div>
+            </div>
+
+            <!-- STEP CONTENT (Etapa 2 visible) -->
+            <form id="wizForm" novalidate>
+              <fieldset class="q-block" style="border:0;padding:0;margin:0 0 1rem">
+                <legend>Diagnóstico intestinal</legend>
+                <div class="choice-wrap" role="radiogroup" aria-label="Diagnóstico intestinal">
+                  <label class="choice"><input type="radio" name="diag" /><span>Não</span></label>
+                  <label class="choice"><input type="radio" name="diag" /><span>SII</span></label>
+                  <label class="choice"><input type="radio" name="diag" /><span>Crohn</span></label>
+                  <label class="choice"><input type="radio" name="diag" /><span>Colite</span></label>
+                  <label class="choice"><input type="radio" name="diag" /><span>SIBO</span></label>
+                  <label class="choice"><input type="radio" name="diag" checked /><span>Disbiose</span></label>
+                </div>
+              </fieldset>
+
+              <fieldset class="q-block" style="border:0;padding:0;margin:0 0 1rem">
+                <legend>Intolerância à lactose</legend>
+                <div class="choice-wrap" role="radiogroup" aria-label="Intolerância à lactose">
+                  <label class="choice"><input type="radio" name="lactose" /><span>Não</span></label>
+                  <label class="choice"><input type="radio" name="lactose" /><span>Suspeita</span></label>
+                  <label class="choice"><input type="radio" name="lactose" checked /><span>Confirmada</span></label>
+                </div>
+              </fieldset>
+
+              <fieldset class="q-block" style="border:0;padding:0;margin:0 0 1rem">
+                <legend>Intolerância ao glúten</legend>
+                <div class="choice-wrap" role="radiogroup" aria-label="Intolerância ao glúten">
+                  <label class="choice"><input type="radio" name="gluten" checked /><span>Não</span></label>
+                  <label class="choice"><input type="radio" name="gluten" /><span>Suspeita</span></label>
+                  <label class="choice"><input type="radio" name="gluten" /><span>Confirmada</span></label>
+                </div>
+              </fieldset>
+
+              <div class="q-block" style="margin:0 0 1rem">
+                <label class="q-label" for="fezes">Consistência das fezes</label>
+                <select class="input" id="fezes" aria-label="Consistência das fezes">
+                  <option>Ressecadas</option>
+                  <option selected>Alternadas</option>
+                  <option>Normais</option>
+                  <option>Amolecidas</option>
+                </select>
+              </div>
+
+              <fieldset class="q-block" style="border:0;padding:0;margin:0 0 1rem">
+                <legend>Gases com frequência</legend>
+                <div class="choice-wrap" role="radiogroup" aria-label="Gases com frequência">
+                  <label class="choice"><input type="radio" name="gases" /><span>Não</span></label>
+                  <label class="choice"><input type="radio" name="gases" checked /><span>Sim</span></label>
+                </div>
+              </fieldset>
+
+              <fieldset class="q-block" style="border:0;padding:0;margin:0 0 1rem">
+                <legend>Distensão abdominal</legend>
+                <div class="choice-wrap" role="radiogroup" aria-label="Distensão abdominal">
+                  <label class="choice"><input type="radio" name="dist" /><span>Não</span></label>
+                  <label class="choice"><input type="radio" name="dist" checked /><span>Depois de comer</span></label>
+                  <label class="choice"><input type="radio" name="dist" /><span>O dia todo</span></label>
+                </div>
+              </fieldset>
+
+              <div class="q-block" id="qDesconforto" style="margin:0 0 0.5rem">
+                <label class="q-label" for="desconforto">Alimento que causa desconforto</label>
+                <input class="input" id="desconforto" value="leite e pão integral" aria-label="Alimento que causa desconforto" aria-describedby="errDesconforto" />
+                <span class="q-error" id="errDesconforto">Selecione uma opção</span>
+              </div>
+
+              <div class="wizard-nav">
+                <button type="button" class="btn btn--ghost" id="backBtn"><i class="ph ph-arrow-left" aria-hidden="true"></i> Voltar</button>
+                <button type="button" class="btn btn--primary" id="nextBtn">Próximo <i class="ph ph-arrow-right" aria-hidden="true"></i></button>
+              </div>
+            </form>
+          </div>
+
+          <!-- bottom nav -->
+          <nav class="phone__bottomnav" aria-label="Navegação do app">
+            <a class="bnav-link" aria-current="page" href="anamnese.html"><i class="ph ph-note-pencil" aria-hidden="true"></i> Anamnese</a>
+            <a class="bnav-link" href="hoje.html"><i class="ph ph-sun-horizon" aria-hidden="true"></i> Hoje</a>
+            <a class="bnav-link" href="plano.html"><i class="ph ph-cards-three" aria-hidden="true"></i> Plano</a>
+            <a class="bnav-link" href="progresso.html"><i class="ph ph-chart-line-up" aria-hidden="true"></i> Progresso</a>
+          </nav>
+        </div>
+      </div>
+    </main>
+  </div>
+
+  <script>
+  (function () {
+    'use strict';
+    /* shell: avatar menu + reveal */
+    var avBtn = document.getElementById('avatarBtn'), avMenu = document.getElementById('avatarMenu');
+    if (avBtn && avMenu) {
+      avBtn.addEventListener('click', function (e) { e.stopPropagation(); var o = avMenu.getAttribute('data-open') === 'true'; avMenu.setAttribute('data-open', String(!o)); avBtn.setAttribute('aria-expanded', String(!o)); });
+      document.addEventListener('click', function () { avMenu.setAttribute('data-open', 'false'); avBtn.setAttribute('aria-expanded', 'false'); });
+      document.addEventListener('keydown', function (e) { if (e.key === 'Escape' && avMenu.getAttribute('data-open') === 'true') { avMenu.setAttribute('data-open', 'false'); avBtn.setAttribute('aria-expanded', 'false'); avBtn.focus(); } });
+    }
+    var reveals = document.querySelectorAll('.reveal');
+    if ('IntersectionObserver' in window && reveals.length) {
+      var io = new IntersectionObserver(function (es) { es.forEach(function (en) { if (en.isIntersecting) { en.target.classList.add('is-visible'); io.unobserve(en.target); } }); }, { threshold: 0.06 });
+      reveals.forEach(function (el) { io.observe(el); });
+    } else { reveals.forEach(function (el) { el.classList.add('is-visible'); }); }
+
+    /* (c) wizard advance/back + progress bar (mock — moves the indicator) */
+    var step = 2, total = 7;
+    var bar = document.getElementById('wizBar'), label = document.getElementById('stepLabel');
+    var dots = document.querySelectorAll('.dots-progress .d');
+    var names = ['', 'Dados pessoais', 'Saúde intestinal', 'Mental & sono', 'Hidratação & hábitos', 'Preferências', 'Atividade física', 'Saúde & expectativas'];
+    var scroll = document.querySelector('.phone__scroll');
+    function render() {
+      bar.style.width = Math.round((step / total) * 100) + '%';
+      bar.setAttribute('aria-valuenow', String(step));
+      var isLast = step === total;
+      label.textContent = 'Etapa ' + step + ' de ' + total + ' · ' + names[step];
+      dots.forEach(function (d, i) { d.classList.toggle('on', i < step); });
+      document.getElementById('backBtn').disabled = step === 1;
+      var nb = document.getElementById('nextBtn');
+      nb.innerHTML = isLast
+        ? 'Concluir <i class="ph ph-check" aria-hidden="true"></i>'
+        : 'Próximo <i class="ph ph-arrow-right" aria-hidden="true"></i>';
+      if (scroll) scroll.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+    document.getElementById('nextBtn').addEventListener('click', function () {
+      if (step < total) { step++; render(); }
+      else { showCompletion(); }
+    });
+    document.getElementById('backBtn').addEventListener('click', function () {
+      if (step > 1) { step--; render(); }
+    });
+    function showCompletion() {
+      scroll.innerHTML = '<div class="completion"><div class="ring"><i class="ph ph-check" aria-hidden="true"></i></div>'
+        + '<h2>Anamnese enviada ✓</h2>'
+        + '<p>O Dr. Pablo vai revisar e montar seu protocolo.</p>'
+        + '<a class="btn btn--primary" href="hoje.html">Ir para Hoje</a></div>';
+    }
+    render();
+  })();
+  </script>
+</body>
+</html>

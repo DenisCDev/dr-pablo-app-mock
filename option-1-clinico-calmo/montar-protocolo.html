@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Dr. Pablo Vilela — Montar protocolo · Maria Clara Souza</title>
+  <script>document.documentElement.classList.add('js-loaded');</script>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600&family=DM+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet" />
+  <script src="https://unpkg.com/@phosphor-icons/web"></script>
+  <link rel="stylesheet" href="shared.css" />
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <div class="app">
+    <aside class="sidebar">
+      <div class="sidebar-brand">
+        <div class="brand-mono" aria-hidden="true">PV</div>
+        <div class="brand-text">Dr. Pablo Vilela<small>Mentor de Saúde</small></div>
+      </div>
+      <nav class="nav-group" aria-label="Área do Dr. Pablo">
+        <div class="nav-group-label">Dr. Pablo</div>
+        <a class="nav-link" href="index.html"><i class="ph ph-squares-four"></i>Dashboard</a>
+        <a class="nav-link" href="revisar-anamnese.html"><i class="ph ph-clipboard-text"></i>Revisar anamnese</a>
+        <a class="nav-link" href="montar-protocolo.html" aria-current="page"><i class="ph ph-list-checks"></i>Montar protocolo</a>
+      </nav>
+      <nav class="nav-group nav-group--patient" aria-label="App do paciente">
+        <div class="nav-group-label">App do paciente</div>
+        <a class="nav-link" href="anamnese.html"><i class="ph ph-path"></i>Anamnese</a>
+        <a class="nav-link" href="hoje.html"><i class="ph ph-sun-horizon"></i>Hoje</a>
+        <a class="nav-link" href="plano.html"><i class="ph ph-notebook"></i>Plano</a>
+        <a class="nav-link" href="progresso.html"><i class="ph ph-chart-line-up"></i>Progresso</a>
+      </nav>
+    </aside>
+
+    <div class="shell-main">
+      <header class="topbar">
+        <div class="topbar-title">Dr. Pablo Vilela <small>· Mentor de Saúde e Alta Performance</small></div>
+        <div class="topbar-spacer"></div>
+        <button class="chip-soon" disabled aria-disabled="true" title="Disponível em breve"><i class="ph ph-watch"></i>Conectar Garmin · Em breve</button>
+        <div class="avatar-wrap">
+          <button class="avatar-btn" id="avatarBtn" aria-haspopup="true" aria-expanded="false" aria-label="Menu da conta">PV</button>
+          <div class="avatar-menu" id="avatarMenu" role="menu" aria-label="Conta">
+            <div class="avatar-menu-head"><strong>Dr. Pablo Vilela</strong><span>pablo@vilela.health</span></div>
+            <button role="menuitem"><i class="ph ph-user-gear"></i>Minha conta</button>
+            <button role="menuitem"><i class="ph ph-bell"></i>Notificações</button>
+            <button role="menuitem"><i class="ph ph-sign-out"></i>Sair</button>
+          </div>
+        </div>
+      </header>
+
+      <main class="content">
+        <a class="breadcrumb" href="revisar-anamnese.html"><i class="ph ph-arrow-left"></i>Revisar anamnese</a>
+        <div class="page-head">
+          <p class="eyebrow">Protocolo · Maria Clara Souza · Emagrecimento</p>
+          <h1>Montar protocolo</h1>
+          <p class="sub">Nutrição, suplementação, treino e hábitos. Refeição é texto livre — sem contagem de macros.</p>
+        </div>
+
+        <div class="proto-tabs" role="tablist" aria-label="Seções do protocolo">
+          <button class="proto-tab" role="tab" aria-selected="true" data-tab="nutricao"><i class="ph ph-fork-knife"></i>Nutrição</button>
+          <button class="proto-tab" role="tab" aria-selected="false" data-tab="suplementacao"><i class="ph ph-pill"></i>Suplementação</button>
+          <button class="proto-tab" role="tab" aria-selected="false" data-tab="treino"><i class="ph ph-barbell"></i>Treino</button>
+          <button class="proto-tab" role="tab" aria-selected="false" data-tab="habitos"><i class="ph ph-drop"></i>Hábitos</button>
+        </div>
+
+        <!-- NUTRICAO (5 refeicoes) -->
+        <section class="proto-panel" data-panel="nutricao" data-active="true" role="tabpanel" aria-label="Nutrição">
+          <div class="proto-list" data-list="nutricao">
+            <div class="proto-row"><span class="time">07:00</span><span class="name">Café da manhã</span><span class="desc">Ovos mexidos (3), pão integral, mamão, café sem açúcar</span><i class="ph ph-dots-six-vertical pin"></i></div>
+            <div class="proto-row"><span class="time">10:00</span><span class="name">Lanche</span><span class="desc">Iogurte sem lactose, castanhas (30g)</span><i class="ph ph-dots-six-vertical pin"></i></div>
+            <div class="proto-row"><span class="time">12:30</span><span class="name">Almoço</span><span class="desc">Frango grelhado, arroz integral, salada, azeite</span><i class="ph ph-dots-six-vertical pin"></i></div>
+            <div class="proto-row"><span class="time">18:30</span><span class="name">Pré-treino</span><span class="desc">Banana com pasta de amendoim</span><i class="ph ph-dots-six-vertical pin"></i></div>
+            <div class="proto-row"><span class="time">20:30</span><span class="name">Jantar</span><span class="desc">Salmão, batata-doce, legumes no vapor</span><i class="ph ph-dots-six-vertical pin"></i></div>
+          </div>
+          <button class="btn btn-ghost" data-add="nutricao"><i class="ph ph-plus"></i>+ Refeição</button>
+        </section>
+
+        <!-- SUPLEMENTACAO (5 itens) -->
+        <section class="proto-panel" data-panel="suplementacao" data-active="false" role="tabpanel" aria-label="Suplementação" hidden>
+          <div class="proto-list" data-list="suplementacao">
+            <div class="proto-row"><span class="time">08:00</span><span class="name">Creatina</span><span class="desc">5 g · diária</span><i class="ph ph-dots-six-vertical pin"></i></div>
+            <div class="proto-row"><span class="time">08:00</span><span class="name">Vitamina D</span><span class="desc">2000 UI</span><i class="ph ph-dots-six-vertical pin"></i></div>
+            <div class="proto-row"><span class="time">12:00</span><span class="name">Ômega 3</span><span class="desc">1 g · almoço</span><i class="ph ph-dots-six-vertical pin"></i></div>
+            <div class="proto-row"><span class="time">19:30</span><span class="name">Whey</span><span class="desc">30 g · pós-treino</span><i class="ph ph-dots-six-vertical pin"></i></div>
+            <div class="proto-row"><span class="time">22:00</span><span class="name">Magnésio</span><span class="desc">300 mg · antes de dormir</span><i class="ph ph-dots-six-vertical pin"></i></div>
+          </div>
+          <button class="btn btn-ghost" data-add="suplementacao"><i class="ph ph-plus"></i>+ Suplemento</button>
+        </section>
+
+        <!-- TREINO (4 exercicios) -->
+        <section class="proto-panel" data-panel="treino" data-active="false" role="tabpanel" aria-label="Treino" hidden>
+          <div class="proto-list" data-list="treino">
+            <div class="proto-row"><span class="name" style="min-width:160px">Agachamento livre</span><span class="sets">4 séries</span><span class="desc">90s descanso</span><i class="ph ph-dots-six-vertical pin"></i></div>
+            <div class="proto-row"><span class="name" style="min-width:160px">Supino reto</span><span class="sets">4 séries</span><span class="desc">75s descanso</span><i class="ph ph-dots-six-vertical pin"></i></div>
+            <div class="proto-row"><span class="name" style="min-width:160px">Remada curvada</span><span class="sets">3 séries</span><span class="desc">60s descanso</span><i class="ph ph-dots-six-vertical pin"></i></div>
+            <div class="proto-row"><span class="name" style="min-width:160px">Corrida leve</span><span class="sets">1 série</span><span class="desc">20 min contínuo</span><i class="ph ph-dots-six-vertical pin"></i></div>
+          </div>
+          <button class="btn btn-ghost" data-add="treino"><i class="ph ph-plus"></i>+ Exercício</button>
+        </section>
+
+        <!-- HABITOS (2 metas) -->
+        <section class="proto-panel" data-panel="habitos" data-active="false" role="tabpanel" aria-label="Hábitos" hidden>
+          <div class="habit-grid">
+            <div class="habit-card">
+              <div class="hl"><i class="ph ph-drop"></i>Meta de água</div>
+              <div class="hv mono">2,5 L<span style="font-size:0.875rem;color:var(--color-text-muted);font-weight:400">/dia</span></div>
+            </div>
+            <div class="habit-card">
+              <div class="hl"><i class="ph ph-moon"></i>Meta de sono</div>
+              <div class="hv mono">8 h<span style="font-size:0.875rem;color:var(--color-text-muted);font-weight:400">/noite</span></div>
+            </div>
+          </div>
+        </section>
+
+        <div class="proto-foot">
+          <button class="btn btn-accent" id="saveBtn"><i class="ph ph-check"></i>Salvar protocolo</button>
+          <a class="btn btn-ghost" href="index.html">Cancelar</a>
+        </div>
+      </main>
+    </div>
+  </div>
+
+  <div class="toast-host" id="toastHost" aria-live="polite"></div>
+
+  <script>
+    /* ---- shared: avatar menu ---- */
+    (function () {
+      var btn = document.getElementById('avatarBtn'); var menu = document.getElementById('avatarMenu');
+      if (!btn) return;
+      function close() { menu.dataset.open = 'false'; btn.setAttribute('aria-expanded', 'false'); }
+      btn.addEventListener('click', function (e) { e.stopPropagation(); var open = menu.dataset.open === 'true'; menu.dataset.open = open ? 'false' : 'true'; btn.setAttribute('aria-expanded', String(!open)); });
+      document.addEventListener('click', function (e) { if (!menu.contains(e.target)) close(); });
+      document.addEventListener('keydown', function (e) { if (e.key === 'Escape') close(); });
+    })();
+
+    function toast(msg) {
+      var host = document.getElementById('toastHost');
+      var t = document.createElement('div'); t.className = 'toast';
+      t.innerHTML = '<i class="ph ph-check-circle"></i>' + msg;
+      host.appendChild(t);
+      setTimeout(function () { t.style.opacity = '0'; t.style.transition = 'opacity 240ms'; setTimeout(function () { t.remove(); }, 240); }, 2600);
+    }
+
+    /* ---- protocolo: tab switch (handler 4) ---- */
+    var tabs = document.querySelectorAll('.proto-tab');
+    tabs.forEach(function (tab) {
+      tab.addEventListener('click', function () {
+        tabs.forEach(function (t) { t.setAttribute('aria-selected', 'false'); });
+        tab.setAttribute('aria-selected', 'true');
+        document.querySelectorAll('.proto-panel').forEach(function (p) {
+          var on = p.dataset.panel === tab.dataset.tab;
+          p.dataset.active = String(on);
+          if (on) { p.removeAttribute('hidden'); } else { p.setAttribute('hidden', ''); }
+        });
+      });
+    });
+
+    /* ---- protocolo: adicionar refeicao/suplemento/exercicio (handler 5, optimistic) ---- */
+    var samples = {
+      nutricao: { time: '16:00', name: 'Nova refeição', desc: 'Toque para descrever os alimentos…' },
+      suplementacao: { time: '06:30', name: 'Novo suplemento', desc: 'Dose · observação' },
+      treino: { name: 'Novo exercício', sets: '3 séries', desc: '60s descanso' }
+    };
+    document.querySelectorAll('[data-add]').forEach(function (btn) {
+      btn.addEventListener('click', function () {
+        var key = btn.dataset.add;
+        var list = document.querySelector('[data-list="' + key + '"]');
+        var s = samples[key];
+        var row = document.createElement('div');
+        row.className = 'proto-row is-loading';
+        if (key === 'treino') {
+          row.innerHTML = '<span class="name" style="min-width:160px">' + s.name + '</span><span class="sets">' + s.sets + '</span><span class="desc">' + s.desc + '</span><i class="ph ph-dots-six-vertical pin"></i>';
+        } else {
+          row.innerHTML = '<span class="time">' + s.time + '</span><span class="name">' + s.name + '</span><span class="desc">' + s.desc + '</span><i class="ph ph-dots-six-vertical pin"></i>';
+        }
+        list.appendChild(row);
+        setTimeout(function () { row.classList.remove('is-loading'); }, 600);
+      });
+    });
+
+    /* ---- protocolo: salvar (handler 6, loading-button + toast) ---- */
+    var save = document.getElementById('saveBtn');
+    save.addEventListener('click', function () {
+      if (save.dataset.busy === 'true') return;
+      save.dataset.busy = 'true';
+      var orig = save.innerHTML;
+      save.innerHTML = '<i class="ph ph-spinner"></i>Salvando…';
+      setTimeout(function () {
+        save.innerHTML = '<i class="ph ph-check"></i>Salvo';
+        toast('Protocolo salvo');
+        setTimeout(function () { save.innerHTML = orig; save.dataset.busy = 'false'; }, 1400);
+      }, 800);
+    });
+  </script>
+</body>
+</html>

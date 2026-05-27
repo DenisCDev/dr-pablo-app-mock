@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="pt-BR" class="">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Dr. Pablo Vilela — Progresso (app do paciente)</title>
+  <script>document.documentElement.classList.add('js-loaded');</script>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600;700&family=Geist+Mono:wght@400;500;600&display=swap" rel="stylesheet" />
+  <script src="https://unpkg.com/@phosphor-icons/web"></script>
+  <link rel="stylesheet" href="shared.css" />
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <div class="app">
+    <aside class="sidebar">
+      <div class="sidebar__brand">
+        <div class="brand-mark">PV</div>
+        <div>
+          <div class="brand-name">Dr. Pablo Vilela</div>
+          <div class="brand-sub">Saúde &amp; Alta Performance</div>
+        </div>
+      </div>
+      <nav class="nav-group" aria-label="Área Dr. Pablo">
+        <div class="nav-group__label">Dr. Pablo</div>
+        <a class="nav-link" href="index.html"><i class="ph ph-squares-four" aria-hidden="true"></i> Dashboard</a>
+        <a class="nav-link" href="revisar-anamnese.html"><i class="ph ph-clipboard-text" aria-hidden="true"></i> Revisar anamnese</a>
+        <a class="nav-link" href="montar-protocolo.html"><i class="ph ph-list-checks" aria-hidden="true"></i> Montar protocolo</a>
+      </nav>
+      <nav class="nav-group" aria-label="App do paciente">
+        <div class="nav-group__label">App do paciente</div>
+        <a class="nav-link" href="anamnese.html"><i class="ph ph-note-pencil" aria-hidden="true"></i> Anamnese</a>
+        <a class="nav-link" href="hoje.html"><i class="ph ph-sun-horizon" aria-hidden="true"></i> Hoje</a>
+        <a class="nav-link" href="plano.html"><i class="ph ph-cards-three" aria-hidden="true"></i> Plano</a>
+        <a class="nav-link" aria-current="page" href="progresso.html"><i class="ph ph-chart-line-up" aria-hidden="true"></i> Progresso</a>
+      </nav>
+    </aside>
+
+    <header class="topbar">
+      <div class="topbar__title">
+        <span class="name">Dr. Pablo Vilela</span>
+        <span class="role">· Mentor de Saúde e Alta Performance</span>
+      </div>
+      <div class="topbar__spacer"></div>
+      <span class="chip-disabled" aria-disabled="true" title="Disponível numa fase futura">
+        <i class="ph ph-watch" aria-hidden="true"></i> Conectar Garmin · Em breve
+      </span>
+      <div class="avatar-menu">
+        <button class="avatar-btn" id="avatarBtn" aria-haspopup="true" aria-expanded="false" aria-controls="avatarMenu">
+          <span class="avatar-circle">PV</span>
+          <i class="ph ph-caret-down" aria-hidden="true"></i>
+        </button>
+        <div class="avatar-dropdown" id="avatarMenu" role="menu" aria-label="Conta">
+          <button class="item" role="menuitem"><i class="ph ph-user-circle" aria-hidden="true"></i> Minha conta</button>
+          <button class="item" role="menuitem"><i class="ph ph-gear" aria-hidden="true"></i> Preferências</button>
+          <div class="sep" role="separator"></div>
+          <button class="item" role="menuitem"><i class="ph ph-sign-out" aria-hidden="true"></i> Sair</button>
+        </div>
+      </div>
+    </header>
+
+    <main class="main" id="main">
+      <div class="page-head reveal">
+        <p class="eyebrow">App do paciente · pré-visualização</p>
+        <h1>Progresso</h1>
+        <p class="sub">Peso, adesão e fotos — Maria Clara Souza.</p>
+      </div>
+
+      <div class="phone-stage reveal">
+        <div class="phone" role="group" aria-label="App do paciente (mockup de celular)">
+          <span class="phone__notch" aria-hidden="true"></span>
+          <div class="phone__statusbar">
+            <span class="tnum">11:14</span>
+            <span class="dots"><i class="ph ph-cell-signal-full" aria-hidden="true"></i><i class="ph ph-wifi-high" aria-hidden="true"></i><i class="ph ph-battery-high" aria-hidden="true"></i></span>
+          </div>
+
+          <div class="phone__scroll">
+            <div class="phone-title">Minha evolução</div>
+
+            <!-- peso no tempo (SVG inline, sem lib) -->
+            <div class="card chart-card">
+              <div class="head">
+                <span class="t">Peso ao longo do tempo</span>
+                <span class="delta"><i class="ph ph-trend-down" aria-hidden="true"></i> -3,4 kg</span>
+              </div>
+              <svg class="weight-chart" viewBox="0 0 320 132" role="img" aria-label="Peso de 71,5 kg em 04/03 para 68,1 kg em 13/05, tendência de queda de 3,4 kg em cerca de 10 semanas">
+                <line class="grid-line" x1="0" y1="18"  x2="320" y2="18"></line>
+                <line class="grid-line" x1="0" y1="56"  x2="320" y2="56"></line>
+                <line class="grid-line" x1="0" y1="94"  x2="320" y2="94"></line>
+                <path class="area" d="M24,18.2 L78.4,33.8 L132.8,53.8 L187.2,69.3 L241.6,82.7 L296,93.8 L296,116 L24,116 Z"></path>
+                <polyline class="line" points="24,18.2 78.4,33.8 132.8,53.8 187.2,69.3 241.6,82.7 296,93.8"></polyline>
+                <circle class="pt" cx="24"    cy="18.2" r="3.5"></circle>
+                <circle class="pt" cx="78.4"  cy="33.8" r="3.5"></circle>
+                <circle class="pt" cx="132.8" cy="53.8" r="3.5"></circle>
+                <circle class="pt" cx="187.2" cy="69.3" r="3.5"></circle>
+                <circle class="pt" cx="241.6" cy="82.7" r="3.5"></circle>
+                <circle class="pt" cx="296"   cy="93.8" r="3.5"></circle>
+                <text class="axis-label" x="24"  y="128" text-anchor="middle">04/03</text>
+                <text class="axis-label" x="132.8" y="128" text-anchor="middle">01/04</text>
+                <text class="axis-label" x="241.6" y="128" text-anchor="middle">29/04</text>
+              </svg>
+              <dl class="kv" style="grid-template-columns:1fr 1fr;margin-top:.5rem;font-size:.75rem">
+                <dt>04/03</dt><dd class="tnum">71,5 kg</dd>
+                <dt>18/03</dt><dd class="tnum">70,8 kg</dd>
+                <dt>01/04</dt><dd class="tnum">69,9 kg</dd>
+                <dt>15/04</dt><dd class="tnum">69,2 kg</dd>
+                <dt>29/04</dt><dd class="tnum">68,6 kg</dd>
+                <dt>13/05</dt><dd class="tnum">68,1 kg</dd>
+              </dl>
+            </div>
+
+            <!-- adesão semanal -->
+            <div class="check-section">
+              <h3>Adesão semanal</h3>
+              <div class="adh-weeks">
+                <div class="adh-week"><div class="wk">Sem 1</div><div class="pct tnum">78%</div></div>
+                <div class="adh-week"><div class="wk">Sem 2</div><div class="pct tnum">84%</div></div>
+                <div class="adh-week"><div class="wk">Sem 3</div><div class="pct tnum">90%</div></div>
+                <div class="adh-week is-current"><div class="wk">Atual</div><div class="pct tnum">92%</div></div>
+              </div>
+            </div>
+
+            <!-- fotos (estado vazio explícito) -->
+            <div class="check-section">
+              <h3>Fotos de evolução</h3>
+              <div class="card">
+                <div class="empty">
+                  <i class="ph ph-image-square" aria-hidden="true"></i>
+                  <strong>Sem fotos ainda</strong>
+                  <p style="font-size:.8125rem;margin:0">Adicione uma foto para acompanhar sua evolução</p>
+                  <button class="btn btn--ghost btn--sm" style="margin-top:.5rem" id="addPhoto"><i class="ph ph-plus" aria-hidden="true"></i> Adicionar foto</button>
+                </div>
+              </div>
+            </div>
+
+            <!-- Garmin desabilitado -->
+            <div class="garmin-card" aria-disabled="true">
+              <i class="ph ph-watch" aria-hidden="true"></i>
+              <div class="g-text">
+                <div class="t">Conectar Garmin</div>
+                <div class="s">Passos, sono e frequência cardíaca</div>
+              </div>
+              <span class="em-breve">Em breve</span>
+            </div>
+          </div>
+
+          <nav class="phone__bottomnav" aria-label="Navegação do app">
+            <a class="bnav-link" href="anamnese.html"><i class="ph ph-note-pencil" aria-hidden="true"></i> Anamnese</a>
+            <a class="bnav-link" href="hoje.html"><i class="ph ph-sun-horizon" aria-hidden="true"></i> Hoje</a>
+            <a class="bnav-link" href="plano.html"><i class="ph ph-cards-three" aria-hidden="true"></i> Plano</a>
+            <a class="bnav-link" aria-current="page" href="progresso.html"><i class="ph ph-chart-line-up" aria-hidden="true"></i> Progresso</a>
+          </nav>
+        </div>
+      </div>
+    </main>
+  </div>
+
+  <div class="toast-region" id="toastRegion" aria-live="polite" aria-atomic="true"></div>
+
+  <script>
+  (function () {
+    'use strict';
+    /* shell: avatar menu + reveal */
+    var avBtn = document.getElementById('avatarBtn'), avMenu = document.getElementById('avatarMenu');
+    if (avBtn && avMenu) {
+      avBtn.addEventListener('click', function (e) { e.stopPropagation(); var o = avMenu.getAttribute('data-open') === 'true'; avMenu.setAttribute('data-open', String(!o)); avBtn.setAttribute('aria-expanded', String(!o)); });
+      document.addEventListener('click', function () { avMenu.setAttribute('data-open', 'false'); avBtn.setAttribute('aria-expanded', 'false'); });
+      document.addEventListener('keydown', function (e) { if (e.key === 'Escape' && avMenu.getAttribute('data-open') === 'true') { avMenu.setAttribute('data-open', 'false'); avBtn.setAttribute('aria-expanded', 'false'); avBtn.focus(); } });
+    }
+    var reveals = document.querySelectorAll('.reveal');
+    if ('IntersectionObserver' in window && reveals.length) {
+      var io = new IntersectionObserver(function (es) { es.forEach(function (en) { if (en.isIntersecting) { en.target.classList.add('is-visible'); io.unobserve(en.target); } }); }, { threshold: 0.06 });
+      reveals.forEach(function (el) { io.observe(el); });
+    } else { reveals.forEach(function (el) { el.classList.add('is-visible'); }); }
+
+    /* fotos: "Adicionar foto" -> toast (sem upload real num mock) */
+    var region = document.getElementById('toastRegion');
+    document.getElementById('addPhoto').addEventListener('click', function () {
+      var t = document.createElement('div'); t.className = 'toast';
+      t.innerHTML = '<i class="ph ph-image" aria-hidden="true"></i> Abrir câmera/galeria (no app real)';
+      region.appendChild(t); setTimeout(function () { t.remove(); }, 2600);
+    });
+  })();
+  </script>
+</body>
+</html>

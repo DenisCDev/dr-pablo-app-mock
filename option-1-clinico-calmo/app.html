@@ -1,0 +1,522 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <meta name="theme-color" content="#FBF8F1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="default" />
+  <meta name="apple-mobile-web-app-title" content="Dr. Pablo Vilela" />
+  <title>App do paciente — Dr. Pablo Vilela</title>
+  <script>document.documentElement.classList.add('js-loaded');</script>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600&family=DM+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet" />
+  <script src="https://unpkg.com/@phosphor-icons/web"></script>
+  <link rel="stylesheet" href="shared.css" />
+  <link rel="stylesheet" href="styles.css" />
+  <style>
+    /* ========================================================================
+       app.html — PWA do PACIENTE em tela cheia (sem sidebar, sem moldura de celular).
+       Reaproveita 100% dos tokens (shared.css) e componentes (styles.css).
+       Só este bloco define a casca do app + a navegação por abas.
+       ====================================================================== */
+    body { background: var(--color-surface-base); }
+    .pwa {
+      max-width: 440px; margin: 0 auto;
+      min-height: 100vh; min-height: 100dvh;
+      display: flex; flex-direction: column;
+      background: var(--color-surface-base);
+      box-shadow: var(--shadow-lg);
+      position: relative;
+    }
+    @media (max-width: 480px) { .pwa { max-width: none; box-shadow: none; } }
+
+    /* top app-bar */
+    .pwa-top {
+      position: sticky; top: 0; z-index: 20;
+      display: flex; align-items: center; gap: 0.625rem;
+      padding: 0.875rem 1.125rem;
+      padding-top: calc(0.875rem + env(safe-area-inset-top));
+      background: oklch(0.985 0.010 75 / 0.9);
+      backdrop-filter: blur(10px);
+      border-bottom: 1px solid var(--color-border-subtle);
+    }
+    .pwa-top .pv {
+      width: 34px; height: 34px; border-radius: 10px; flex: none;
+      display: grid; place-items: center;
+      background: var(--color-action-primary); color: oklch(1 0 0);
+      font-family: var(--font-display); font-weight: 600; font-size: 0.875rem;
+      box-shadow: var(--shadow-sm);
+    }
+    .pwa-top h1 { font-size: 1.0625rem; flex: 1; line-height: 1.12; }
+    .pwa-top .bell {
+      width: 38px; height: 38px; border-radius: var(--radius-pill);
+      display: grid; place-items: center; color: var(--color-text-muted);
+      position: relative; flex: none;
+    }
+    .pwa-top .bell:hover { background: var(--color-surface-subtle); color: var(--color-text-primary); }
+    .pwa-top .bell i { font-size: 1.25rem; }
+    .pwa-top .bell .ndot { position: absolute; top: 8px; right: 9px; width: 7px; height: 7px; border-radius: 50%; background: var(--color-action-accent); }
+
+    /* view canvas */
+    .pwa-main { flex: 1; overflow-y: auto; padding: 0.875rem 1.125rem 1.5rem; -webkit-overflow-scrolling: touch; }
+    .pwa-view { display: none; }
+    .pwa-view[data-active="true"] { display: block; animation: pwa-fade 220ms var(--ease-out); }
+    @keyframes pwa-fade { from { opacity: 0; transform: translateY(4px); } to { opacity: 1; transform: none; } }
+
+    /* bottom tab-bar */
+    .pwa-tabs {
+      position: sticky; bottom: 0; z-index: 20;
+      display: grid; grid-template-columns: repeat(4, 1fr);
+      background: var(--color-surface-raised);
+      border-top: 1px solid var(--color-border-subtle);
+      padding: 0.4375rem 0.5rem;
+      padding-bottom: calc(0.4375rem + env(safe-area-inset-bottom));
+    }
+    .pwa-tabs button {
+      display: flex; flex-direction: column; align-items: center; gap: 0.1875rem;
+      padding: 0.375rem 0.25rem; border-radius: 12px; min-height: 52px; justify-content: center;
+      color: var(--color-text-muted); font-size: 0.6875rem; font-weight: 500; font-family: inherit;
+      transition: color var(--motion-base) var(--ease-out), background var(--motion-base) var(--ease-out);
+    }
+    .pwa-tabs button i { font-size: 1.4rem; }
+    .pwa-tabs button:hover { color: var(--color-text-secondary); }
+    .pwa-tabs button[aria-current="page"] { color: var(--color-action-primary); }
+    .pwa-tabs button[aria-current="page"] i { color: var(--color-action-primary); }
+  </style>
+</head>
+<body>
+  <div class="pwa">
+
+    <!-- ===== TOP APP-BAR ===== -->
+    <header class="pwa-top">
+      <div class="pv" aria-hidden="true">PV</div>
+      <h1 id="pwaTitle">Bom dia, Maria</h1>
+      <button class="bell" id="bellBtn" aria-label="Notificações"><i class="ph ph-bell"></i><span class="ndot" aria-hidden="true"></span></button>
+    </header>
+
+    <!-- ===== VIEWS ===== -->
+    <main class="pwa-main" id="pwaMain">
+
+      <!-- ---------- HOJE ---------- -->
+      <section class="pwa-view" data-view="hoje" data-active="true" aria-label="Hoje">
+        <div class="agora-card reveal">
+          <p class="eyebrow">Agora</p>
+          <div class="agora-when"><span class="t mono">12:30</span><span class="n">Almoço</span></div>
+          <p class="desc">Frango grelhado, arroz integral, salada, azeite</p>
+          <button class="btn" id="agoraBtn"><i class="ph ph-check"></i>Marcar feito</button>
+        </div>
+
+        <div class="adesao-hero p-card reveal" style="margin-bottom:0.875rem">
+          <div class="adesao-ring" style="--p:92"><div class="inner mono">92%</div></div>
+          <div>
+            <div class="at">Adesão da semana</div>
+            <div class="as">Média dos últimos 7 dias · ótimo ritmo</div>
+          </div>
+        </div>
+
+        <div class="p-card reveal">
+          <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:0.5rem">
+            <strong style="font-family:var(--font-display);font-size:0.9375rem">Checklist do dia</strong>
+            <span class="saved-pill" id="dayProgress"><i class="ph ph-list-checks"></i><span class="mono">5</span> de <span class="mono">13</span> · <span class="mono">38%</span></span>
+          </div>
+
+          <div class="p-section-label"><i class="ph ph-pill"></i>Suplementos</div>
+          <div class="check-row" data-done="true"><span class="check-box" role="checkbox" aria-checked="true" tabindex="0" aria-label="Creatina 08:00"><i class="ph ph-check"></i></span><span class="ci-name">Creatina</span><span class="ci-time">08:00</span></div>
+          <div class="check-row" data-done="true"><span class="check-box" role="checkbox" aria-checked="true" tabindex="0" aria-label="Vitamina D 08:00"><i class="ph ph-check"></i></span><span class="ci-name">Vitamina D</span><span class="ci-time">08:00</span></div>
+          <div class="check-row" data-done="false"><span class="check-box" role="checkbox" aria-checked="false" tabindex="0" aria-label="Ômega 3 12:00"><i class="ph ph-check"></i></span><span class="ci-name">Ômega 3</span><span class="ci-time">12:00</span></div>
+          <div class="check-row" data-done="false"><span class="check-box" role="checkbox" aria-checked="false" tabindex="0" aria-label="Whey 19:30"><i class="ph ph-check"></i></span><span class="ci-name">Whey</span><span class="ci-time">19:30</span></div>
+          <div class="check-row" data-done="false"><span class="check-box" role="checkbox" aria-checked="false" tabindex="0" aria-label="Magnésio 22:00"><i class="ph ph-check"></i></span><span class="ci-name">Magnésio</span><span class="ci-time">22:00</span></div>
+
+          <div class="p-section-label"><i class="ph ph-fork-knife"></i>Refeições</div>
+          <div class="check-row" data-done="true"><span class="check-box" role="checkbox" aria-checked="true" tabindex="0" aria-label="Café 07:00"><i class="ph ph-check"></i></span><span class="ci-name">Café da manhã</span><span class="ci-time">07:00</span></div>
+          <div class="check-row" data-done="true"><span class="check-box" role="checkbox" aria-checked="true" tabindex="0" aria-label="Lanche 10:00"><i class="ph ph-check"></i></span><span class="ci-name">Lanche</span><span class="ci-time">10:00</span></div>
+          <div class="check-row" data-done="false"><span class="check-box" role="checkbox" aria-checked="false" tabindex="0" aria-label="Almoço 12:30"><i class="ph ph-check"></i></span><span class="ci-name">Almoço</span><span class="ci-time">12:30</span></div>
+          <div class="check-row" data-done="false"><span class="check-box" role="checkbox" aria-checked="false" tabindex="0" aria-label="Pré-treino 18:30"><i class="ph ph-check"></i></span><span class="ci-name">Pré-treino</span><span class="ci-time">18:30</span></div>
+          <div class="check-row" data-done="false"><span class="check-box" role="checkbox" aria-checked="false" tabindex="0" aria-label="Jantar 20:30"><i class="ph ph-check"></i></span><span class="ci-name">Jantar</span><span class="ci-time">20:30</span></div>
+
+          <div class="p-section-label"><i class="ph ph-barbell"></i>Treino</div>
+          <div class="check-row" data-done="false"><span class="check-box" role="checkbox" aria-checked="false" tabindex="0" aria-label="Treino de força 18:00"><i class="ph ph-check"></i></span><span class="ci-name">Treino de força</span><span class="ci-time">18:00</span></div>
+
+          <div class="p-section-label"><i class="ph ph-drop"></i>Hábitos</div>
+          <div class="check-row" data-done="true"><span class="check-box" role="checkbox" aria-checked="true" tabindex="0" aria-label="Água 2,5L, 1,2L registrado"><i class="ph ph-check"></i></span><span class="ci-name">Água 2,5L <span style="color:var(--color-text-muted);font-weight:400">(1,2L)</span></span><span class="ci-time"></span></div>
+          <div class="check-row" data-done="false"><span class="check-box" role="checkbox" aria-checked="false" tabindex="0" aria-label="Sono 8h"><i class="ph ph-check"></i></span><span class="ci-name">Sono 8h</span><span class="ci-time"></span></div>
+
+          <div class="today-shortcuts">
+            <button class="btn btn-ghost btn-sm" id="aguaBtn"><i class="ph ph-drop"></i>+ Água</button>
+            <button class="btn btn-ghost btn-sm" id="pesoBtn"><i class="ph ph-scales"></i>Registrar peso</button>
+          </div>
+        </div>
+      </section>
+
+      <!-- ---------- PLANO ---------- -->
+      <section class="pwa-view" data-view="plano" aria-label="Plano">
+        <div class="plano-toggle" role="tablist" aria-label="Estado do plano">
+          <button role="tab" aria-pressed="true" data-view="full">Plano ativo</button>
+          <button role="tab" aria-pressed="false" data-view="empty">Em preparação</button>
+        </div>
+
+        <div class="plano-view" data-view="full" data-active="true">
+          <div class="p-section-label"><i class="ph ph-fork-knife"></i>Nutrição</div>
+          <div class="p-card" style="padding:0.875rem 1.125rem">
+            <div class="plan-line"><span class="t">07:00</span><div class="b"><strong>Café da manhã</strong><span>Ovos mexidos (3), pão integral, mamão, café sem açúcar</span></div></div>
+            <div class="plan-line"><span class="t">10:00</span><div class="b"><strong>Lanche</strong><span>Iogurte sem lactose, castanhas (30g)</span></div></div>
+            <div class="plan-line"><span class="t">12:30</span><div class="b"><strong>Almoço</strong><span>Frango grelhado, arroz integral, salada, azeite</span></div></div>
+            <div class="plan-line"><span class="t">18:30</span><div class="b"><strong>Pré-treino</strong><span>Banana com pasta de amendoim</span></div></div>
+            <div class="plan-line"><span class="t">20:30</span><div class="b"><strong>Jantar</strong><span>Salmão, batata-doce, legumes no vapor</span></div></div>
+          </div>
+
+          <div class="p-section-label"><i class="ph ph-pill"></i>Suplementação</div>
+          <div class="p-card" style="padding:0.875rem 1.125rem">
+            <div class="plan-line"><span class="t">08:00</span><div class="b"><strong>Creatina</strong><span>5 g · diária</span></div></div>
+            <div class="plan-line"><span class="t">08:00</span><div class="b"><strong>Vitamina D</strong><span>2000 UI</span></div></div>
+            <div class="plan-line"><span class="t">12:00</span><div class="b"><strong>Ômega 3</strong><span>1 g · almoço</span></div></div>
+            <div class="plan-line"><span class="t">19:30</span><div class="b"><strong>Whey</strong><span>30 g · pós-treino</span></div></div>
+            <div class="plan-line"><span class="t">22:00</span><div class="b"><strong>Magnésio</strong><span>300 mg · antes de dormir</span></div></div>
+          </div>
+
+          <div class="p-section-label"><i class="ph ph-barbell"></i>Treino</div>
+          <div class="p-card" style="padding:0.875rem 1.125rem">
+            <div class="plan-line"><span class="t"><i class="ph ph-dot-outline"></i></span><div class="b"><strong>Agachamento livre</strong><span>4 séries · 90s descanso</span></div></div>
+            <div class="plan-line"><span class="t"><i class="ph ph-dot-outline"></i></span><div class="b"><strong>Supino reto</strong><span>4 séries · 75s descanso</span></div></div>
+            <div class="plan-line"><span class="t"><i class="ph ph-dot-outline"></i></span><div class="b"><strong>Remada curvada</strong><span>3 séries · 60s descanso</span></div></div>
+            <div class="plan-line"><span class="t"><i class="ph ph-dot-outline"></i></span><div class="b"><strong>Corrida leve</strong><span>1 série · 20 min contínuo</span></div></div>
+          </div>
+
+          <div class="p-section-label"><i class="ph ph-drop"></i>Hábitos</div>
+          <div class="habit-grid" style="margin-bottom:0.5rem">
+            <div class="habit-card"><div class="hl"><i class="ph ph-drop"></i>Água</div><div class="hv mono">2,5 L</div></div>
+            <div class="habit-card"><div class="hl"><i class="ph ph-moon"></i>Sono</div><div class="hv mono">8 h</div></div>
+          </div>
+        </div>
+
+        <div class="plano-view" data-view="empty" data-active="false">
+          <div class="p-card" style="margin-top:2rem">
+            <div class="empty">
+              <i class="ph-duotone ph-hourglass-medium"></i>
+              <strong>Protocolo em preparação</strong>
+              <span>Dr. Pablo monta seu plano após a consulta.</span>
+              <span class="chip chip-neutral" style="margin-top:0.5rem"><i class="ph ph-calendar-dots"></i>Sua consulta: a agendar</span>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ---------- PROGRESSO ---------- -->
+      <section class="pwa-view" data-view="progresso" aria-label="Progresso">
+        <div class="p-section-label"><i class="ph ph-scales"></i>Peso ao longo do tempo</div>
+        <div class="weight-card p-card reveal">
+          <div class="weight-head">
+            <span class="cur mono">68,1 kg</span>
+            <span class="trend"><i class="ph ph-trend-down"></i>−3,4 kg em ~10 sem.</span>
+          </div>
+          <svg class="chart-svg" viewBox="0 0 300 120" preserveAspectRatio="none" role="img" aria-label="Peso caindo de 71,5 kg para 68,1 kg ao longo de 10 semanas">
+            <defs>
+              <linearGradient id="wfill" x1="0" y1="0" x2="0" y2="1">
+                <stop offset="0%" stop-color="oklch(0.46 0.05 155 / 0.22)" />
+                <stop offset="100%" stop-color="oklch(0.46 0.05 155 / 0)" />
+              </linearGradient>
+            </defs>
+            <polyline points="20,12 76,32 132,57 188,77 244,94 280,108 280,120 20,120" fill="url(#wfill)" stroke="none" />
+            <polyline points="20,12 76,32 132,57 188,77 244,94 280,108" fill="none" stroke="oklch(0.46 0.05 155)" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" />
+            <g fill="oklch(0.46 0.05 155)">
+              <circle cx="20" cy="12" r="3.5" /><circle cx="76" cy="32" r="3.5" /><circle cx="132" cy="57" r="3.5" />
+              <circle cx="188" cy="77" r="3.5" /><circle cx="244" cy="94" r="3.5" />
+              <circle cx="280" cy="108" r="4.5" fill="oklch(0.62 0.14 45)" />
+            </g>
+          </svg>
+          <div class="chart-x"><span>04/03</span><span>18/03</span><span>01/04</span><span>15/04</span><span>29/04</span><span>13/05</span></div>
+        </div>
+
+        <div class="p-section-label"><i class="ph ph-chart-bar"></i>Adesão semanal</div>
+        <div class="p-card reveal">
+          <div class="adesao-weeks">
+            <div class="wk"><div class="bar-track"><div class="bar-fill" style="height:78%"></div></div><div class="pct mono">78%</div><div class="wlbl">Sem 1</div></div>
+            <div class="wk"><div class="bar-track"><div class="bar-fill" style="height:84%"></div></div><div class="pct mono">84%</div><div class="wlbl">Sem 2</div></div>
+            <div class="wk"><div class="bar-track"><div class="bar-fill" style="height:90%"></div></div><div class="pct mono">90%</div><div class="wlbl">Sem 3</div></div>
+            <div class="wk current"><div class="bar-track"><div class="bar-fill" style="height:92%"></div></div><div class="pct mono">92%</div><div class="wlbl">Atual</div></div>
+          </div>
+        </div>
+
+        <div class="p-section-label"><i class="ph ph-camera"></i>Fotos de evolução</div>
+        <div class="p-card reveal">
+          <div class="empty">
+            <i class="ph-duotone ph-image-square"></i>
+            <strong>Sem fotos ainda</strong>
+            <span>Adicione uma foto para acompanhar sua evolução</span>
+            <button class="btn btn-ghost btn-sm" id="addPhoto" style="margin-top:0.5rem"><i class="ph ph-plus"></i>+ Adicionar foto</button>
+          </div>
+        </div>
+
+        <div class="p-card reveal" style="opacity:0.7;border-style:dashed">
+          <div style="display:flex;align-items:center;gap:0.75rem">
+            <i class="ph-duotone ph-watch" style="font-size:1.75rem;color:var(--color-text-muted)"></i>
+            <div style="flex:1">
+              <strong style="font-family:var(--font-display);font-size:0.9375rem;display:block">Conectar Garmin</strong>
+              <span style="font-size:0.8125rem;color:var(--color-text-muted)">Passos, sono e FC — em breve</span>
+            </div>
+            <span class="chip chip-neutral"><i class="ph ph-lock-simple"></i>Em breve</span>
+          </div>
+        </div>
+      </section>
+
+      <!-- ---------- ANAMNESE ---------- -->
+      <section class="pwa-view" data-view="anamnese" aria-label="Anamnese">
+        <div id="wizard">
+          <div class="wizard-progress">
+            <div class="wizard-dots" role="progressbar" aria-valuenow="2" aria-valuemin="1" aria-valuemax="7" aria-label="Etapa 2 de 7">
+              <span class="d done"></span><span class="d current"></span><span class="d"></span><span class="d"></span><span class="d"></span><span class="d"></span><span class="d"></span>
+            </div>
+            <div class="wizard-meta">
+              <span class="lbl">Etapa <span class="mono" id="stepNum">2</span> de 7 · <span id="stepName">Saúde intestinal</span></span>
+              <span class="saved-pill"><i class="ph ph-cloud-check"></i>Salvo</span>
+            </div>
+          </div>
+
+          <div class="wizard-step" data-step="1" data-active="false">
+            <div class="q-block"><div class="q">Qual seu objetivo principal?</div>
+              <div class="opt-row" data-single>
+                <button class="opt sel" aria-pressed="true">Desinflamação</button>
+                <button class="opt" aria-pressed="false">Emagrecimento</button>
+                <button class="opt" aria-pressed="false">Ganho de massa</button>
+                <button class="opt" aria-pressed="false">Performance</button>
+                <button class="opt" aria-pressed="false">Definição</button>
+                <button class="opt" aria-pressed="false">Saúde geral</button>
+              </div>
+            </div>
+            <div class="q-block"><div class="q">Idade · Altura · Peso</div>
+              <div style="display:flex;gap:0.5rem">
+                <input class="input mono" value="41" aria-label="Idade" />
+                <input class="input mono" value="1,78 m" aria-label="Altura" />
+                <input class="input mono" value="94 kg" aria-label="Peso" />
+              </div>
+            </div>
+          </div>
+
+          <div class="wizard-step" data-step="2" data-active="true">
+            <div class="q-block" data-required><div class="q">Diagnóstico intestinal</div>
+              <div class="opt-row" data-single>
+                <button class="opt" aria-pressed="false">Não</button>
+                <button class="opt" aria-pressed="false">SII</button>
+                <button class="opt" aria-pressed="false">Crohn</button>
+                <button class="opt" aria-pressed="false">Colite</button>
+                <button class="opt" aria-pressed="false">SIBO</button>
+                <button class="opt sel" aria-pressed="true"><i class="ph ph-check"></i>Disbiose</button>
+              </div>
+              <div class="field-err">Selecione uma opção</div>
+            </div>
+            <div class="q-block"><div class="q">Intolerância à lactose</div>
+              <div class="opt-row" data-single>
+                <button class="opt" aria-pressed="false">Não</button>
+                <button class="opt" aria-pressed="false">Suspeita</button>
+                <button class="opt sel" aria-pressed="true"><i class="ph ph-check"></i>Confirmada</button>
+              </div>
+            </div>
+            <div class="q-block"><div class="q">Intolerância ao glúten</div>
+              <div class="opt-row" data-single>
+                <button class="opt sel" aria-pressed="true"><i class="ph ph-check"></i>Não</button>
+                <button class="opt" aria-pressed="false">Suspeita</button>
+                <button class="opt" aria-pressed="false">Confirmada</button>
+              </div>
+            </div>
+            <div class="q-block"><div class="q">Consistência das fezes</div>
+              <div class="field">
+                <select class="select" aria-label="Consistência das fezes">
+                  <option>Normais</option><option selected>Alternadas</option><option>Endurecidas</option><option>Amolecidas</option>
+                </select>
+              </div>
+            </div>
+            <div class="q-block"><div class="q">Gases com frequência</div>
+              <div class="opt-row" data-single>
+                <button class="opt" aria-pressed="false">Não</button>
+                <button class="opt sel" aria-pressed="true"><i class="ph ph-check"></i>Sim</button>
+              </div>
+            </div>
+            <div class="q-block"><div class="q">Distensão abdominal</div>
+              <div class="opt-row" data-single>
+                <button class="opt" aria-pressed="false">Não</button>
+                <button class="opt sel" aria-pressed="true"><i class="ph ph-check"></i>Depois de comer</button>
+                <button class="opt" aria-pressed="false">O dia todo</button>
+              </div>
+            </div>
+            <div class="q-block"><div class="q">Alimento que causa desconforto</div>
+              <div class="field"><input class="input" value="leite e pão integral" aria-label="Alimento que causa desconforto" /></div>
+            </div>
+          </div>
+
+          <div class="wizard-step" data-step="3" data-active="false">
+            <div class="q-block"><div class="q">Nível de estresse (0–10)</div>
+              <input class="input mono" type="range" min="0" max="10" value="7" aria-label="Estresse de 0 a 10" />
+              <div class="mono" style="text-align:center;color:var(--color-action-accent);font-weight:600;margin-top:0.4rem">7 / 10</div>
+            </div>
+            <div class="q-block"><div class="q">Horas de sono</div><div class="field"><input class="input mono" value="6h" aria-label="Horas de sono" /></div></div>
+          </div>
+          <div class="wizard-step" data-step="4" data-active="false">
+            <div class="q-block"><div class="q">Água por dia</div><div class="field"><input class="input mono" value="1,5 L" aria-label="Água por dia" /></div></div>
+            <div class="q-block"><div class="q">Refeições por dia</div><div class="field"><input class="input mono" value="4" aria-label="Refeições por dia" /></div></div>
+          </div>
+          <div class="wizard-step" data-step="5" data-active="false">
+            <div class="q-block"><div class="q">Proteínas que gosta</div><div class="field"><input class="input" value="frango, patinho" aria-label="Proteínas" /></div></div>
+            <div class="q-block"><div class="q">Alimentos que evita</div><div class="field"><input class="input" value="queijo, jiló" aria-label="Evita" /></div></div>
+          </div>
+          <div class="wizard-step" data-step="6" data-active="false">
+            <div class="q-block"><div class="q">Pratica atividade física?</div>
+              <div class="opt-row" data-single><button class="opt sel" aria-pressed="true"><i class="ph ph-check"></i>Sim</button><button class="opt" aria-pressed="false">Não</button></div>
+            </div>
+            <div class="q-block"><div class="q">Lesão atual</div><div class="field"><input class="input" value="menisco direito" aria-label="Lesão" /></div></div>
+          </div>
+          <div class="wizard-step" data-step="7" data-active="false">
+            <div class="q-block"><div class="q">Doença diagnosticada</div><div class="field"><input class="input" value="hipertensão" aria-label="Doença" /></div></div>
+            <div class="q-block"><div class="q">Principal incômodo hoje</div><div class="field"><input class="input" value="inchaço e cansaço à tarde" aria-label="Incômodo" /></div></div>
+          </div>
+
+          <div class="wizard-foot">
+            <button class="btn btn-ghost" id="btnBack"><i class="ph ph-arrow-left"></i>Voltar</button>
+            <button class="btn btn-primary" id="btnNext">Próximo<i class="ph ph-arrow-right"></i></button>
+          </div>
+        </div>
+
+        <div class="wizard-done" id="wizardDone" data-active="false">
+          <div class="big-check"><i class="ph-duotone ph-check-circle"></i></div>
+          <h2 style="font-size:1.25rem">Anamnese enviada</h2>
+          <p style="color:var(--color-text-secondary);margin-top:0.5rem;font-size:0.9375rem">O Dr. Pablo vai revisar e montar seu protocolo.</p>
+          <button class="btn btn-ghost" id="btnRestart" style="margin-top:1.5rem"><i class="ph ph-arrow-counter-clockwise"></i>Rever respostas</button>
+        </div>
+      </section>
+
+    </main>
+
+    <!-- ===== BOTTOM TAB-BAR ===== -->
+    <nav class="pwa-tabs" aria-label="Navegação do app">
+      <button data-view="hoje" aria-current="page"><i class="ph ph-sun-horizon"></i>Hoje</button>
+      <button data-view="plano" aria-current="false"><i class="ph ph-notebook"></i>Plano</button>
+      <button data-view="progresso" aria-current="false"><i class="ph ph-chart-line-up"></i>Progresso</button>
+      <button data-view="anamnese" aria-current="false"><i class="ph ph-path"></i>Anamnese</button>
+    </nav>
+  </div>
+
+  <div class="toast-host" id="toastHost" aria-live="polite"></div>
+
+  <script>
+    /* tornar reveals visíveis (sem scroll-reveal entre abas) */
+    document.querySelectorAll('.reveal').forEach(function (el) { el.classList.add('is-visible'); });
+
+    /* toast helper */
+    function toast(msg, icon) {
+      var host = document.getElementById('toastHost');
+      var t = document.createElement('div'); t.className = 'toast';
+      t.innerHTML = '<i class="ph ' + (icon || 'ph-check') + '"></i>' + msg;
+      host.appendChild(t);
+      setTimeout(function () { t.style.opacity = '0'; t.style.transition = 'opacity 240ms'; setTimeout(function () { t.remove(); }, 240); }, 2200);
+    }
+
+    /* ---- navegação por abas (troca de view sem reload) ---- */
+    var tabs = document.querySelectorAll('.pwa-tabs button');
+    var views = document.querySelectorAll('.pwa-view');
+    var titleEl = document.getElementById('pwaTitle');
+    var TITLES = { hoje: 'Bom dia, Maria', plano: 'Meu plano', progresso: 'Minha evolução', anamnese: 'Anamnese' };
+    function showView(name) {
+      views.forEach(function (v) { v.dataset.active = String(v.dataset.view === name); });
+      tabs.forEach(function (t) { t.setAttribute('aria-current', t.dataset.view === name ? 'page' : 'false'); });
+      if (titleEl && TITLES[name]) titleEl.textContent = TITLES[name];
+      var main = document.getElementById('pwaMain'); if (main) main.scrollTop = 0;
+    }
+    tabs.forEach(function (t) { t.addEventListener('click', function () { showView(t.dataset.view); }); });
+
+    /* ---- sino (notificações) ---- */
+    document.getElementById('bellBtn').addEventListener('click', function () { toast('Sem novas notificações', 'ph-bell'); });
+
+    /* ---- HOJE: checklist toggle recalcula contagem/% ---- */
+    var rows = Array.prototype.slice.call(document.querySelectorAll('#pwaMain .pwa-view[data-view="hoje"] .check-row'));
+    var progress = document.getElementById('dayProgress');
+    var total = rows.length;
+    function recompute() {
+      var done = rows.filter(function (r) { return r.dataset.done === 'true'; }).length;
+      var pct = Math.round((done / total) * 100);
+      progress.innerHTML = '<i class="ph ph-list-checks"></i><span class="mono">' + done + '</span> de <span class="mono">' + total + '</span> · <span class="mono">' + pct + '%</span>';
+    }
+    function toggleRow(r) {
+      var on = r.dataset.done === 'true';
+      r.dataset.done = on ? 'false' : 'true';
+      r.querySelector('.check-box').setAttribute('aria-checked', String(!on));
+      recompute();
+    }
+    rows.forEach(function (r) {
+      var box = r.querySelector('.check-box');
+      box.addEventListener('click', function () { toggleRow(r); });
+      box.addEventListener('keydown', function (e) { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); toggleRow(r); } });
+    });
+
+    /* ---- HOJE: card AGORA marca o almoço ---- */
+    document.getElementById('agoraBtn').addEventListener('click', function () {
+      var almoco = rows.filter(function (r) { return /Almoço/.test(r.querySelector('.ci-name').textContent) && r.querySelector('.ci-time').textContent === '12:30'; })[0];
+      if (almoco && almoco.dataset.done !== 'true') { toggleRow(almoco); }
+      this.innerHTML = '<i class="ph ph-check-circle"></i>Feito';
+      this.style.background = 'oklch(0.96 0.01 75)';
+    });
+
+    /* ---- HOJE: atalhos ---- */
+    document.getElementById('aguaBtn').addEventListener('click', function () { toast('+250 ml registrados', 'ph-drop'); });
+    document.getElementById('pesoBtn').addEventListener('click', function () { toast('Registrar peso — em breve no app', 'ph-scales'); });
+    recompute();
+
+    /* ---- PLANO: toggle cheio/vazio ---- */
+    var planoToggles = document.querySelectorAll('.plano-toggle button');
+    planoToggles.forEach(function (b) {
+      b.addEventListener('click', function () {
+        planoToggles.forEach(function (x) { x.setAttribute('aria-pressed', 'false'); });
+        b.setAttribute('aria-pressed', 'true');
+        document.querySelectorAll('.pwa-view[data-view="plano"] .plano-view').forEach(function (v) { v.dataset.active = String(v.dataset.view === b.dataset.view); });
+      });
+    });
+
+    /* ---- PROGRESSO: + foto ---- */
+    document.getElementById('addPhoto').addEventListener('click', function () { toast('Abrir câmera — disponível no app instalado', 'ph-camera'); });
+
+    /* ---- ANAMNESE: pills single-select ---- */
+    document.querySelectorAll('.opt-row[data-single]').forEach(function (row) {
+      row.querySelectorAll('.opt').forEach(function (opt) {
+        opt.addEventListener('click', function () {
+          row.querySelectorAll('.opt').forEach(function (o) { o.setAttribute('aria-pressed', 'false'); o.classList.remove('sel'); o.querySelectorAll('.ph-check').forEach(function (i) { i.remove(); }); });
+          opt.setAttribute('aria-pressed', 'true'); opt.classList.add('sel');
+          var ic = document.createElement('i'); ic.className = 'ph ph-check'; opt.prepend(ic);
+          var blk = opt.closest('.q-block'); if (blk) blk.classList.remove('invalid');
+        });
+      });
+    });
+
+    /* ---- ANAMNESE: Voltar/Próximo + progresso ---- */
+    var STEP_NAMES = { 1: 'Dados pessoais', 2: 'Saúde intestinal', 3: 'Mental & sono', 4: 'Hidratação & hábitos', 5: 'Preferências', 6: 'Atividade física', 7: 'Saúde & expectativas' };
+    var cur = 2, totalSteps = 7;
+    var dots = document.querySelectorAll('.wizard-dots .d');
+    var progressbar = document.querySelector('.wizard-dots');
+    var stepNum = document.getElementById('stepNum'), stepName = document.getElementById('stepName');
+    var anaTitle = document.getElementById('anamneseTitle'); /* opcional nesta casca */
+    var btnBack = document.getElementById('btnBack'), btnNext = document.getElementById('btnNext');
+    var wizard = document.getElementById('wizard'), wDone = document.getElementById('wizardDone');
+    function renderStep() {
+      document.querySelectorAll('.wizard-step').forEach(function (s) { s.dataset.active = String(Number(s.dataset.step) === cur); });
+      dots.forEach(function (d, i) { d.className = 'd' + (i + 1 < cur ? ' done' : (i + 1 === cur ? ' current' : '')); });
+      stepNum.textContent = cur; stepName.textContent = STEP_NAMES[cur];
+      if (anaTitle) anaTitle.textContent = STEP_NAMES[cur];
+      progressbar.setAttribute('aria-valuenow', cur);
+      progressbar.setAttribute('aria-label', 'Etapa ' + cur + ' de ' + totalSteps);
+      btnBack.disabled = cur === 1;
+      btnNext.innerHTML = cur === totalSteps ? 'Concluir<i class="ph ph-check"></i>' : 'Próximo<i class="ph ph-arrow-right"></i>';
+      document.getElementById('pwaMain').scrollTop = 0;
+    }
+    btnBack.addEventListener('click', function () { if (cur > 1) { cur--; renderStep(); } });
+    btnNext.addEventListener('click', function () {
+      var step = document.querySelector('.wizard-step[data-step="' + cur + '"]');
+      var req = step.querySelector('.q-block[data-required]');
+      if (req) { var picked = req.querySelector('.opt[aria-pressed="true"]'); if (!picked) { req.classList.add('invalid'); req.scrollIntoView({ behavior: 'smooth', block: 'center' }); return; } }
+      if (cur < totalSteps) { cur++; renderStep(); }
+      else { wizard.style.display = 'none'; wDone.dataset.active = 'true'; wDone.style.display = 'block'; }
+    });
+    document.getElementById('btnRestart').addEventListener('click', function () { cur = 1; wizard.style.display = 'block'; wDone.style.display = 'none'; wDone.dataset.active = 'false'; renderStep(); });
+    renderStep();
+  </script>
+</body>
+</html>

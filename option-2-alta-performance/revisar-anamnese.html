@@ -1,0 +1,267 @@
+<!DOCTYPE html>
+<html lang="pt-BR" class="">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Dr. Pablo Vilela — Revisar anamnese · João Mendes</title>
+  <script>document.documentElement.classList.add('js-loaded');</script>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600;700&family=Geist+Mono:wght@400;500;600&display=swap" rel="stylesheet" />
+  <script src="https://unpkg.com/@phosphor-icons/web"></script>
+  <link rel="stylesheet" href="shared.css" />
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <div class="app">
+    <aside class="sidebar">
+      <div class="sidebar__brand">
+        <div class="brand-mark">PV</div>
+        <div>
+          <div class="brand-name">Dr. Pablo Vilela</div>
+          <div class="brand-sub">Saúde &amp; Alta Performance</div>
+        </div>
+      </div>
+      <nav class="nav-group" aria-label="Área Dr. Pablo">
+        <div class="nav-group__label">Dr. Pablo</div>
+        <a class="nav-link" href="index.html"><i class="ph ph-squares-four" aria-hidden="true"></i> Dashboard</a>
+        <a class="nav-link" aria-current="page" href="revisar-anamnese.html"><i class="ph ph-clipboard-text" aria-hidden="true"></i> Revisar anamnese</a>
+        <a class="nav-link" href="montar-protocolo.html"><i class="ph ph-list-checks" aria-hidden="true"></i> Montar protocolo</a>
+      </nav>
+      <nav class="nav-group" aria-label="App do paciente">
+        <div class="nav-group__label">App do paciente</div>
+        <a class="nav-link" href="anamnese.html"><i class="ph ph-note-pencil" aria-hidden="true"></i> Anamnese</a>
+        <a class="nav-link" href="hoje.html"><i class="ph ph-sun-horizon" aria-hidden="true"></i> Hoje</a>
+        <a class="nav-link" href="plano.html"><i class="ph ph-cards-three" aria-hidden="true"></i> Plano</a>
+        <a class="nav-link" href="progresso.html"><i class="ph ph-chart-line-up" aria-hidden="true"></i> Progresso</a>
+      </nav>
+    </aside>
+
+    <header class="topbar">
+      <div class="topbar__title">
+        <span class="name">Dr. Pablo Vilela</span>
+        <span class="role">· Mentor de Saúde e Alta Performance</span>
+      </div>
+      <div class="topbar__spacer"></div>
+      <span class="chip-disabled" aria-disabled="true" title="Disponível numa fase futura">
+        <i class="ph ph-watch" aria-hidden="true"></i> Conectar Garmin · Em breve
+      </span>
+      <div class="avatar-menu">
+        <button class="avatar-btn" id="avatarBtn" aria-haspopup="true" aria-expanded="false" aria-controls="avatarMenu">
+          <span class="avatar-circle">PV</span>
+          <i class="ph ph-caret-down" aria-hidden="true"></i>
+        </button>
+        <div class="avatar-dropdown" id="avatarMenu" role="menu" aria-label="Conta">
+          <button class="item" role="menuitem"><i class="ph ph-user-circle" aria-hidden="true"></i> Minha conta</button>
+          <button class="item" role="menuitem"><i class="ph ph-gear" aria-hidden="true"></i> Preferências</button>
+          <div class="sep" role="separator"></div>
+          <button class="item" role="menuitem"><i class="ph ph-sign-out" aria-hidden="true"></i> Sair</button>
+        </div>
+      </div>
+    </header>
+
+    <main class="main" id="main">
+      <a class="breadcrumb" href="index.html"><i class="ph ph-arrow-left" aria-hidden="true"></i> Dashboard</a>
+
+      <div class="triage-head reveal">
+        <div class="triage-id">
+          <div class="name">João Mendes</div>
+          <div class="meta">41 anos · Masculino · Objetivo: Desinflamação · concluiu há 2 dias</div>
+        </div>
+        <a class="btn btn--accent" href="montar-protocolo.html"><i class="ph ph-list-checks" aria-hidden="true"></i> Montar protocolo</a>
+      </div>
+
+      <!-- ===== ACIMA DA DOBRA: resumo (cards por categoria) + flags ===== -->
+      <section class="abovefold reveal" aria-label="Resumo automático e flags de risco">
+        <div>
+          <p class="eyebrow" style="margin-bottom:.5rem">Resumo automático</p>
+          <div class="summary-cards">
+            <div class="summary-card">
+              <div class="cat"><i class="ph ph-target" aria-hidden="true"></i> Objetivo</div>
+              <div class="val">Desinflamação</div>
+            </div>
+            <div class="summary-card">
+              <div class="cat"><i class="ph ph-heartbeat" aria-hidden="true"></i> Saúde</div>
+              <div class="val">Hipertensão controlada (losartana); cirurgia de joelho 2021</div>
+            </div>
+            <div class="summary-card">
+              <div class="cat"><i class="ph ph-pulse" aria-hidden="true"></i> Intestino</div>
+              <div class="val">Lactose confirmada; distensão após comer; fezes alternadas</div>
+            </div>
+            <div class="summary-card">
+              <div class="cat"><i class="ph ph-barbell" aria-hidden="true"></i> Atividade</div>
+              <div class="val">Moderada, 3-4x/semana; disposição "Boa"</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="flags-panel">
+          <h3><i class="ph ph-flag" aria-hidden="true"></i> Flags de risco <span class="chip chip--danger" style="margin-left:auto"><i class="ph-duotone ph-warning-octagon" aria-hidden="true"></i> 3</span></h3>
+          <div class="flag-row is-danger">
+            <i class="ph-duotone ph-warning-octagon" aria-hidden="true"></i>
+            <div class="ftext"><span class="label">Medicamento contínuo:</span> losartana 50mg <span class="sev">Risco clínico</span></div>
+          </div>
+          <div class="flag-row is-danger">
+            <i class="ph-duotone ph-warning-octagon" aria-hidden="true"></i>
+            <div class="ftext"><span class="label">Cirurgia:</span> joelho 2021 <span class="sev">Risco clínico</span></div>
+          </div>
+          <div class="flag-row is-danger">
+            <i class="ph-duotone ph-warning-octagon" aria-hidden="true"></i>
+            <div class="ftext"><span class="label">Intolerância:</span> lactose confirmada <span class="sev">Risco clínico</span></div>
+          </div>
+          <div class="flag-row is-warning">
+            <i class="ph-duotone ph-warning" aria-hidden="true"></i>
+            <div class="ftext"><span class="label">Estresse:</span> 7/10 <span class="sev">Estilo de vida</span></div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ===== ABAIXO DA DOBRA: acordeão das 7 etapas (leitura) ===== -->
+      <p class="eyebrow reveal" style="margin-bottom:.5rem">Respostas por etapa</p>
+      <section class="steps reveal" aria-label="Respostas da anamnese, 7 etapas">
+
+        <div class="step" data-open="true">
+          <button class="step__trigger" data-step-toggle aria-expanded="true">
+            <span class="idx tnum">01</span><span class="title">Dados pessoais</span><i class="ph ph-caret-down" aria-hidden="true"></i>
+          </button>
+          <div class="step__body">
+            <dl class="kv">
+              <dt>Nome</dt><dd>João Mendes</dd>
+              <dt>Idade</dt><dd>41 · Masculino</dd>
+              <dt>Altura / Peso</dt><dd>1,78 m · 94 kg</dd>
+              <dt>Objetivo principal</dt><dd>Desinflamação</dd>
+              <dt>DEXA</dt><dd>Sim (28% de gordura)</dd>
+            </dl>
+          </div>
+        </div>
+
+        <div class="step" data-open="false">
+          <button class="step__trigger" data-step-toggle aria-expanded="false">
+            <span class="idx tnum">02</span><span class="title">Saúde intestinal</span><i class="ph ph-caret-down" aria-hidden="true"></i>
+          </button>
+          <div class="step__body">
+            <dl class="kv">
+              <dt>Diagnóstico intestinal</dt><dd>Disbiose</dd>
+              <dt>Intolerância à lactose</dt><dd>Confirmada</dd>
+              <dt>Intolerância ao glúten</dt><dd>Não</dd>
+              <dt>Consistência das fezes</dt><dd>Alternadas</dd>
+              <dt>Gases com frequência</dt><dd>Sim</dd>
+              <dt>Distensão abdominal</dt><dd>Depois de comer</dd>
+              <dt>Causa desconforto</dt><dd>"leite e pão integral"</dd>
+            </dl>
+          </div>
+        </div>
+
+        <div class="step" data-open="false">
+          <button class="step__trigger" data-step-toggle aria-expanded="false">
+            <span class="idx tnum">03</span><span class="title">Mental &amp; sono</span><i class="ph ph-caret-down" aria-hidden="true"></i>
+          </button>
+          <div class="step__body">
+            <dl class="kv">
+              <dt>Estresse</dt><dd>7/10 · fonte: Trabalho</dd>
+              <dt>Humor</dt><dd>Ansioso</dd>
+              <dt>Sono</dt><dd>6h · qualidade Ruim</dd>
+              <dt>Tela antes de dormir</dt><dd>"Sim, até na cama"</dd>
+              <dt>Suplemento de sono</dt><dd>"melatonina"</dd>
+              <dt>Café à noite</dt><dd>Sim</dd>
+            </dl>
+          </div>
+        </div>
+
+        <div class="step" data-open="false">
+          <button class="step__trigger" data-step-toggle aria-expanded="false">
+            <span class="idx tnum">04</span><span class="title">Hidratação &amp; hábitos</span><i class="ph ph-caret-down" aria-hidden="true"></i>
+          </button>
+          <div class="step__body">
+            <dl class="kv">
+              <dt>Água</dt><dd>1,5 L/dia</dd>
+              <dt>Bebidas</dt><dd>Café + Chimarrão + Álcool social</dd>
+              <dt>Refeições/dia</dt><dd>4</dd>
+              <dt>Doce</dt><dd>À noite</dd>
+              <dt>Ultraprocessados</dt><dd>Frequentemente</dd>
+              <dt>Frituras</dt><dd>Raramente</dd>
+            </dl>
+          </div>
+        </div>
+
+        <div class="step" data-open="false">
+          <button class="step__trigger" data-step-toggle aria-expanded="false">
+            <span class="idx tnum">05</span><span class="title">Preferências alimentares</span><i class="ph ph-caret-down" aria-hidden="true"></i>
+          </button>
+          <div class="step__body">
+            <dl class="kv">
+              <dt>Proteínas</dt><dd>Frango, patinho</dd>
+              <dt>Carboidratos</dt><dd>Arroz, batata-doce</dd>
+              <dt>Frutas</dt><dd>Banana, mamão</dd>
+              <dt>Vegetais</dt><dd>Abobrinha, cenoura</dd>
+              <dt>Evita</dt><dd>Queijo (lactose); jiló</dd>
+              <dt>Piora o intestino</dt><dd>Leite</dd>
+            </dl>
+          </div>
+        </div>
+
+        <div class="step" data-open="false">
+          <button class="step__trigger" data-step-toggle aria-expanded="false">
+            <span class="idx tnum">06</span><span class="title">Atividade física</span><i class="ph ph-caret-down" aria-hidden="true"></i>
+          </button>
+          <div class="step__body">
+            <dl class="kv">
+              <dt>Pratica</dt><dd>Sim · musculação + corrida</dd>
+              <dt>Frequência</dt><dd>3-4x/semana · intensidade Moderada</dd>
+              <dt>Aeróbico</dt><dd>Sim · disposição Boa</dd>
+              <dt>Lesão</dt><dd>"menisco direito"</dd>
+              <dt>Medicamentos</dt><dd>"losartana 50mg"</dd>
+              <dt>Suplementos</dt><dd>"creatina, whey"</dd>
+            </dl>
+          </div>
+        </div>
+
+        <div class="step" data-open="false">
+          <button class="step__trigger" data-step-toggle aria-expanded="false">
+            <span class="idx tnum">07</span><span class="title">Saúde &amp; expectativas</span><i class="ph ph-caret-down" aria-hidden="true"></i>
+          </button>
+          <div class="step__body">
+            <dl class="kv">
+              <dt>Doença</dt><dd>"hipertensão"</dd>
+              <dt>Histórico familiar</dt><dd>"pai hipertenso, mãe diabética"</dd>
+              <dt>Cirurgia abdominal</dt><dd>Não</dd>
+              <dt>Incômodo</dt><dd>"inchaço e cansaço à tarde"</dd>
+              <dt>Acompanhamento</dt><dd>"Sim, mas parei"</dd>
+              <dt>Tempo de preparo</dt><dd>"Tempo limitado"</dd>
+            </dl>
+          </div>
+        </div>
+
+      </section>
+    </main>
+  </div>
+
+  <script>
+  (function () {
+    'use strict';
+    /* shell: avatar menu + reveal */
+    var avBtn = document.getElementById('avatarBtn'), avMenu = document.getElementById('avatarMenu');
+    if (avBtn && avMenu) {
+      avBtn.addEventListener('click', function (e) { e.stopPropagation(); var o = avMenu.getAttribute('data-open') === 'true'; avMenu.setAttribute('data-open', String(!o)); avBtn.setAttribute('aria-expanded', String(!o)); });
+      document.addEventListener('click', function () { avMenu.setAttribute('data-open', 'false'); avBtn.setAttribute('aria-expanded', 'false'); });
+      document.addEventListener('keydown', function (e) { if (e.key === 'Escape' && avMenu.getAttribute('data-open') === 'true') { avMenu.setAttribute('data-open', 'false'); avBtn.setAttribute('aria-expanded', 'false'); avBtn.focus(); } });
+    }
+    var reveals = document.querySelectorAll('.reveal');
+    if ('IntersectionObserver' in window && reveals.length) {
+      var io = new IntersectionObserver(function (es) { es.forEach(function (en) { if (en.isIntersecting) { en.target.classList.add('is-visible'); io.unobserve(en.target); } }); }, { threshold: 0.06 });
+      reveals.forEach(function (el) { io.observe(el); });
+    } else { reveals.forEach(function (el) { el.classList.add('is-visible'); }); }
+
+    /* (a) accordion expand/collapse on the 7 steps */
+    document.querySelectorAll('[data-step-toggle]').forEach(function (btn) {
+      btn.addEventListener('click', function () {
+        var step = btn.closest('.step');
+        var open = step.getAttribute('data-open') === 'true';
+        step.setAttribute('data-open', String(!open));
+        btn.setAttribute('aria-expanded', String(!open));
+      });
+    });
+  })();
+  </script>
+</body>
+</html>

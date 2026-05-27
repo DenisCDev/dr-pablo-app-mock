@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Dr. Pablo Vilela — Dashboard</title>
+  <script>document.documentElement.classList.add('js-loaded');</script>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600&family=DM+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet" />
+  <script src="https://unpkg.com/@phosphor-icons/web"></script>
+  <link rel="stylesheet" href="shared.css" />
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <div class="app">
+    <!-- ===== SIDEBAR (identica nas 7 telas) ===== -->
+    <aside class="sidebar">
+      <div class="sidebar-brand">
+        <div class="brand-mono" aria-hidden="true">PV</div>
+        <div class="brand-text">Dr. Pablo Vilela<small>Mentor de Saúde</small></div>
+      </div>
+      <nav class="nav-group" aria-label="Área do Dr. Pablo">
+        <div class="nav-group-label">Dr. Pablo</div>
+        <a class="nav-link" href="index.html" aria-current="page"><i class="ph ph-squares-four"></i>Dashboard</a>
+        <a class="nav-link" href="revisar-anamnese.html"><i class="ph ph-clipboard-text"></i>Revisar anamnese</a>
+        <a class="nav-link" href="montar-protocolo.html"><i class="ph ph-list-checks"></i>Montar protocolo</a>
+      </nav>
+      <nav class="nav-group nav-group--patient" aria-label="App do paciente">
+        <div class="nav-group-label">App do paciente</div>
+        <a class="nav-link" href="anamnese.html"><i class="ph ph-path"></i>Anamnese</a>
+        <a class="nav-link" href="hoje.html"><i class="ph ph-sun-horizon"></i>Hoje</a>
+        <a class="nav-link" href="plano.html"><i class="ph ph-notebook"></i>Plano</a>
+        <a class="nav-link" href="progresso.html"><i class="ph ph-chart-line-up"></i>Progresso</a>
+      </nav>
+    </aside>
+
+    <div class="shell-main">
+      <!-- ===== TOPBAR (identica nas 7 telas) ===== -->
+      <header class="topbar">
+        <div class="topbar-title">Dr. Pablo Vilela <small>· Mentor de Saúde e Alta Performance</small></div>
+        <div class="topbar-spacer"></div>
+        <button class="chip-soon" disabled aria-disabled="true" title="Disponível em breve"><i class="ph ph-watch"></i>Conectar Garmin · Em breve</button>
+        <div class="avatar-wrap">
+          <button class="avatar-btn" id="avatarBtn" aria-haspopup="true" aria-expanded="false" aria-label="Menu da conta">PV</button>
+          <div class="avatar-menu" id="avatarMenu" role="menu" aria-label="Conta">
+            <div class="avatar-menu-head"><strong>Dr. Pablo Vilela</strong><span>pablo@vilela.health</span></div>
+            <button role="menuitem"><i class="ph ph-user-gear"></i>Minha conta</button>
+            <button role="menuitem"><i class="ph ph-bell"></i>Notificações</button>
+            <button role="menuitem"><i class="ph ph-sign-out"></i>Sair</button>
+          </div>
+        </div>
+      </header>
+
+      <!-- ===== CONTENT ===== -->
+      <main class="content">
+        <div class="page-head">
+          <p class="eyebrow">Visão geral · Pacientes</p>
+          <h1>Dashboard por status</h1>
+          <p class="sub">Quem precisa de você primeiro, quem ainda não respondeu e quem está em acompanhamento.</p>
+        </div>
+
+        <!-- HERO STAT (hero signature: big tabular number) -->
+        <section class="hero-stat reveal" aria-label="Resumo de status">
+          <div class="num tnum">1</div>
+          <div class="meta">
+            <strong>paciente precisa de ação</strong>
+            <span>João Mendes concluiu a anamnese e aguarda sua triagem.</span>
+          </div>
+          <div class="hero-stat-aside">
+            <div class="mini"><b class="tnum">2</b><span>aguardando</span></div>
+            <div class="mini"><b class="tnum">3</b><span>ativos</span></div>
+            <div class="mini"><b class="tnum">81%</b><span>adesão média</span></div>
+          </div>
+        </section>
+
+        <div class="status-board">
+          <!-- GRUPO 1: Precisa de ação (1) -->
+          <section class="status-group reveal" data-collapsed="false">
+            <button class="status-group-head" aria-expanded="true" aria-label="Precisa de ação, 1 paciente">
+              <i class="ph ph-caret-down chevron"></i>
+              <span class="dot dot-danger"></span>
+              <h2>Precisa de ação</h2>
+              <span class="count tnum">1</span>
+            </button>
+            <div class="status-group-body">
+              <a class="patient-card" href="revisar-anamnese.html" aria-label="Abrir triagem de João Mendes">
+                <div class="pc-top">
+                  <div>
+                    <div class="pc-name">João Mendes</div>
+                    <div class="pc-goal">Desinflamação · 41 anos</div>
+                  </div>
+                  <span class="chip chip-danger"><i class="ph-duotone ph-flag"></i>3 flags</span>
+                </div>
+                <div class="pc-meta"><i class="ph ph-clock"></i>Concluiu há 2 dias</div>
+                <div class="pc-foot">
+                  <span class="btn btn-accent btn-sm"><i class="ph ph-arrow-right"></i>Abrir triagem</span>
+                </div>
+              </a>
+            </div>
+          </section>
+
+          <!-- GRUPO 2: Aguardando paciente (2) -->
+          <section class="status-group reveal" data-collapsed="false">
+            <button class="status-group-head" aria-expanded="true" aria-label="Aguardando paciente, 2 pacientes">
+              <i class="ph ph-caret-down chevron"></i>
+              <span class="dot dot-warning"></span>
+              <h2>Aguardando paciente</h2>
+              <span class="count tnum">2</span>
+            </button>
+            <div class="status-group-body">
+              <div class="patient-card static">
+                <div class="pc-top">
+                  <div>
+                    <div class="pc-name">Lucas Pereira</div>
+                    <div class="pc-goal">Performance · 35 anos</div>
+                  </div>
+                  <span class="chip chip-neutral"><i class="ph ph-hourglass-medium"></i>Pendente</span>
+                </div>
+                <div class="pc-meta"><i class="ph ph-paper-plane-tilt"></i>Anamnese não preenchida · link enviado há 4 dias</div>
+              </div>
+              <div class="patient-card static">
+                <div class="pc-top">
+                  <div>
+                    <div class="pc-name">Camila Nogueira</div>
+                    <div class="pc-goal">Definição · 39 anos</div>
+                  </div>
+                  <span class="chip chip-neutral"><i class="ph ph-hourglass-medium"></i>Pendente</span>
+                </div>
+                <div class="pc-meta"><i class="ph ph-paper-plane-tilt"></i>Anamnese não preenchida · link enviado há 1 dia</div>
+              </div>
+            </div>
+          </section>
+
+          <!-- GRUPO 3: Ativos (3) -->
+          <section class="status-group reveal" data-collapsed="false">
+            <button class="status-group-head" aria-expanded="true" aria-label="Ativos, 3 pacientes">
+              <i class="ph ph-caret-down chevron"></i>
+              <span class="dot dot-success"></span>
+              <h2>Ativos</h2>
+              <span class="count tnum">3</span>
+            </button>
+            <div class="status-group-body">
+              <a class="patient-card" href="revisar-anamnese.html" aria-label="Maria Clara Souza, adesão 92%">
+                <div class="pc-top">
+                  <div>
+                    <div class="pc-name">Maria Clara Souza</div>
+                    <div class="pc-goal">Emagrecimento · 33 anos</div>
+                  </div>
+                  <span class="chip chip-success"><i class="ph ph-check-circle"></i>92%</span>
+                </div>
+                <div class="pc-foot">
+                  <div class="adesao-bar"><span style="width:92%"></span></div>
+                  <span class="pc-goal mono">92%</span>
+                </div>
+              </a>
+              <a class="patient-card" href="revisar-anamnese.html" aria-label="Beatriz Carvalho, adesão 86%">
+                <div class="pc-top">
+                  <div>
+                    <div class="pc-name">Beatriz Carvalho</div>
+                    <div class="pc-goal">Saúde geral · 47 anos</div>
+                  </div>
+                  <span class="chip chip-success"><i class="ph ph-check-circle"></i>86%</span>
+                </div>
+                <div class="pc-foot">
+                  <div class="adesao-bar"><span style="width:86%"></span></div>
+                  <span class="pc-goal mono">86%</span>
+                </div>
+              </a>
+              <a class="patient-card" href="revisar-anamnese.html" aria-label="Rafael Antunes, adesão 64%">
+                <div class="pc-top">
+                  <div>
+                    <div class="pc-name">Rafael Antunes</div>
+                    <div class="pc-goal">Ganho de massa · 28 anos</div>
+                  </div>
+                  <span class="chip chip-warning"><i class="ph ph-warning"></i>64%</span>
+                </div>
+                <div class="pc-foot">
+                  <div class="adesao-bar warn"><span style="width:64%"></span></div>
+                  <span class="pc-goal mono">64%</span>
+                </div>
+              </a>
+            </div>
+          </section>
+        </div>
+      </main>
+    </div>
+  </div>
+
+  <div class="toast-host" id="toastHost" aria-live="polite"></div>
+
+  <script>
+    /* ---- shared: avatar menu (handler 1) ---- */
+    (function () {
+      var btn = document.getElementById('avatarBtn');
+      var menu = document.getElementById('avatarMenu');
+      if (!btn) return;
+      function close() { menu.dataset.open = 'false'; btn.setAttribute('aria-expanded', 'false'); }
+      btn.addEventListener('click', function (e) {
+        e.stopPropagation();
+        var open = menu.dataset.open === 'true';
+        menu.dataset.open = open ? 'false' : 'true';
+        btn.setAttribute('aria-expanded', String(!open));
+      });
+      document.addEventListener('click', function (e) { if (!menu.contains(e.target)) close(); });
+      document.addEventListener('keydown', function (e) { if (e.key === 'Escape') close(); });
+    })();
+
+    /* ---- shared: reveal-on-scroll (enhancement, content visible by default) ---- */
+    (function () {
+      if (!('IntersectionObserver' in window)) { document.querySelectorAll('.reveal').forEach(function (el) { el.classList.add('is-visible'); }); return; }
+      var io = new IntersectionObserver(function (entries) {
+        entries.forEach(function (en) { if (en.isIntersecting) { en.target.classList.add('is-visible'); io.unobserve(en.target); } });
+      }, { threshold: 0.08 });
+      document.querySelectorAll('.reveal').forEach(function (el) { io.observe(el); });
+    })();
+
+    /* ---- dashboard: status-group collapse (handler 2) ---- */
+    document.querySelectorAll('.status-group-head').forEach(function (head) {
+      head.addEventListener('click', function () {
+        var group = head.closest('.status-group');
+        var collapsed = group.dataset.collapsed === 'true';
+        group.dataset.collapsed = collapsed ? 'false' : 'true';
+        head.setAttribute('aria-expanded', String(collapsed));
+      });
+    });
+  </script>
+</body>
+</html>

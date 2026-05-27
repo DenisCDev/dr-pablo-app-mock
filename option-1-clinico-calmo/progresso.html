@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Dr. Pablo Vilela — Progresso (paciente)</title>
+  <script>document.documentElement.classList.add('js-loaded');</script>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600&family=DM+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet" />
+  <script src="https://unpkg.com/@phosphor-icons/web"></script>
+  <link rel="stylesheet" href="shared.css" />
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <div class="app">
+    <aside class="sidebar">
+      <div class="sidebar-brand">
+        <div class="brand-mono" aria-hidden="true">PV</div>
+        <div class="brand-text">Dr. Pablo Vilela<small>Mentor de Saúde</small></div>
+      </div>
+      <nav class="nav-group" aria-label="Área do Dr. Pablo">
+        <div class="nav-group-label">Dr. Pablo</div>
+        <a class="nav-link" href="index.html"><i class="ph ph-squares-four"></i>Dashboard</a>
+        <a class="nav-link" href="revisar-anamnese.html"><i class="ph ph-clipboard-text"></i>Revisar anamnese</a>
+        <a class="nav-link" href="montar-protocolo.html"><i class="ph ph-list-checks"></i>Montar protocolo</a>
+      </nav>
+      <nav class="nav-group nav-group--patient" aria-label="App do paciente">
+        <div class="nav-group-label">App do paciente</div>
+        <a class="nav-link" href="anamnese.html"><i class="ph ph-path"></i>Anamnese</a>
+        <a class="nav-link" href="hoje.html"><i class="ph ph-sun-horizon"></i>Hoje</a>
+        <a class="nav-link" href="plano.html"><i class="ph ph-notebook"></i>Plano</a>
+        <a class="nav-link" href="progresso.html" aria-current="page"><i class="ph ph-chart-line-up"></i>Progresso</a>
+      </nav>
+    </aside>
+
+    <div class="shell-main">
+      <header class="topbar">
+        <div class="topbar-title">Dr. Pablo Vilela <small>· Mentor de Saúde e Alta Performance</small></div>
+        <div class="topbar-spacer"></div>
+        <button class="chip-soon" disabled aria-disabled="true" title="Disponível em breve"><i class="ph ph-watch"></i>Conectar Garmin · Em breve</button>
+        <div class="avatar-wrap">
+          <button class="avatar-btn" id="avatarBtn" aria-haspopup="true" aria-expanded="false" aria-label="Menu da conta">PV</button>
+          <div class="avatar-menu" id="avatarMenu" role="menu" aria-label="Conta">
+            <div class="avatar-menu-head"><strong>Dr. Pablo Vilela</strong><span>pablo@vilela.health</span></div>
+            <button role="menuitem"><i class="ph ph-user-gear"></i>Minha conta</button>
+            <button role="menuitem"><i class="ph ph-bell"></i>Notificações</button>
+            <button role="menuitem"><i class="ph ph-sign-out"></i>Sair</button>
+          </div>
+        </div>
+      </header>
+
+      <main class="content">
+        <div class="page-head">
+          <p class="eyebrow">App do paciente · PWA</p>
+          <h1>Progresso</h1>
+          <p class="sub">Peso, adesão e fotos ao longo do tempo. Pré-visualização do app mobile (Maria Clara Souza).</p>
+        </div>
+
+        <div class="phone-stage">
+          <div class="phone" role="group" aria-label="App do paciente — Progresso">
+            <div class="phone-statusbar">
+              <span class="mono">11:14</span>
+              <span class="dots"><i class="ph ph-cell-signal-full"></i><i class="ph ph-wifi-high"></i><i class="ph ph-battery-high"></i></span>
+            </div>
+            <div class="phone-appbar">
+              <div class="pv" aria-hidden="true">PV</div>
+              <h2>Minha evolução</h2>
+            </div>
+            <div class="phone-body">
+
+              <!-- Peso no tempo (SVG inline) -->
+              <div class="p-section-label"><i class="ph ph-scales"></i>Peso ao longo do tempo</div>
+              <div class="weight-card p-card reveal">
+                <div class="weight-head">
+                  <span class="cur mono">68,1 kg</span>
+                  <span class="trend"><i class="ph ph-trend-down"></i>−3,4 kg em ~10 sem.</span>
+                </div>
+                <svg class="chart-svg" viewBox="0 0 300 120" preserveAspectRatio="none" role="img" aria-label="Peso caindo de 71,5 kg para 68,1 kg ao longo de 10 semanas">
+                  <defs>
+                    <linearGradient id="wfill" x1="0" y1="0" x2="0" y2="1">
+                      <stop offset="0%" stop-color="oklch(0.46 0.05 155 / 0.22)" />
+                      <stop offset="100%" stop-color="oklch(0.46 0.05 155 / 0)" />
+                    </linearGradient>
+                  </defs>
+                  <polyline points="20,12 76,32 132,57 188,77 244,94 280,108 280,120 20,120"
+                            fill="url(#wfill)" stroke="none" />
+                  <polyline points="20,12 76,32 132,57 188,77 244,94 280,108"
+                            fill="none" stroke="oklch(0.46 0.05 155)" stroke-width="2.5"
+                            stroke-linecap="round" stroke-linejoin="round" />
+                  <g fill="oklch(0.46 0.05 155)">
+                    <circle cx="20" cy="12" r="3.5" /><circle cx="76" cy="32" r="3.5" /><circle cx="132" cy="57" r="3.5" />
+                    <circle cx="188" cy="77" r="3.5" /><circle cx="244" cy="94" r="3.5" />
+                    <circle cx="280" cy="108" r="4.5" fill="oklch(0.62 0.14 45)" />
+                  </g>
+                </svg>
+                <div class="chart-x"><span>04/03</span><span>18/03</span><span>01/04</span><span>15/04</span><span>29/04</span><span>13/05</span></div>
+              </div>
+
+              <!-- Adesao semanal -->
+              <div class="p-section-label"><i class="ph ph-chart-bar"></i>Adesão semanal</div>
+              <div class="p-card reveal">
+                <div class="adesao-weeks">
+                  <div class="wk"><div class="bar-track"><div class="bar-fill" style="height:78%"></div></div><div class="pct mono">78%</div><div class="wlbl">Sem 1</div></div>
+                  <div class="wk"><div class="bar-track"><div class="bar-fill" style="height:84%"></div></div><div class="pct mono">84%</div><div class="wlbl">Sem 2</div></div>
+                  <div class="wk"><div class="bar-track"><div class="bar-fill" style="height:90%"></div></div><div class="pct mono">90%</div><div class="wlbl">Sem 3</div></div>
+                  <div class="wk current"><div class="bar-track"><div class="bar-fill" style="height:92%"></div></div><div class="pct mono">92%</div><div class="wlbl">Atual</div></div>
+                </div>
+              </div>
+
+              <!-- Fotos (estado vazio) -->
+              <div class="p-section-label"><i class="ph ph-camera"></i>Fotos de evolução</div>
+              <div class="p-card reveal">
+                <div class="empty">
+                  <i class="ph-duotone ph-image-square"></i>
+                  <strong>Sem fotos ainda</strong>
+                  <span>Adicione uma foto para acompanhar sua evolução</span>
+                  <button class="btn btn-ghost btn-sm" id="addPhoto" style="margin-top:0.5rem"><i class="ph ph-plus"></i>+ Adicionar foto</button>
+                </div>
+              </div>
+
+              <!-- Garmin desabilitado (par com chip do topbar) -->
+              <div class="p-card reveal" style="opacity:0.7;border-style:dashed">
+                <div style="display:flex;align-items:center;gap:0.75rem">
+                  <i class="ph-duotone ph-watch" style="font-size:1.75rem;color:var(--color-text-muted)"></i>
+                  <div style="flex:1">
+                    <strong style="font-family:var(--font-display);font-size:0.9375rem;display:block">Conectar Garmin</strong>
+                    <span style="font-size:0.8125rem;color:var(--color-text-muted)">Passos, sono e FC — em breve</span>
+                  </div>
+                  <span class="chip chip-neutral"><i class="ph ph-lock-simple"></i>Em breve</span>
+                </div>
+              </div>
+
+            </div>
+            <nav class="phone-nav" aria-label="Navegação do app">
+              <a href="hoje.html"><i class="ph ph-sun-horizon"></i>Hoje</a>
+              <a href="plano.html"><i class="ph ph-notebook"></i>Plano</a>
+              <a href="progresso.html" aria-current="page"><i class="ph ph-chart-line-up"></i>Progresso</a>
+              <a href="anamnese.html"><i class="ph ph-path"></i>Anamnese</a>
+            </nav>
+          </div>
+        </div>
+      </main>
+    </div>
+  </div>
+
+  <div class="toast-host" id="toastHost" aria-live="polite"></div>
+
+  <script>
+    /* ---- shared: avatar menu ---- */
+    (function () {
+      var btn = document.getElementById('avatarBtn'); var menu = document.getElementById('avatarMenu');
+      if (!btn) return;
+      function close() { menu.dataset.open = 'false'; btn.setAttribute('aria-expanded', 'false'); }
+      btn.addEventListener('click', function (e) { e.stopPropagation(); var open = menu.dataset.open === 'true'; menu.dataset.open = open ? 'false' : 'true'; btn.setAttribute('aria-expanded', String(!open)); });
+      document.addEventListener('click', function (e) { if (!menu.contains(e.target)) close(); });
+      document.addEventListener('keydown', function (e) { if (e.key === 'Escape') close(); });
+    })();
+    /* ---- shared: reveal ---- */
+    (function () {
+      if (!('IntersectionObserver' in window)) { document.querySelectorAll('.reveal').forEach(function (el) { el.classList.add('is-visible'); }); return; }
+      var io = new IntersectionObserver(function (entries) { entries.forEach(function (en) { if (en.isIntersecting) { en.target.classList.add('is-visible'); io.unobserve(en.target); } }); }, { threshold: 0.06 });
+      document.querySelectorAll('.reveal').forEach(function (el) { io.observe(el); });
+    })();
+
+    /* ---- progresso: +Adicionar foto toast (handler 13) ---- */
+    document.getElementById('addPhoto').addEventListener('click', function () {
+      var host = document.getElementById('toastHost');
+      var t = document.createElement('div'); t.className = 'toast'; t.innerHTML = '<i class="ph ph-camera"></i>Abrir câmera — disponível no app instalado';
+      host.appendChild(t);
+      setTimeout(function () { t.style.opacity = '0'; t.style.transition = 'opacity 240ms'; setTimeout(function () { t.remove(); }, 240); }, 2400);
+    });
+  </script>
+</body>
+</html>
