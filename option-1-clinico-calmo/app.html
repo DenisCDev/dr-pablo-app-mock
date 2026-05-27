@@ -220,6 +220,7 @@
     var FIRST = ((PVDB.current() && PVDB.current().nome) || 'Maria').split(' ')[0];
     var TITLES = { hoje: 'Bom dia, ' + FIRST, treino: 'Treino', plano: 'Meu plano', progresso: 'Minha evolução', anamnese: 'Anamnese' };
     var METODOS = [['reta', 'Reta (normal)'], ['piramide', 'Pirâmide'], ['drop-set', 'Drop-set (série descendente)'], ['bi-set', 'Bi-set'], ['rest-pause', 'Rest-pause']];
+    function greeting() { var h = new Date().getHours(); return h < 12 ? 'Bom dia' : (h < 18 ? 'Boa tarde' : 'Boa noite'); }
 
     function esc(s) { return String(s == null ? '' : s).replace(/[&<>"]/g, function (c) { return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]; }); }
     function toast(msg, icon) { var host = document.getElementById('toastHost'); var t = document.createElement('div'); t.className = 'toast'; t.innerHTML = '<i class="ph ' + (icon || 'ph-check') + '"></i>' + esc(msg); host.appendChild(t); setTimeout(function () { t.style.opacity = '0'; t.style.transition = 'opacity 240ms'; setTimeout(function () { t.remove(); }, 240); }, 2200); }
@@ -232,12 +233,19 @@
       var v = document.getElementById('view-hoje');
       if (!PVDB.hasProtocol(PID)) { v.innerHTML = emptyProto(); return; }
       var items = PVDB.todayItems(PID), adh = PVDB.adherenceToday(PID), wk = PVDB.adherenceWeek(PID), consult = PVDB.consult(PID);
-      var pending = items.filter(function (i) { return !i.done && i.time; }).sort(function (a, b) { return a.time.localeCompare(b.time); });
-      var agora = pending[0];
+      var nowMin = (function () { var d = new Date(); return d.getHours() * 60 + d.getMinutes(); })();
+      function toMin(t) { var p = (t || '').split(':'); return (+p[0]) * 60 + (+p[1] || 0); }
+      var timed = items.filter(function (i) { return i.time && !i.done; }).map(function (i) { i._m = toMin(i.time); return i; });
+      var upcoming = timed.filter(function (i) { return i._m >= nowMin; }).sort(function (a, b) { return a._m - b._m; });
+      var past = timed.filter(function (i) { return i._m < nowMin; }).sort(function (a, b) { return a._m - b._m; });
+      var agora = null, mode = '';
+      if (upcoming.length) { agora = upcoming[0]; mode = (agora._m - nowMin <= 20) ? 'Agora' : 'A seguir'; }
+      else if (past.length) { agora = past[0]; mode = 'Atrasado'; }
+      var nowLabel = ('0' + Math.floor(nowMin / 60)).slice(-2) + ':' + ('0' + (nowMin % 60)).slice(-2);
       var html = '';
       if (consult) html += '<div class="consult-banner"><i class="ph-duotone ph-video-camera"></i><div class="ct"><strong>Consulta agendada</strong>' + esc(consult.quando) + '</div><a class="btn btn-primary btn-sm" href="' + esc(consult.link) + '" target="_blank" rel="noopener">Entrar</a></div>';
-      if (agora) html += '<div class="agora-card"><p class="eyebrow">Agora</p><div class="agora-when"><span class="t mono">' + esc(agora.time) + '</span><span class="n">' + esc(agora.name) + '</span></div>' + (agora.sub ? '<p class="desc">' + esc(agora.sub) + '</p>' : '') + '<button class="btn" data-toggle="' + esc(agora.id) + '"><i class="ph ph-check"></i>' + (agora.id === 'trn' ? 'Abrir treino' : 'Marcar feito') + '</button></div>';
-      else html += '<div class="agora-card"><p class="eyebrow">Agora</p><div class="agora-when"><span class="n">Tudo em dia por aqui</span></div><p class="desc">Você concluiu os itens com horário de hoje. Mandou bem!</p></div>';
+      if (agora) html += '<div class="agora-card"><p class="eyebrow">' + mode + ' · agora ' + nowLabel + '</p><div class="agora-when"><span class="t mono">' + esc(agora.time) + '</span><span class="n">' + esc(agora.name) + '</span></div>' + (agora.sub ? '<p class="desc">' + esc(agora.sub) + '</p>' : '') + '<button class="btn" data-toggle="' + esc(agora.id) + '"><i class="ph ph-check"></i>' + (agora.id === 'trn' ? 'Abrir treino' : 'Marcar feito') + '</button></div>';
+      else html += '<div class="agora-card"><p class="eyebrow">Tudo em dia · agora ' + nowLabel + '</p><div class="agora-when"><span class="n">Nada pendente por agora</span></div><p class="desc">Você concluiu os itens com horário de hoje.</p></div>';
       html += '<div class="adesao-hero p-card" style="margin-bottom:0.875rem"><div class="adesao-ring" style="--p:' + wk + '"><div class="inner mono">' + wk + '%</div></div><div><div class="at">Adesão da semana</div><div class="as">Média dos últimos 7 dias</div></div></div>';
       html += '<div class="p-card"><div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:0.5rem"><strong style="font-family:var(--font-display);font-size:0.9375rem">Checklist do dia</strong><span class="saved-pill" id="dayProgress"><i class="ph ph-list-checks"></i><span class="mono">' + adh.done + '</span> de <span class="mono">' + adh.total + '</span> · <span class="mono">' + adh.pct + '%</span></span></div>';
       var lastGroup = null;
@@ -310,7 +318,7 @@
       if (RENDER[name]) RENDER[name]();
       views.forEach(function (vv) { vv.dataset.active = String(vv.dataset.view === name); });
       tabs.forEach(function (t) { t.setAttribute('aria-current', t.dataset.view === name ? 'page' : 'false'); });
-      if (titleEl && TITLES[name]) titleEl.textContent = TITLES[name];
+      if (titleEl) { if (name === 'hoje') titleEl.textContent = greeting() + ', ' + FIRST; else if (TITLES[name]) titleEl.textContent = TITLES[name]; }
       var m = document.getElementById('pwaMain'); if (m) m.scrollTop = 0;
     }
     tabs.forEach(function (t) { t.addEventListener('click', function () { showView(t.dataset.view); }); });
