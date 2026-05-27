@@ -38,7 +38,7 @@
     .pwa-tabs button:hover { color: var(--color-text-secondary); }
     .pwa-tabs button[aria-current="page"] { color: var(--color-action-primary); }
     .pwa-tabs button[aria-current="page"] i { color: var(--color-action-primary); }
-    .consult-banner { display: flex; align-items: center; gap: 0.625rem; padding: 0.75rem 0.875rem; border-radius: var(--radius-ctrl); background: var(--color-chip-success-bg); border: 1px solid var(--color-chip-success-ring); margin-bottom: 0.875rem; }
+    .consult-banner { display: flex; align-items: center; gap: 0.625rem; padding: 0.75rem 0.875rem; border-radius: var(--radius-ctrl); background: oklch(0.58 0.21 256 / 0.10); border: 1px solid oklch(0.58 0.21 256 / 0.35); margin-bottom: 0.875rem; }
     .consult-banner i { color: var(--color-action-primary); font-size: 1.25rem; }
     .consult-banner .ct { flex: 1; font-size: 0.8125rem; }
     .consult-banner .ct strong { display: block; font-family: var(--font-display); }
@@ -51,7 +51,7 @@
     /* --- TREINO: blocos de exercício + séries + método + timer --- */
     .ex-block { background: var(--color-surface-raised); border: 1px solid var(--color-border-subtle); border-radius: var(--radius-card); box-shadow: var(--shadow-sm); padding: 0.875rem 1rem; margin-bottom: 0.875rem; }
     .ex-head { display: flex; align-items: center; gap: 0.625rem; margin-bottom: 0.625rem; }
-    .ex-idx { width: 24px; height: 24px; border-radius: 7px; background: var(--color-chip-success-bg); color: var(--primitive-sage-700); display: grid; place-items: center; font-family: var(--font-mono); font-size: 0.8125rem; font-weight: 600; flex: none; }
+    .ex-idx { width: 24px; height: 24px; border-radius: 7px; background: oklch(0.58 0.21 256 / 0.12); color: var(--color-action-primary); display: grid; place-items: center; font-family: var(--font-mono); font-size: 0.8125rem; font-weight: 600; flex: none; }
     .ex-name { font-family: var(--font-display); font-weight: 600; font-size: 1rem; }
     .ex-controls { display: flex; align-items: flex-end; gap: 0.625rem; margin-bottom: 0.5rem; flex-wrap: wrap; }
     .metodo-wrap { display: flex; flex-direction: column; gap: 0.2rem; flex: 1; min-width: 170px; }
@@ -71,7 +71,10 @@
     .rest-timer { position: fixed; left: 50%; transform: translateX(-50%); bottom: calc(74px + env(safe-area-inset-bottom)); z-index: 40; display: none; align-items: center; gap: 0.625rem; background: var(--primitive-stone-900); color: oklch(0.985 0.010 75); padding: 0.5rem 0.75rem 0.5rem 1rem; border-radius: var(--radius-pill); box-shadow: var(--shadow-lg); }
     .rest-timer.show { display: flex; }
     .rest-timer .lbl { display: flex; align-items: center; gap: 0.35rem; font-size: 0.8125rem; }
-    .rest-timer .lbl i { color: var(--primitive-sage-400); font-size: 1.1rem; }
+    .rest-timer .lbl i { color: var(--color-action-primary); font-size: 1.1rem; }
+    .set-play { width: 38px; height: 38px; border-radius: 10px; border: 2px solid var(--color-action-primary); background: oklch(0.58 0.21 256 / 0.10); color: var(--color-action-primary); display: grid; place-items: center; flex: none; }
+    .set-play:hover { background: oklch(0.58 0.21 256 / 0.18); }
+    .set-clock { font-family: var(--font-mono); font-variant-numeric: tabular-nums; font-size: 0.95rem; font-weight: 600; color: var(--color-text-primary); width: 56px; flex: none; text-align: center; }
     .rest-timer .rt { font-family: var(--font-mono); font-variant-numeric: tabular-nums; font-size: 1.125rem; font-weight: 600; min-width: 46px; text-align: center; }
     .rest-timer button { color: oklch(0.985 0.010 75); font-size: 0.75rem; font-weight: 600; background: oklch(1 0 0 / 0.14); border-radius: 99px; padding: 0.3rem 0.6rem; }
     .rest-timer button:hover { background: oklch(1 0 0 / 0.24); }
@@ -259,6 +262,7 @@
 
     /* ---------- TREINO (check por série + kg + reps + timer + método) ---------- */
     function renderTreino() {
+      if (cardioInt) { clearInterval(cardioInt); cardioInt = null; cardioKey = null; }
       var v = document.getElementById('view-treino');
       var proto = PVDB.protocol(PID);
       if (!proto || !(proto.treino || []).length) { v.innerHTML = emptyProto(); return; }
@@ -270,8 +274,20 @@
         html += '<div class="ex-controls"><label class="metodo-wrap"><span>Método</span><select class="metodo-sel" data-metodo="' + ei + '" aria-label="Método de ' + esc(ex.n) + '">' + METODOS.map(function (m) { return '<option value="' + m[0] + '"' + (ex.metodo === m[0] ? ' selected' : '') + '>' + m[1] + '</option>'; }).join('') + '</select></label><span class="rest-pill"><i class="ph ph-timer"></i>' + (rest ? rest + 's' : '—') + '</span></div>';
         if (ex.metodo === 'drop-set' && ex.drops) html += '<div class="ex-hint"><i class="ph ph-info"></i>' + esc(ex.drops) + '</div>';
         sets.forEach(function (st, si) {
-          var done = PVDB.isSetDone(PID, ei, si), kg = PVDB.getKg(PID, ei, si);
-          html += '<div class="set-row' + (done ? ' done' : '') + '"><span class="set-n">Série ' + (si + 1) + '</span><input class="set-kg input mono" data-kg="' + ei + '-' + si + '" inputmode="decimal" value="' + esc(kg) + '" placeholder="kg" aria-label="Peso série ' + (si + 1) + '" /><span class="set-reps">× ' + esc(st.reps) + '</span><button class="set-check" data-set="' + ei + '-' + si + '" data-rest="' + rest + '" aria-pressed="' + done + '" aria-label="Concluir série ' + (si + 1) + '"><i class="ph ph-check"></i></button></div>';
+          var done = PVDB.isSetDone(PID, ei, si);
+          var key = ei + '-' + si;
+          var timed = /min|cont[íi]nu|seg\b/i.test(st.reps || '');
+          if (timed) {
+            var mm = (st.reps || '').match(/(\d+)\s*min/i); var tgt = mm ? (+mm[1]) * 60 : 0;
+            html += '<div class="set-row' + (done ? ' done' : '') + '"><span class="set-n">Série ' + (si + 1) + '</span>'
+              + '<button class="set-play" data-cardio="' + key + '" data-target="' + tgt + '" aria-label="Cronômetro série ' + (si + 1) + '"><i class="ph ph-play"></i></button>'
+              + '<span class="set-clock mono" id="clk-' + key + '">00:00</span>'
+              + '<span class="set-reps">' + esc(st.reps) + '</span>'
+              + '<button class="set-check" data-set="' + key + '" data-rest="' + rest + '" aria-pressed="' + done + '" aria-label="Concluir série ' + (si + 1) + '"><i class="ph ph-check"></i></button></div>';
+          } else {
+            var kg = PVDB.getKg(PID, ei, si);
+            html += '<div class="set-row' + (done ? ' done' : '') + '"><span class="set-n">Série ' + (si + 1) + '</span><input class="set-kg input mono" data-kg="' + key + '" inputmode="decimal" value="' + esc(kg) + '" placeholder="kg" aria-label="Peso série ' + (si + 1) + '" /><span class="set-reps">× ' + esc(st.reps) + '</span><button class="set-check" data-set="' + key + '" data-rest="' + rest + '" aria-pressed="' + done + '" aria-label="Concluir série ' + (si + 1) + '"><i class="ph ph-check"></i></button></div>';
+          }
         });
         html += '</div>';
       });
@@ -333,8 +349,35 @@
     document.getElementById('rtSkip').addEventListener('click', stopRest);
     document.getElementById('rtPlus').addEventListener('click', function () { restLeft += 15; paintTimer(); showTimer(true); });
 
+    /* ---------- cronômetro de cardio (exercícios por tempo, ex: corrida) ---------- */
+    var cardioInt = null, cardioKey = null, cardioSec = 0, cardioTarget = 0;
+    function fmtClock(s) { return ('0' + Math.floor(s / 60)).slice(-2) + ':' + ('0' + (s % 60)).slice(-2); }
+    function cardioTick() {
+      cardioSec++;
+      var el = document.getElementById('clk-' + cardioKey); if (el) el.textContent = fmtClock(cardioSec);
+      if (cardioTarget && cardioSec >= cardioTarget) {
+        var pr = cardioKey.split('-'); clearInterval(cardioInt); cardioInt = null;
+        if (!PVDB.isSetDone(PID, +pr[0], +pr[1])) PVDB.toggleSet(PID, +pr[0], +pr[1]);
+        if (navigator.vibrate) navigator.vibrate(300);
+        toast('Cardio concluído!', 'ph-check-circle'); renderTreino();
+      }
+    }
+    function toggleCardio(btn) {
+      var key = btn.dataset.cardio, target = +btn.dataset.target || 0;
+      if (cardioInt && cardioKey === key) { clearInterval(cardioInt); cardioInt = null; btn.querySelector('i').className = 'ph ph-play'; return; }
+      if (cardioInt) clearInterval(cardioInt);
+      document.querySelectorAll('[data-cardio] i').forEach(function (i) { i.className = 'ph ph-play'; });
+      if (cardioKey !== key) cardioSec = 0;
+      cardioKey = key; cardioTarget = target;
+      var clk = document.getElementById('clk-' + key); if (clk) clk.textContent = fmtClock(cardioSec);
+      btn.querySelector('i').className = 'ph ph-pause';
+      cardioInt = setInterval(cardioTick, 1000);
+    }
+
     /* ---------- delegated clicks ---------- */
     document.getElementById('pwaMain').addEventListener('click', function (e) {
+      var cd = e.target.closest('[data-cardio]');
+      if (cd) { toggleCardio(cd); return; }
       var sc = e.target.closest('[data-set]');
       if (sc) { var pr = sc.dataset.set.split('-'); var nd = PVDB.toggleSet(PID, +pr[0], +pr[1]); var rest = +sc.dataset.rest || 0; renderTreino(); if (nd && rest) startRest(rest); return; }
       var tog = e.target.closest('[data-toggle]');
