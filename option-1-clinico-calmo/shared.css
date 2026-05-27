@@ -188,6 +188,16 @@ ul, ol { margin: 0; padding: 0; list-style: none; }
 .nav-group--patient .nav-link[aria-current="page"] { background: var(--color-chip-warning-bg); color: var(--color-chip-warning-text); }
 .nav-group--patient .nav-link[aria-current="page"] i { color: var(--color-action-accent); }
 
+.sidebar-foot { margin-top: auto; padding-top: 1rem; border-top: 1px solid var(--color-border-subtle); }
+.nav-link--demo { color: var(--color-text-secondary); }
+.nav-link--demo i { color: var(--color-text-muted); }
+.demo-tag {
+  margin-left: auto; font-size: 0.625rem; font-weight: 600;
+  letter-spacing: 0.08em; text-transform: uppercase;
+  padding: 0.1rem 0.4rem; border-radius: 999px;
+  background: var(--color-surface-subtle); color: var(--color-text-muted);
+}
+
 /* ---- Topbar ---- */
 .shell-main { display: flex; flex-direction: column; min-width: 0; }
 .topbar {
@@ -382,5 +392,6 @@ ul, ol { margin: 0; padding: 0; list-style: none; }
   .sidebar { position: static; height: auto; flex-direction: row; flex-wrap: wrap; align-items: center; gap: 0.75rem; }
   .nav-group { flex-direction: row; flex-wrap: wrap; }
   .nav-group-label { width: 100%; padding-bottom: 0.25rem; }
+  .sidebar-foot { margin-top: 0; padding-top: 0; border-top: none; }
   .content { padding: 1.5rem 1rem 2.5rem; }
 }
