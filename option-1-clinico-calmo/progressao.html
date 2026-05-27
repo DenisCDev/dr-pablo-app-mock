@@ -13,6 +13,7 @@
   <link rel="stylesheet" href="styles.css" />
   <script src="db.js"></script>
   <style>
+    .tl { max-width: 760px; }
     .prog-cards { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 0.875rem; margin-bottom: 1.75rem; }
     .prog-card { background: var(--color-surface-raised); border: 1px solid var(--color-border-subtle); border-radius: var(--radius-card); box-shadow: var(--shadow-sm); padding: 1rem 1.125rem; }
     .prog-card.alert { border-color: var(--color-chip-warning-ring); }
@@ -35,7 +36,7 @@
     .tl-item:last-child::before { display: none; }
     .tl-ic { width: 38px; height: 38px; border-radius: 11px; flex: none; display: grid; place-items: center; font-size: 1.15rem; z-index: 1; }
     .tl-ic.peso { background: var(--color-chip-success-bg); color: var(--primitive-sage-700); }
-    .tl-ic.carga { background: oklch(0.62 0.14 45 / 0.12); color: var(--color-action-accent); }
+    .tl-ic.carga { background: oklch(0.58 0.21 256 / 0.14); color: var(--color-action-accent); }
     .tl-ic.alerta { background: var(--color-chip-danger-bg); color: var(--color-chip-danger-text); }
     .tl-body { flex: 1; background: var(--color-surface-raised); border: 1px solid var(--color-border-subtle); border-radius: var(--radius-ctrl); box-shadow: var(--shadow-sm); padding: 0.75rem 0.875rem; min-width: 0; }
     .tl-body.is-alert { border-color: var(--color-chip-danger-ring); }

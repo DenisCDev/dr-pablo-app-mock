@@ -1,6 +1,8 @@
+@import url('https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600;700&family=Geist+Mono:wght@400;500;600&display=swap');
+
 /* ============================================================================
-   Clínico-Calmo — shared.css
-   Variant A · aesthetic = organic/hand-crafted · F4 sidebar-shell-app (claro)
+   Hevy-like — shared.css (tema CLARO · azul · grotesca Geist)
+   Branco/cinza-frio + acento azul + sans limpa (inspirado no Hevy).
    Tokens OKLCH 3-tier (primitives → alias → component) · dual-layer warm shadows.
    Linked by all 7 screens. Per-screen tweaks live in styles.css.
    ========================================================================== */
@@ -12,64 +14,64 @@
    State coverage: rest + hover + active + focus-ring + disabled em todo interativo
    --------------------------------------------------------------------------- */
 :root {
-  /* ---- Tier 1: primitives ---- */
-  --primitive-cream-50:   oklch(0.985 0.010 75);
-  --primitive-cream-100:  oklch(0.965 0.012 72);
-  --primitive-cream-200:  oklch(0.925 0.012 72);
-  --primitive-cream-300:  oklch(0.875 0.012 70);
-  --primitive-stone-500:  oklch(0.62  0.012 65);
-  --primitive-stone-700:  oklch(0.42  0.012 60);
-  --primitive-stone-900:  oklch(0.24  0.014 55);
-  --primitive-sage-400:   oklch(0.56  0.05  155);
-  --primitive-sage-500:   oklch(0.46  0.05  155);
-  --primitive-sage-600:   oklch(0.39  0.05  155);
-  --primitive-sage-700:   oklch(0.33  0.05  155);
-  --primitive-terra-400:  oklch(0.70  0.13  45);
-  --primitive-terra-500:  oklch(0.62  0.14  45);
-  --primitive-terra-600:  oklch(0.54  0.14  42);
+  /* ---- Tier 1: primitives (Hevy claro — neutros frios + azul + verde) ---- */
+  --primitive-cream-50:   oklch(0.968 0.003 255);  /* page bg (cinza claro frio) */
+  --primitive-cream-100:  oklch(0.945 0.004 255);  /* sidebar / subtle / inputs */
+  --primitive-cream-200:  oklch(0.905 0.006 257);  /* border subtle */
+  --primitive-cream-300:  oklch(0.85  0.008 258);  /* border default */
+  --primitive-stone-500:  oklch(0.56  0.014 260);  /* text muted */
+  --primitive-stone-700:  oklch(0.40  0.018 262);  /* text secondary */
+  --primitive-stone-900:  oklch(0.20  0.022 264);  /* text primary (quase preto frio) */
+  --primitive-sage-400:   oklch(0.72  0.17  150);  /* verde claro */
+  --primitive-sage-500:   oklch(0.62  0.17  150);  /* verde (success / PR) */
+  --primitive-sage-600:   oklch(0.54  0.16  152);
+  --primitive-sage-700:   oklch(0.47  0.15  152);  /* verde escuro p/ texto */
+  --primitive-terra-400:  oklch(0.68  0.17  256);  /* azul claro */
+  --primitive-terra-500:  oklch(0.58  0.21  256);  /* AZUL Hevy (primary/accent) */
+  --primitive-terra-600:  oklch(0.50  0.20  258);  /* azul escuro (hover/active) */
 
   /* ---- Tier 2: alias ---- */
-  --color-surface-base:    var(--primitive-cream-50);    /* fundo da pagina */
-  --color-surface-raised:  oklch(1 0 0);                 /* cards elevados */
+  --color-surface-base:    var(--primitive-cream-50);    /* fundo da pagina (cinza claro) */
+  --color-surface-raised:  oklch(1 0 0);                 /* cards brancos */
   --color-surface-subtle:  var(--primitive-cream-100);   /* zebra, inputs */
-  --color-surface-sidebar: var(--primitive-cream-100);   /* sidebar clara */
+  --color-surface-sidebar: var(--primitive-cream-100);   /* sidebar clara fria */
   --color-border-subtle:   var(--primitive-cream-200);
   --color-border-default:  var(--primitive-cream-300);
   --color-text-primary:    var(--primitive-stone-900);
   --color-text-secondary:  var(--primitive-stone-700);
   --color-text-muted:      var(--primitive-stone-500);
-  --color-action-primary:  var(--primitive-sage-500);
-  --color-action-accent:   var(--primitive-terra-500);
-  --color-action-destructive: oklch(0.55 0.18 28);
+  --color-action-primary:  var(--primitive-terra-500);   /* AZUL */
+  --color-action-accent:   var(--primitive-terra-500);   /* AZUL */
+  --color-action-destructive: oklch(0.58 0.22 27);
 
-  /* semantic — harmonizados com a paleta, NAO Tailwind default */
-  --color-semantic-success: var(--primitive-sage-500);   /* concluido / ativo */
-  --color-semantic-warning: oklch(0.78 0.13 75);         /* flag amarela: estilo de vida */
-  --color-semantic-danger:  oklch(0.52 0.17 28);         /* flag vermelha: clinica acionavel */
-  --color-semantic-info:    oklch(0.55 0.07 230);
-  --color-focus-ring:       oklch(0.46 0.05 155 / 0.5);
+  /* semantic */
+  --color-semantic-success: var(--primitive-sage-500);   /* verde: concluido / PR */
+  --color-semantic-warning: oklch(0.75 0.16 70);         /* ambar */
+  --color-semantic-danger:  oklch(0.58 0.22 27);         /* vermelho */
+  --color-semantic-info:    var(--primitive-terra-500);  /* azul */
+  --color-focus-ring:       oklch(0.58 0.21 256 / 0.5);
 
   /* ---- Tier 3: componentes que divergem no uso do alias ---- */
   --color-button-primary-bg-rest:     var(--color-action-primary);
-  --color-button-primary-bg-hover:    var(--primitive-sage-600);
-  --color-button-primary-bg-active:   var(--primitive-sage-700);
-  --color-button-primary-bg-disabled: oklch(0.46 0.05 155 / 0.40);
-  --color-button-primary-text:        var(--color-surface-raised);
+  --color-button-primary-bg-hover:    var(--primitive-terra-600);
+  --color-button-primary-bg-active:   oklch(0.45 0.19 258);
+  --color-button-primary-bg-disabled: oklch(0.58 0.21 256 / 0.40);
+  --color-button-primary-text:        oklch(1 0 0);
   --color-button-primary-focus-ring:  var(--color-focus-ring);
 
   --color-button-accent-bg-rest:      var(--color-action-accent);
   --color-button-accent-bg-hover:     var(--primitive-terra-600);
-  --color-button-accent-bg-active:    oklch(0.48 0.14 42);
-  --color-button-accent-bg-disabled:  oklch(0.62 0.14 45 / 0.40);
+  --color-button-accent-bg-active:    oklch(0.45 0.19 258);
+  --color-button-accent-bg-disabled:  oklch(0.58 0.21 256 / 0.40);
 
-  --color-chip-danger-ring:  oklch(0.52 0.17 28 / 0.40);
-  --color-chip-danger-bg:    oklch(0.52 0.17 28 / 0.08);
-  --color-chip-danger-text:  oklch(0.42 0.17 28);
-  --color-chip-warning-ring: oklch(0.78 0.13 75 / 0.45);
-  --color-chip-warning-bg:   oklch(0.78 0.13 75 / 0.12);
-  --color-chip-warning-text: oklch(0.46 0.10 70);
-  --color-chip-success-ring: oklch(0.56 0.05 155 / 0.45);
-  --color-chip-success-bg:   oklch(0.46 0.05 155 / 0.10);
+  --color-chip-danger-ring:  oklch(0.58 0.22 27 / 0.40);
+  --color-chip-danger-bg:    oklch(0.58 0.22 27 / 0.10);
+  --color-chip-danger-text:  oklch(0.50 0.21 27);
+  --color-chip-warning-ring: oklch(0.75 0.16 70 / 0.45);
+  --color-chip-warning-bg:   oklch(0.75 0.16 70 / 0.14);
+  --color-chip-warning-text: oklch(0.50 0.12 66);
+  --color-chip-success-ring: oklch(0.62 0.17 150 / 0.45);
+  --color-chip-success-bg:   oklch(0.62 0.17 150 / 0.12);
   --color-chip-success-text: var(--primitive-sage-700);
   --color-chip-neutral-ring: var(--primitive-cream-300);
   --color-chip-neutral-bg:   var(--primitive-cream-100);
@@ -78,26 +80,26 @@
   --color-input-bg-rest:      var(--color-surface-subtle);
   --color-input-border-rest:  var(--color-border-default);
   --color-input-border-focus: var(--color-action-primary);
-  --color-input-bg-disabled:  oklch(0.965 0.012 72 / 0.6);
+  --color-input-bg-disabled:  oklch(0.945 0.004 255 / 0.7);
 
-  /* ---- Shadow scale (override, dual-layer warm) ---- */
-  --shadow-sm: 0 1px 2px oklch(0.39 0.05 155 / 0.04), 0 1px 3px oklch(0.24 0.014 55 / 0.04);
-  --shadow-md: 0 4px 12px oklch(0.39 0.05 155 / 0.06), 0 2px 4px oklch(0.24 0.014 55 / 0.05);
-  --shadow-lg: 0 12px 28px oklch(0.39 0.05 155 / 0.08), 0 4px 8px oklch(0.24 0.014 55 / 0.05);
+  /* ---- Shadow scale (frio, sutil — Hevy) ---- */
+  --shadow-sm: 0 1px 2px oklch(0.20 0.02 264 / 0.06), 0 1px 2px oklch(0.20 0.02 264 / 0.04);
+  --shadow-md: 0 4px 12px oklch(0.20 0.02 264 / 0.08), 0 2px 4px oklch(0.20 0.02 264 / 0.05);
+  --shadow-lg: 0 12px 28px oklch(0.20 0.02 264 / 0.12), 0 4px 8px oklch(0.20 0.02 264 / 0.06);
 
-  /* ---- Radius tier ---- */
-  --radius-card: 16px;   /* rounded-2xl */
-  --radius-ctrl: 12px;   /* rounded-xl inputs/botoes */
+  /* ---- Radius tier (cantos medios) ---- */
+  --radius-card: 14px;
+  --radius-ctrl: 10px;
   --radius-pill: 999px;
 
   /* ---- Motion ---- */
-  --motion-base: 200ms;
-  --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
+  --motion-base: 170ms;
+  --ease-out: cubic-bezier(0.2, 0.8, 0.2, 1);
 
-  /* ---- Type ---- */
-  --font-display: "Fraunces", Georgia, serif;
-  --font-body: "DM Sans", system-ui, sans-serif;
-  --font-mono: "IBM Plex Mono", ui-monospace, monospace;
+  /* ---- Type (Geist — grotesca limpa, sem serifa) ---- */
+  --font-display: "Geist", system-ui, -apple-system, sans-serif;
+  --font-body: "Geist", system-ui, -apple-system, sans-serif;
+  --font-mono: "Geist Mono", "IBM Plex Mono", ui-monospace, monospace;
 
   /* ---- Layout ---- */
   --sidebar-w: 256px;
@@ -181,7 +183,7 @@ ul, ol { margin: 0; padding: 0; list-style: none; }
 .nav-link i { font-size: 1.2rem; color: var(--color-text-muted); transition: color var(--motion-base) var(--ease-out); }
 .nav-link:hover { background: var(--color-surface-subtle); color: var(--color-text-primary); }
 .nav-link:hover i { color: var(--color-text-secondary); }
-.nav-link[aria-current="page"] { background: var(--color-chip-success-bg); color: var(--primitive-sage-700); font-weight: 600; }
+.nav-link[aria-current="page"] { background: oklch(0.58 0.21 256 / 0.12); color: var(--color-action-primary); font-weight: 600; }
 .nav-link[aria-current="page"] i { color: var(--color-action-primary); }
 .nav-group--patient .nav-link[aria-current="page"] { background: var(--color-chip-warning-bg); color: var(--color-chip-warning-text); }
 .nav-group--patient .nav-link[aria-current="page"] i { color: var(--color-action-accent); }
@@ -192,7 +194,7 @@ ul, ol { margin: 0; padding: 0; list-style: none; }
   position: sticky; top: 0; z-index: 30;
   display: flex; align-items: center; gap: 1rem;
   padding: 0.875rem 1.75rem;
-  background: oklch(0.985 0.010 75 / 0.86);
+  background: oklch(0.968 0.003 255 / 0.82);
   backdrop-filter: blur(8px);
   border-bottom: 1px solid var(--color-border-subtle);
 }
@@ -241,7 +243,7 @@ ul, ol { margin: 0; padding: 0; list-style: none; }
 .avatar-menu button i { font-size: 1.1rem; color: var(--color-text-muted); }
 
 /* ---- Content canvas ---- */
-.content { flex: 1; padding: 2rem 1.75rem 3rem; max-width: 1180px; width: 100%; }
+.content { flex: 1; padding: 2rem 1.75rem 3rem; max-width: 1180px; width: 100%; margin-inline: auto; }
 .page-head { margin-bottom: 1.75rem; }
 .page-head h1 { font-size: 1.9375rem; }
 .page-head .sub { color: var(--color-text-secondary); margin-top: 0.375rem; font-size: 0.9375rem; }
@@ -313,7 +315,7 @@ ul, ol { margin: 0; padding: 0; list-style: none; }
 .toast {
   display: inline-flex; align-items: center; gap: 0.5rem;
   padding: 0.75rem 1.125rem; border-radius: var(--radius-ctrl);
-  background: var(--primitive-stone-900); color: oklch(0.985 0.010 75);
+  background: var(--primitive-stone-900); color: oklch(0.97 0.005 255);
   font-size: 0.875rem; font-weight: 500; box-shadow: var(--shadow-lg);
   animation: toast-in 240ms var(--ease-out);
 }
@@ -337,7 +339,7 @@ ul, ol { margin: 0; padding: 0; list-style: none; }
   width: var(--phone-w); max-width: 100%;
   background: var(--color-surface-base);
   border-radius: 38px;
-  border: 9px solid oklch(0.30 0.012 60);
+  border: 9px solid oklch(0.32 0.012 265);
   box-shadow: var(--shadow-lg), 0 0 0 1px var(--color-border-default);
   overflow: hidden;
   display: flex; flex-direction: column;

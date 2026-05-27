@@ -21,7 +21,7 @@
     body { background: var(--color-surface-base); }
     .pwa { max-width: 440px; margin: 0 auto; min-height: 100vh; min-height: 100dvh; display: flex; flex-direction: column; background: var(--color-surface-base); box-shadow: var(--shadow-lg); position: relative; }
     @media (max-width: 480px) { .pwa { max-width: none; box-shadow: none; } }
-    .pwa-top { position: sticky; top: 0; z-index: 20; display: flex; align-items: center; gap: 0.625rem; padding: 0.875rem 1.125rem; padding-top: calc(0.875rem + env(safe-area-inset-top)); background: oklch(0.985 0.010 75 / 0.9); backdrop-filter: blur(10px); border-bottom: 1px solid var(--color-border-subtle); }
+    .pwa-top { position: sticky; top: 0; z-index: 20; display: flex; align-items: center; gap: 0.625rem; padding: 0.875rem 1.125rem; padding-top: calc(0.875rem + env(safe-area-inset-top)); background: oklch(0.968 0.003 255 / 0.9); backdrop-filter: blur(10px); border-bottom: 1px solid var(--color-border-subtle); }
     .pwa-top .pv { width: 34px; height: 34px; border-radius: 10px; flex: none; display: grid; place-items: center; background: var(--color-action-primary); color: oklch(1 0 0); font-family: var(--font-display); font-weight: 600; font-size: 0.875rem; box-shadow: var(--shadow-sm); }
     .pwa-top h1 { font-size: 1.0625rem; flex: 1; line-height: 1.12; }
     .pwa-top .bell { width: 38px; height: 38px; border-radius: var(--radius-pill); display: grid; place-items: center; color: var(--color-text-muted); position: relative; flex: none; }
@@ -306,9 +306,9 @@
       var kgs = ws.map(function (w) { return w.kg; }), min = Math.min.apply(null, kgs), max = Math.max.apply(null, kgs), pad = (max - min) * 0.25 || 1, lo = min - pad, hi = max + pad, x0 = 20, x1 = 280, yT = 12, yB = 108, n = ws.length;
       var pts = ws.map(function (w, i) { var x = x0 + (x1 - x0) * (i / (n - 1 || 1)), y = yB - (yB - yT) * ((w.kg - lo) / (hi - lo)); return [Math.round(x), Math.round(y)]; });
       var line = pts.map(function (p) { return p.join(','); }).join(' '), area = line + ' ' + x1 + ',120 ' + x0 + ',120';
-      var dots = pts.map(function (p, i) { var last = i === pts.length - 1; return '<circle cx="' + p[0] + '" cy="' + p[1] + '" r="' + (last ? 4.5 : 3.5) + '"' + (last ? ' fill="oklch(0.62 0.14 45)"' : '') + ' />'; }).join('');
+      var dots = pts.map(function (p, i) { var last = i === pts.length - 1; return '<circle cx="' + p[0] + '" cy="' + p[1] + '" r="' + (last ? 4.5 : 3.5) + '"' + (last ? ' fill="oklch(0.62 0.17 150)"' : '') + ' />'; }).join('');
       var labels = ws.map(function (w) { return '<span>' + esc(w.d) + '</span>'; }).join('');
-      return '<svg class="chart-svg" viewBox="0 0 300 120" preserveAspectRatio="none" role="img" aria-label="Evolução do peso"><defs><linearGradient id="wfill" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="oklch(0.46 0.05 155 / 0.22)" /><stop offset="100%" stop-color="oklch(0.46 0.05 155 / 0)" /></linearGradient></defs><polyline points="' + area + '" fill="url(#wfill)" stroke="none" /><polyline points="' + line + '" fill="none" stroke="oklch(0.46 0.05 155)" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" /><g fill="oklch(0.46 0.05 155)">' + dots + '</g></svg><div class="chart-x">' + labels + '</div>';
+      return '<svg class="chart-svg" viewBox="0 0 300 120" preserveAspectRatio="none" role="img" aria-label="Evolução do peso"><defs><linearGradient id="wfill" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="oklch(0.58 0.21 256 / 0.20)" /><stop offset="100%" stop-color="oklch(0.58 0.21 256 / 0)" /></linearGradient></defs><polyline points="' + area + '" fill="url(#wfill)" stroke="none" /><polyline points="' + line + '" fill="none" stroke="oklch(0.58 0.21 256)" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" /><g fill="oklch(0.58 0.21 256)">' + dots + '</g></svg><div class="chart-x">' + labels + '</div>';
     }
 
     /* ---------- view switching ---------- */

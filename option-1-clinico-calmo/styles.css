@@ -194,7 +194,7 @@
 .agora-card .agora-when .n { font-family: var(--font-display); font-size: 1.25rem; font-weight: 600; }
 .agora-card .desc { font-size: 0.875rem; color: oklch(1 0 0 / 0.92); margin-bottom: 0.875rem; }
 .agora-card .btn { background: oklch(1 0 0); color: var(--color-action-accent); width: 100%; }
-.agora-card .btn:hover { background: oklch(0.96 0.01 75); }
+.agora-card .btn:hover { background: oklch(0.93 0.005 255); }
 
 .adesao-hero { display: flex; align-items: center; gap: 1rem; padding: 1rem 1.125rem; margin-bottom: 0.875rem; }
 .adesao-ring { --p: 92; width: 64px; height: 64px; flex: none; border-radius: 50%; display: grid; place-items: center;
