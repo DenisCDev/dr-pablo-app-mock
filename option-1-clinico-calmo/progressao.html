@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Dr. Pablo Vilela — Progressão dos alunos</title>
+  <script>document.documentElement.classList.add('js-loaded');</script>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600&family=DM+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet" />
+  <script src="https://unpkg.com/@phosphor-icons/web"></script>
+  <link rel="stylesheet" href="shared.css" />
+  <link rel="stylesheet" href="styles.css" />
+  <script src="db.js"></script>
+  <style>
+    .prog-cards { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 0.875rem; margin-bottom: 1.75rem; }
+    .prog-card { background: var(--color-surface-raised); border: 1px solid var(--color-border-subtle); border-radius: var(--radius-card); box-shadow: var(--shadow-sm); padding: 1rem 1.125rem; }
+    .prog-card.alert { border-color: var(--color-chip-warning-ring); }
+    .prog-card .pc-h { display: flex; align-items: center; gap: 0.5rem; margin-bottom: 0.5rem; }
+    .prog-card .av { width: 34px; height: 34px; border-radius: 50%; background: var(--color-action-primary); color: oklch(1 0 0); display: grid; place-items: center; font-family: var(--font-display); font-weight: 600; font-size: 0.8125rem; flex: none; }
+    .prog-card .nm { font-weight: 600; font-size: 0.9375rem; line-height: 1.1; }
+    .prog-card .lift { font-size: 0.75rem; color: var(--color-text-muted); }
+    .prog-card .nums { display: flex; align-items: baseline; gap: 0.4rem; margin-top: 0.3rem; }
+    .prog-card .nums .big { font-family: var(--font-mono); font-variant-numeric: tabular-nums; font-size: 1.75rem; font-weight: 600; }
+    .prog-card .nums .un { color: var(--color-text-muted); font-size: 0.875rem; }
+    .prog-card .nums .arrow { margin-left: auto; font-size: 1.25rem; }
+    .prog-card .arrow.up { color: var(--color-semantic-success); }
+    .prog-card .arrow.flat { color: var(--color-semantic-warning); }
+    .prog-card .nota { font-size: 0.75rem; color: var(--color-text-secondary); margin-top: 0.35rem; display: flex; align-items: center; gap: 0.3rem; }
+    .filter-chips { display: flex; gap: 0.4rem; flex-wrap: wrap; margin-bottom: 1rem; }
+    .filter-chips button { padding: 0.35rem 0.75rem; border-radius: 99px; font-size: 0.8125rem; font-weight: 500; background: var(--color-surface-subtle); border: 1px solid var(--color-border-subtle); color: var(--color-text-secondary); }
+    .filter-chips button[aria-pressed="true"] { background: var(--color-chip-success-bg); border-color: var(--color-action-primary); color: var(--primitive-sage-700); }
+    .tl-item { display: flex; gap: 0.75rem; padding-bottom: 1rem; position: relative; }
+    .tl-item::before { content: ''; position: absolute; left: 18px; top: 40px; bottom: 0; width: 2px; background: var(--color-border-subtle); }
+    .tl-item:last-child::before { display: none; }
+    .tl-ic { width: 38px; height: 38px; border-radius: 11px; flex: none; display: grid; place-items: center; font-size: 1.15rem; z-index: 1; }
+    .tl-ic.peso { background: var(--color-chip-success-bg); color: var(--primitive-sage-700); }
+    .tl-ic.carga { background: oklch(0.62 0.14 45 / 0.12); color: var(--color-action-accent); }
+    .tl-ic.alerta { background: var(--color-chip-danger-bg); color: var(--color-chip-danger-text); }
+    .tl-body { flex: 1; background: var(--color-surface-raised); border: 1px solid var(--color-border-subtle); border-radius: var(--radius-ctrl); box-shadow: var(--shadow-sm); padding: 0.75rem 0.875rem; min-width: 0; }
+    .tl-body.is-alert { border-color: var(--color-chip-danger-ring); }
+    .tl-head { display: flex; align-items: baseline; justify-content: space-between; gap: 0.5rem; }
+    .tl-name { font-weight: 600; font-size: 0.9375rem; }
+    .tl-when { font-size: 0.75rem; color: var(--color-text-muted); font-family: var(--font-mono); flex: none; }
+    .tl-line { font-size: 0.875rem; color: var(--color-text-secondary); margin-top: 0.15rem; }
+    .tl-line b { color: var(--color-text-primary); font-weight: 600; }
+    .tl-sets { display: flex; flex-wrap: wrap; gap: 0.375rem; margin-top: 0.5rem; }
+    .set-pill { font-family: var(--font-mono); font-variant-numeric: tabular-nums; font-size: 0.75rem; background: var(--color-surface-subtle); border: 1px solid var(--color-border-subtle); border-radius: 8px; padding: 0.2rem 0.45rem; color: var(--color-text-secondary); }
+    .set-pill.fail { background: var(--color-chip-danger-bg); border-color: var(--color-chip-danger-ring); color: var(--color-chip-danger-text); }
+    .delta-chip { font-family: var(--font-mono); font-size: 0.75rem; font-weight: 600; padding: 0.1rem 0.4rem; border-radius: 99px; }
+    .delta-chip.down { background: var(--color-chip-success-bg); color: var(--color-chip-success-text); }
+    .delta-chip.up { background: var(--color-chip-warning-bg); color: var(--color-chip-warning-text); }
+  </style>
+</head>
+<body>
+  <div class="app">
+    <aside class="sidebar">
+      <div class="sidebar-brand">
+        <div class="brand-mono" aria-hidden="true">PV</div>
+        <div class="brand-text">Dr. Pablo Vilela<small>Mentor de Saúde</small></div>
+      </div>
+      <nav class="nav-group" aria-label="Área do Dr. Pablo">
+        <div class="nav-group-label">Dr. Pablo</div>
+        <a class="nav-link" href="index.html"><i class="ph ph-squares-four"></i>Dashboard</a>
+        <a class="nav-link" href="revisar-anamnese.html?p=joao"><i class="ph ph-clipboard-text"></i>Revisar anamnese</a>
+        <a class="nav-link" href="montar-protocolo.html?p=maria"><i class="ph ph-list-checks"></i>Montar protocolo</a>
+        <a class="nav-link" href="progressao.html" aria-current="page"><i class="ph ph-chart-line"></i>Progressão</a>
+      </nav>
+      <nav class="nav-group nav-group--patient" aria-label="App do paciente">
+        <div class="nav-group-label">App do paciente (PWA)</div>
+        <a class="nav-link" href="app.html?view=anamnese"><i class="ph ph-path"></i>Anamnese</a>
+        <a class="nav-link" href="app.html?view=hoje"><i class="ph ph-sun-horizon"></i>Hoje</a>
+        <a class="nav-link" href="app.html?view=treino"><i class="ph ph-barbell"></i>Treino</a>
+        <a class="nav-link" href="app.html?view=plano"><i class="ph ph-notebook"></i>Plano</a>
+        <a class="nav-link" href="app.html?view=progresso"><i class="ph ph-chart-line-up"></i>Progresso</a>
+      </nav>
+    </aside>
+
+    <div class="shell-main">
+      <header class="topbar">
+        <div class="topbar-title">Dr. Pablo Vilela <small>· Mentor de Saúde e Alta Performance</small></div>
+        <div class="topbar-spacer"></div>
+        <button class="chip-soon" disabled aria-disabled="true" title="Disponível em breve"><i class="ph ph-watch"></i>Conectar Garmin · Em breve</button>
+        <div class="avatar-wrap">
+          <button class="avatar-btn" id="avatarBtn" aria-haspopup="true" aria-expanded="false" aria-label="Menu da conta">PV</button>
+          <div class="avatar-menu" id="avatarMenu" role="menu" aria-label="Conta">
+            <div class="avatar-menu-head"><strong>Dr. Pablo Vilela</strong><span>pablo@vilela.health</span></div>
+            <button role="menuitem"><i class="ph ph-user-gear"></i>Minha conta</button>
+            <button role="menuitem"><i class="ph ph-bell"></i>Notificações</button>
+            <button role="menuitem" id="resetBtn"><i class="ph ph-arrow-counter-clockwise"></i>Reiniciar demo</button>
+          </div>
+        </div>
+      </header>
+
+      <main class="content">
+        <div class="page-head">
+          <p class="eyebrow">Acompanhamento · Alunos ativos</p>
+          <h1>Progressão dos alunos</h1>
+          <p class="sub">Carga (kg) por série em cada treino e atualizações de peso — em ordem, como uma timeline.</p>
+        </div>
+
+        <div class="prog-cards" id="progCards"></div>
+
+        <div class="section-title"><i class="ph ph-clock-counter-clockwise"></i><h2>Linha do tempo</h2></div>
+        <div class="filter-chips" id="filterChips"></div>
+        <div class="tl" id="timeline"></div>
+      </main>
+    </div>
+  </div>
+
+  <div class="toast-host" id="toastHost" aria-live="polite"></div>
+
+  <script>
+    function esc(s){return String(s==null?'':s).replace(/[&<>"]/g,function(c){return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c];});}
+    function toast(msg, icon){var host=document.getElementById('toastHost');var t=document.createElement('div');t.className='toast';t.innerHTML='<i class="ph '+(icon||'ph-check-circle')+'"></i>'+esc(msg);host.appendChild(t);setTimeout(function(){t.style.opacity='0';t.style.transition='opacity 240ms';setTimeout(function(){t.remove();},240);},2400);}
+    (function(){var btn=document.getElementById('avatarBtn');var menu=document.getElementById('avatarMenu');function close(){menu.dataset.open='false';btn.setAttribute('aria-expanded','false');}btn.addEventListener('click',function(e){e.stopPropagation();var open=menu.dataset.open==='true';menu.dataset.open=open?'false':'true';btn.setAttribute('aria-expanded',String(!open));});document.addEventListener('click',function(e){if(!menu.contains(e.target))close();});document.addEventListener('keydown',function(e){if(e.key==='Escape')close();});})();
+    document.getElementById('resetBtn').addEventListener('click',function(){PVDB.reset();toast('Demonstração reiniciada','ph-arrow-counter-clockwise');render();});
+
+    function initials(nome){return nome.split(' ').filter(Boolean).map(function(w){return w[0];}).slice(0,2).join('').toUpperCase();}
+    function fmtKg(n){return Number(n).toLocaleString('pt-BR',{minimumFractionDigits:0,maximumFractionDigits:1});}
+
+    function renderCards(){
+      var rp = PVDB.resumoProgresso();
+      document.getElementById('progCards').innerHTML = rp.map(function(p){
+        var arrow = p.tend==='up' ? '<i class="ph ph-trend-up arrow up"></i>' : '<i class="ph ph-minus arrow flat"></i>';
+        return '<div class="prog-card'+(p.alerta?' alert':'')+'"><div class="pc-h"><span class="av">'+esc(initials(p.nome))+'</span><div><div class="nm">'+esc(p.nome)+'</div><div class="lift">'+esc(p.lift)+' · '+(p.sexo==='F'?'feminino':'masculino')+'</div></div></div>'
+          + '<div class="nums"><span class="big">'+p.de+'→'+p.para+'</span><span class="un">'+esc(p.un)+'</span>'+arrow+'</div>'
+          + '<div class="nota">'+(p.alerta?'<i class="ph ph-warning" style="color:var(--color-chip-warning-text)"></i>':'<i class="ph ph-check-circle" style="color:var(--color-action-primary)"></i>')+esc(p.nota)+'</div></div>';
+      }).join('');
+    }
+
+    var filtro = 'todos';
+    function renderChips(){
+      var nomes = {}; PVDB.timeline().forEach(function(e){nomes[e.pid]=e.nome;});
+      var chips = '<button data-f="todos" aria-pressed="'+(filtro==='todos')+'">Todos</button>';
+      Object.keys(nomes).forEach(function(pid){ chips += '<button data-f="'+esc(pid)+'" aria-pressed="'+(filtro===pid)+'">'+esc(nomes[pid].split(' ')[0])+'</button>'; });
+      var fc = document.getElementById('filterChips'); fc.innerHTML = chips;
+      fc.querySelectorAll('button').forEach(function(b){ b.addEventListener('click',function(){ filtro=b.dataset.f; renderChips(); renderTimeline(); }); });
+    }
+
+    function setsPills(series){
+      return '<div class="tl-sets">'+series.map(function(st,i){
+        if(st.falhou) return '<span class="set-pill fail"><i class="ph ph-x"></i> '+(st.kg!=null?st.kg+'kg':'')+' · falhou na '+(i+1)+'ª</span>';
+        if(st.kg==null) return '<span class="set-pill">— não fez</span>';
+        return '<span class="set-pill">'+st.kg+'kg × '+st.reps+'</span>';
+      }).join('')+'</div>';
+    }
+
+    function renderTimeline(){
+      var ev = PVDB.timeline().filter(function(e){ return filtro==='todos' || e.pid===filtro; });
+      document.getElementById('timeline').innerHTML = ev.map(function(e){
+        if(e.tipo==='peso'){
+          var dir = e.delta<=0?'down':'up';
+          var chip = '<span class="delta-chip '+dir+'">'+(e.delta<=0?'−':'+')+fmtKg(Math.abs(e.delta))+' kg</span>';
+          return '<div class="tl-item"><div class="tl-ic peso"><i class="ph ph-scales"></i></div><div class="tl-body"><div class="tl-head"><span class="tl-name">'+esc(e.nome)+'</span><span class="tl-when">'+esc(e.quando)+'</span></div><div class="tl-line">Pesagem: <b>'+fmtKg(e.kg)+' kg</b> '+chip+'</div></div></div>';
+        }
+        var alerta = e.incompleto;
+        return '<div class="tl-item"><div class="tl-ic '+(alerta?'alerta':'carga')+'"><i class="ph '+(alerta?'ph-warning-octagon':'ph-barbell')+'"></i></div><div class="tl-body'+(alerta?' is-alert':'')+'"><div class="tl-head"><span class="tl-name">'+esc(e.nome)+'</span><span class="tl-when">'+esc(e.quando)+'</span></div><div class="tl-line">Treino: <b>'+esc(e.exercicio)+'</b>'+(alerta?' <span class="chip chip-danger" style="margin-left:0.3rem"><i class="ph ph-warning"></i>Não completou</span>':'')+'</div>'+setsPills(e.series)+(e.nota?'<div class="tl-line" style="margin-top:0.4rem;color:var(--color-chip-danger-text)"><i class="ph ph-info"></i> '+esc(e.nota)+'</div>':'')+'</div></div>';
+      }).join('') || '<div class="empty"><i class="ph-duotone ph-tray"></i><strong>Sem eventos</strong></div>';
+    }
+
+    function render(){ renderCards(); renderChips(); renderTimeline(); }
+    render();
+  </script>
+</body>
+</html>

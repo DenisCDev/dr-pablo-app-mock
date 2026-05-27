@@ -71,6 +71,23 @@
       logs: { maria: {} },
       weights: { maria: [ { d: '04/03', kg: 71.5 }, { d: '18/03', kg: 70.4 }, { d: '01/04', kg: 69.6 }, { d: '15/04', kg: 68.9 }, { d: '29/04', kg: 68.4 }, { d: '13/05', kg: 68.1 } ] },
       weeks: { maria: [ { wk: 'Sem 1', pct: 78 }, { wk: 'Sem 2', pct: 84 }, { wk: 'Sem 3', pct: 90 }, { wk: 'Atual', pct: 92, current: true } ] },
+      resumoProgresso: [
+        { pid: 'maria', nome: 'Maria Clara Souza', sexo: 'F', lift: 'Agachamento', de: 55, para: 62, un: 'kg', tend: 'up', nota: '+7 kg em 3 semanas' },
+        { pid: 'bia', nome: 'Beatriz Carvalho', sexo: 'F', lift: 'Leg press', de: 80, para: 92, un: 'kg', tend: 'up', nota: '+12 kg em 4 semanas' },
+        { pid: 'rafael', nome: 'Rafael Antunes', sexo: 'M', lift: 'Supino reto', de: 70, para: 72, un: 'kg', tend: 'flat', alerta: true, nota: '1 treino incompleto esta semana' }
+      ],
+      timeline: [
+        { tipo: 'peso', pid: 'maria', nome: 'Maria Clara Souza', quando: 'Hoje · 08:15', kg: 68.1, delta: -0.3 },
+        { tipo: 'carga', pid: 'rafael', nome: 'Rafael Antunes', quando: 'Ontem · 19:50', exercicio: 'Supino reto', incompleto: true, nota: 'Não completou — parou na 3a serie', series: [ { kg: 72, reps: 8 }, { kg: 72, reps: 7 }, { kg: 72, reps: 3, falhou: true } ] },
+        { tipo: 'carga', pid: 'maria', nome: 'Maria Clara Souza', quando: 'Ontem · 18:42', exercicio: 'Agachamento livre', series: [ { kg: 60, reps: 10 }, { kg: 60, reps: 10 }, { kg: 62, reps: 8 }, { kg: 62, reps: 8 } ] },
+        { tipo: 'peso', pid: 'rafael', nome: 'Rafael Antunes', quando: 'Ontem · 07:30', kg: 82.4, delta: 0.2 },
+        { tipo: 'carga', pid: 'bia', nome: 'Beatriz Carvalho', quando: '2 dias · 17:10', exercicio: 'Leg press', series: [ { kg: 90, reps: 12 }, { kg: 90, reps: 12 }, { kg: 92, reps: 10 } ] },
+        { tipo: 'peso', pid: 'bia', nome: 'Beatriz Carvalho', quando: '2 dias · 07:50', kg: 74.2, delta: -0.5 },
+        { tipo: 'carga', pid: 'maria', nome: 'Maria Clara Souza', quando: '3 dias · 18:30', exercicio: 'Agachamento livre', series: [ { kg: 58, reps: 10 }, { kg: 58, reps: 10 }, { kg: 60, reps: 8 }, { kg: 60, reps: 8 } ] },
+        { tipo: 'carga', pid: 'rafael', nome: 'Rafael Antunes', quando: '4 dias · 19:40', exercicio: 'Supino reto', series: [ { kg: 70, reps: 10 }, { kg: 70, reps: 9 }, { kg: 70, reps: 8 } ] },
+        { tipo: 'peso', pid: 'maria', nome: 'Maria Clara Souza', quando: '1 sem · 08:05', kg: 68.9, delta: -0.4 },
+        { tipo: 'carga', pid: 'bia', nome: 'Beatriz Carvalho', quando: '1 sem · 17:00', exercicio: 'Leg press', series: [ { kg: 85, reps: 12 }, { kg: 85, reps: 11 }, { kg: 88, reps: 9 } ] }
+      ],
       consults: {},
       anamneseDone: {}
     };
@@ -92,6 +109,7 @@
     if (!s || !s.meta || s.meta.version !== 3) { s = seed(); write(s); return s; }
     var t = todayISO();
     if (!s.logs.maria || !s.logs.maria[t]) { seedTodayLog(s); write(s); }
+    if (!s.timeline) { var fr = seed(); s.timeline = fr.timeline; s.resumoProgresso = fr.resumoProgresso; write(s); }
     return s;
   }
 
@@ -150,6 +168,8 @@
     adherenceToday: function (id) { var items = API.todayItems(id); var total = items.length || 1; var done = items.filter(function (i) { return i.done; }).length; return { done: done, total: total, pct: Math.round((done / total) * 100) }; },
     adherenceWeek: function (id) { var p = API.patient(id); return p && p.adesaoSemana != null ? p.adesaoSemana : 0; },
     weeks: function (id) { return load().weeks[id] || []; },
+    timeline: function () { return load().timeline || []; },
+    resumoProgresso: function () { return load().resumoProgresso || []; },
 
     /* --- treino por série --- */
     toggleSet: function (id, ex, set) { var s = load(); var tl = trnLog(s, id); var k = ex + '-' + set; var i = tl.setsDone.indexOf(k); if (i >= 0) tl.setsDone.splice(i, 1); else tl.setsDone.push(k); syncTrn(s, id); write(s); return tl.setsDone.indexOf(k) >= 0; },
