@@ -11,10 +11,10 @@
   <script src="https://unpkg.com/@phosphor-icons/web"></script>
   <link rel="stylesheet" href="shared.css" />
   <link rel="stylesheet" href="styles.css" />
+  <script src="db.js"></script>
 </head>
 <body>
   <div class="app">
-    <!-- ===== SIDEBAR (identica nas 7 telas) ===== -->
     <aside class="sidebar">
       <div class="sidebar-brand">
         <div class="brand-mono" aria-hidden="true">PV</div>
@@ -23,20 +23,20 @@
       <nav class="nav-group" aria-label="Área do Dr. Pablo">
         <div class="nav-group-label">Dr. Pablo</div>
         <a class="nav-link" href="index.html" aria-current="page"><i class="ph ph-squares-four"></i>Dashboard</a>
-        <a class="nav-link" href="revisar-anamnese.html"><i class="ph ph-clipboard-text"></i>Revisar anamnese</a>
-        <a class="nav-link" href="montar-protocolo.html"><i class="ph ph-list-checks"></i>Montar protocolo</a>
+        <a class="nav-link" href="revisar-anamnese.html?p=joao"><i class="ph ph-clipboard-text"></i>Revisar anamnese</a>
+        <a class="nav-link" href="montar-protocolo.html?p=maria"><i class="ph ph-list-checks"></i>Montar protocolo</a>
       </nav>
       <nav class="nav-group nav-group--patient" aria-label="App do paciente">
-        <div class="nav-group-label">App do paciente</div>
-        <a class="nav-link" href="anamnese.html"><i class="ph ph-path"></i>Anamnese</a>
-        <a class="nav-link" href="hoje.html"><i class="ph ph-sun-horizon"></i>Hoje</a>
-        <a class="nav-link" href="plano.html"><i class="ph ph-notebook"></i>Plano</a>
-        <a class="nav-link" href="progresso.html"><i class="ph ph-chart-line-up"></i>Progresso</a>
+        <div class="nav-group-label">App do paciente (PWA)</div>
+        <a class="nav-link" href="app.html?view=anamnese"><i class="ph ph-path"></i>Anamnese</a>
+        <a class="nav-link" href="app.html?view=hoje"><i class="ph ph-sun-horizon"></i>Hoje</a>
+        <a class="nav-link" href="app.html?view=treino"><i class="ph ph-barbell"></i>Treino</a>
+        <a class="nav-link" href="app.html?view=plano"><i class="ph ph-notebook"></i>Plano</a>
+        <a class="nav-link" href="app.html?view=progresso"><i class="ph ph-chart-line-up"></i>Progresso</a>
       </nav>
     </aside>
 
     <div class="shell-main">
-      <!-- ===== TOPBAR (identica nas 7 telas) ===== -->
       <header class="topbar">
         <div class="topbar-title">Dr. Pablo Vilela <small>· Mentor de Saúde e Alta Performance</small></div>
         <div class="topbar-spacer"></div>
@@ -47,142 +47,23 @@
             <div class="avatar-menu-head"><strong>Dr. Pablo Vilela</strong><span>pablo@vilela.health</span></div>
             <button role="menuitem"><i class="ph ph-user-gear"></i>Minha conta</button>
             <button role="menuitem"><i class="ph ph-bell"></i>Notificações</button>
-            <button role="menuitem"><i class="ph ph-sign-out"></i>Sair</button>
+            <button role="menuitem" id="resetBtn"><i class="ph ph-arrow-counter-clockwise"></i>Reiniciar demo</button>
           </div>
         </div>
       </header>
 
-      <!-- ===== CONTENT ===== -->
       <main class="content">
-        <div class="page-head">
-          <p class="eyebrow">Visão geral · Pacientes</p>
-          <h1>Dashboard por status</h1>
-          <p class="sub">Quem precisa de você primeiro, quem ainda não respondeu e quem está em acompanhamento.</p>
+        <div class="page-head" style="display:flex;align-items:flex-end;justify-content:space-between;gap:1rem;flex-wrap:wrap">
+          <div>
+            <p class="eyebrow">Visão geral · Pacientes</p>
+            <h1>Dashboard por status</h1>
+            <p class="sub">Quem precisa de você primeiro, quem ainda não respondeu e quem está em acompanhamento.</p>
+          </div>
+          <button class="btn btn-accent" id="novoBtn"><i class="ph ph-paper-plane-tilt"></i>Enviar anamnese</button>
         </div>
 
-        <!-- HERO STAT (hero signature: big tabular number) -->
-        <section class="hero-stat reveal" aria-label="Resumo de status">
-          <div class="num tnum">1</div>
-          <div class="meta">
-            <strong>paciente precisa de ação</strong>
-            <span>João Mendes concluiu a anamnese e aguarda sua triagem.</span>
-          </div>
-          <div class="hero-stat-aside">
-            <div class="mini"><b class="tnum">2</b><span>aguardando</span></div>
-            <div class="mini"><b class="tnum">3</b><span>ativos</span></div>
-            <div class="mini"><b class="tnum">81%</b><span>adesão média</span></div>
-          </div>
-        </section>
-
-        <div class="status-board">
-          <!-- GRUPO 1: Precisa de ação (1) -->
-          <section class="status-group reveal" data-collapsed="false">
-            <button class="status-group-head" aria-expanded="true" aria-label="Precisa de ação, 1 paciente">
-              <i class="ph ph-caret-down chevron"></i>
-              <span class="dot dot-danger"></span>
-              <h2>Precisa de ação</h2>
-              <span class="count tnum">1</span>
-            </button>
-            <div class="status-group-body">
-              <a class="patient-card" href="revisar-anamnese.html" aria-label="Abrir triagem de João Mendes">
-                <div class="pc-top">
-                  <div>
-                    <div class="pc-name">João Mendes</div>
-                    <div class="pc-goal">Desinflamação · 41 anos</div>
-                  </div>
-                  <span class="chip chip-danger"><i class="ph-duotone ph-flag"></i>3 flags</span>
-                </div>
-                <div class="pc-meta"><i class="ph ph-clock"></i>Concluiu há 2 dias</div>
-                <div class="pc-foot">
-                  <span class="btn btn-accent btn-sm"><i class="ph ph-arrow-right"></i>Abrir triagem</span>
-                </div>
-              </a>
-            </div>
-          </section>
-
-          <!-- GRUPO 2: Aguardando paciente (2) -->
-          <section class="status-group reveal" data-collapsed="false">
-            <button class="status-group-head" aria-expanded="true" aria-label="Aguardando paciente, 2 pacientes">
-              <i class="ph ph-caret-down chevron"></i>
-              <span class="dot dot-warning"></span>
-              <h2>Aguardando paciente</h2>
-              <span class="count tnum">2</span>
-            </button>
-            <div class="status-group-body">
-              <div class="patient-card static">
-                <div class="pc-top">
-                  <div>
-                    <div class="pc-name">Lucas Pereira</div>
-                    <div class="pc-goal">Performance · 35 anos</div>
-                  </div>
-                  <span class="chip chip-neutral"><i class="ph ph-hourglass-medium"></i>Pendente</span>
-                </div>
-                <div class="pc-meta"><i class="ph ph-paper-plane-tilt"></i>Anamnese não preenchida · link enviado há 4 dias</div>
-              </div>
-              <div class="patient-card static">
-                <div class="pc-top">
-                  <div>
-                    <div class="pc-name">Camila Nogueira</div>
-                    <div class="pc-goal">Definição · 39 anos</div>
-                  </div>
-                  <span class="chip chip-neutral"><i class="ph ph-hourglass-medium"></i>Pendente</span>
-                </div>
-                <div class="pc-meta"><i class="ph ph-paper-plane-tilt"></i>Anamnese não preenchida · link enviado há 1 dia</div>
-              </div>
-            </div>
-          </section>
-
-          <!-- GRUPO 3: Ativos (3) -->
-          <section class="status-group reveal" data-collapsed="false">
-            <button class="status-group-head" aria-expanded="true" aria-label="Ativos, 3 pacientes">
-              <i class="ph ph-caret-down chevron"></i>
-              <span class="dot dot-success"></span>
-              <h2>Ativos</h2>
-              <span class="count tnum">3</span>
-            </button>
-            <div class="status-group-body">
-              <a class="patient-card" href="revisar-anamnese.html" aria-label="Maria Clara Souza, adesão 92%">
-                <div class="pc-top">
-                  <div>
-                    <div class="pc-name">Maria Clara Souza</div>
-                    <div class="pc-goal">Emagrecimento · 33 anos</div>
-                  </div>
-                  <span class="chip chip-success"><i class="ph ph-check-circle"></i>92%</span>
-                </div>
-                <div class="pc-foot">
-                  <div class="adesao-bar"><span style="width:92%"></span></div>
-                  <span class="pc-goal mono">92%</span>
-                </div>
-              </a>
-              <a class="patient-card" href="revisar-anamnese.html" aria-label="Beatriz Carvalho, adesão 86%">
-                <div class="pc-top">
-                  <div>
-                    <div class="pc-name">Beatriz Carvalho</div>
-                    <div class="pc-goal">Saúde geral · 47 anos</div>
-                  </div>
-                  <span class="chip chip-success"><i class="ph ph-check-circle"></i>86%</span>
-                </div>
-                <div class="pc-foot">
-                  <div class="adesao-bar"><span style="width:86%"></span></div>
-                  <span class="pc-goal mono">86%</span>
-                </div>
-              </a>
-              <a class="patient-card" href="revisar-anamnese.html" aria-label="Rafael Antunes, adesão 64%">
-                <div class="pc-top">
-                  <div>
-                    <div class="pc-name">Rafael Antunes</div>
-                    <div class="pc-goal">Ganho de massa · 28 anos</div>
-                  </div>
-                  <span class="chip chip-warning"><i class="ph ph-warning"></i>64%</span>
-                </div>
-                <div class="pc-foot">
-                  <div class="adesao-bar warn"><span style="width:64%"></span></div>
-                  <span class="pc-goal mono">64%</span>
-                </div>
-              </a>
-            </div>
-          </section>
-        </div>
+        <section class="hero-stat" id="heroStat" aria-label="Resumo de status"></section>
+        <div class="status-board" id="board"></div>
       </main>
     </div>
   </div>
@@ -190,40 +71,72 @@
   <div class="toast-host" id="toastHost" aria-live="polite"></div>
 
   <script>
-    /* ---- shared: avatar menu (handler 1) ---- */
-    (function () {
-      var btn = document.getElementById('avatarBtn');
-      var menu = document.getElementById('avatarMenu');
-      if (!btn) return;
-      function close() { menu.dataset.open = 'false'; btn.setAttribute('aria-expanded', 'false'); }
-      btn.addEventListener('click', function (e) {
-        e.stopPropagation();
-        var open = menu.dataset.open === 'true';
-        menu.dataset.open = open ? 'false' : 'true';
-        btn.setAttribute('aria-expanded', String(!open));
-      });
-      document.addEventListener('click', function (e) { if (!menu.contains(e.target)) close(); });
-      document.addEventListener('keydown', function (e) { if (e.key === 'Escape') close(); });
-    })();
+    function esc(s){return String(s==null?'':s).replace(/[&<>"]/g,function(c){return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c];});}
+    function toast(msg, icon){var host=document.getElementById('toastHost');var t=document.createElement('div');t.className='toast';t.innerHTML='<i class="ph '+(icon||'ph-check-circle')+'"></i>'+esc(msg);host.appendChild(t);setTimeout(function(){t.style.opacity='0';t.style.transition='opacity 240ms';setTimeout(function(){t.remove();},240);},2400);}
 
-    /* ---- shared: reveal-on-scroll (enhancement, content visible by default) ---- */
-    (function () {
-      if (!('IntersectionObserver' in window)) { document.querySelectorAll('.reveal').forEach(function (el) { el.classList.add('is-visible'); }); return; }
-      var io = new IntersectionObserver(function (entries) {
-        entries.forEach(function (en) { if (en.isIntersecting) { en.target.classList.add('is-visible'); io.unobserve(en.target); } });
-      }, { threshold: 0.08 });
-      document.querySelectorAll('.reveal').forEach(function (el) { io.observe(el); });
-    })();
+    /* avatar menu */
+    (function(){var btn=document.getElementById('avatarBtn');var menu=document.getElementById('avatarMenu');function close(){menu.dataset.open='false';btn.setAttribute('aria-expanded','false');}btn.addEventListener('click',function(e){e.stopPropagation();var open=menu.dataset.open==='true';menu.dataset.open=open?'false':'true';btn.setAttribute('aria-expanded',String(!open));});document.addEventListener('click',function(e){if(!menu.contains(e.target))close();});document.addEventListener('keydown',function(e){if(e.key==='Escape')close();});})();
+    document.getElementById('resetBtn').addEventListener('click',function(){PVDB.reset();toast('Demonstração reiniciada','ph-arrow-counter-clockwise');render();});
 
-    /* ---- dashboard: status-group collapse (handler 2) ---- */
-    document.querySelectorAll('.status-group-head').forEach(function (head) {
-      head.addEventListener('click', function () {
-        var group = head.closest('.status-group');
-        var collapsed = group.dataset.collapsed === 'true';
-        group.dataset.collapsed = collapsed ? 'false' : 'true';
-        head.setAttribute('aria-expanded', String(collapsed));
+    function render(){
+      var pats = PVDB.patients();
+      var triagem = pats.filter(function(p){return p.status==='triagem';});
+      var aguardando = pats.filter(function(p){return p.status==='aguardando';});
+      var ativos = pats.filter(function(p){return p.status==='ativo';});
+      var avg = ativos.length ? Math.round(ativos.reduce(function(a,p){return a+(p.adesaoSemana||0);},0)/ativos.length) : 0;
+
+      var hero = document.getElementById('heroStat');
+      if (triagem.length){
+        hero.innerHTML = '<div class="num tnum">'+triagem.length+'</div><div class="meta"><strong>'+(triagem.length===1?'paciente precisa':'pacientes precisam')+' de ação</strong><span>'+esc(triagem[0].nome)+' concluiu a anamnese e aguarda sua triagem.</span></div>'
+          + '<div class="hero-stat-aside"><div class="mini"><b class="tnum">'+aguardando.length+'</b><span>aguardando</span></div><div class="mini"><b class="tnum">'+ativos.length+'</b><span>ativos</span></div><div class="mini"><b class="tnum">'+avg+'%</b><span>adesão média</span></div></div>';
+      } else {
+        hero.innerHTML = '<div class="num tnum">0</div><div class="meta"><strong>nada na fila de triagem</strong><span>Tudo revisado. '+ativos.length+' pacientes ativos.</span></div><div class="hero-stat-aside"><div class="mini"><b class="tnum">'+aguardando.length+'</b><span>aguardando</span></div><div class="mini"><b class="tnum">'+ativos.length+'</b><span>ativos</span></div><div class="mini"><b class="tnum">'+avg+'%</b><span>adesão média</span></div></div>';
+      }
+
+      function group(titulo, dot, n, body, expanded){
+        return '<section class="status-group" data-collapsed="'+(expanded?'false':'true')+'">'
+          +'<button class="status-group-head" aria-expanded="'+(expanded?'true':'false')+'"><i class="ph ph-caret-down chevron"></i><span class="dot dot-'+dot+'"></span><h2>'+esc(titulo)+'</h2><span class="count tnum">'+n+'</span></button>'
+          +'<div class="status-group-body">'+body+'</div></section>';
+      }
+
+      var b1 = triagem.map(function(p){
+        return '<a class="patient-card" href="revisar-anamnese.html?p='+esc(p.id)+'" aria-label="Abrir triagem de '+esc(p.nome)+'"><div class="pc-top"><div><div class="pc-name">'+esc(p.nome)+'</div><div class="pc-goal">'+esc(p.objetivo)+' · '+esc(p.idade)+' anos</div></div>'
+          +(p.flags?'<span class="chip chip-danger"><i class="ph-duotone ph-flag"></i>'+p.flags+' flags</span>':'')+'</div>'
+          +'<div class="pc-meta"><i class="ph ph-clock"></i>Concluiu '+esc(p.submittedRel||'recentemente')+'</div>'
+          +'<div class="pc-foot"><span class="btn btn-accent btn-sm"><i class="ph ph-arrow-right"></i>Abrir triagem</span></div></a>';
+      }).join('') || '<div class="patient-card static"><div class="pc-meta"><i class="ph ph-check-circle"></i>Nenhuma anamnese aguardando triagem.</div></div>';
+
+      var b2 = aguardando.map(function(p){
+        return '<div class="patient-card static"><div class="pc-top"><div><div class="pc-name">'+esc(p.nome)+'</div><div class="pc-goal">'+esc(p.objetivo)+(p.idade?' · '+esc(p.idade)+' anos':'')+'</div></div><span class="chip chip-neutral"><i class="ph ph-hourglass-medium"></i>Pendente</span></div>'
+          +'<div class="pc-meta"><i class="ph ph-paper-plane-tilt"></i>Anamnese não preenchida · link enviado '+esc(p.sentRel||'')+'</div></div>';
+      }).join('') || '<div class="patient-card static"><div class="pc-meta">Ninguém aguardando.</div></div>';
+
+      var b3 = ativos.map(function(p){
+        var warn = (p.adesaoSemana||0) < 70;
+        return '<a class="patient-card" href="montar-protocolo.html?p='+esc(p.id)+'" aria-label="'+esc(p.nome)+', adesão '+(p.adesaoSemana||0)+'%"><div class="pc-top"><div><div class="pc-name">'+esc(p.nome)+'</div><div class="pc-goal">'+esc(p.objetivo)+' · '+esc(p.idade)+' anos</div></div>'
+          +'<span class="chip '+(warn?'chip-warning':'chip-success')+'"><i class="ph '+(warn?'ph-warning':'ph-check-circle')+'"></i>'+(p.adesaoSemana||0)+'%</span></div>'
+          +'<div class="pc-foot"><div class="adesao-bar'+(warn?' warn':'')+'"><span style="width:'+(p.adesaoSemana||0)+'%"></span></div><span class="pc-goal mono">'+(p.adesaoSemana||0)+'%</span></div></a>';
+      }).join('') || '<div class="patient-card static"><div class="pc-meta">Nenhum paciente ativo.</div></div>';
+
+      document.getElementById('board').innerHTML =
+        group('Precisa de ação','danger',triagem.length,b1,true)
+        + group('Aguardando paciente','warning',aguardando.length,b2,true)
+        + group('Ativos','success',ativos.length,b3,true);
+
+      document.querySelectorAll('.status-group-head').forEach(function(head){
+        head.addEventListener('click',function(){var g=head.closest('.status-group');var c=g.dataset.collapsed==='true';g.dataset.collapsed=c?'false':'true';head.setAttribute('aria-expanded',String(c));});
       });
+    }
+
+    document.getElementById('novoBtn').addEventListener('click',function(){
+      var nome = prompt('Nome do paciente para enviar a anamnese:');
+      if(!nome) return;
+      PVDB.addPatient(nome.trim(), 'Saúde geral');
+      toast('Link de anamnese enviado para '+nome.trim(),'ph-paper-plane-tilt');
+      render();
     });
+
+    render();
   </script>
 </body>
 </html>

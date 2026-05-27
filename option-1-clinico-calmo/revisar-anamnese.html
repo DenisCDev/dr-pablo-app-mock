@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Dr. Pablo Vilela — Revisar anamnese · João Mendes</title>
+  <title>Dr. Pablo Vilela — Revisar anamnese</title>
   <script>document.documentElement.classList.add('js-loaded');</script>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -11,6 +11,7 @@
   <script src="https://unpkg.com/@phosphor-icons/web"></script>
   <link rel="stylesheet" href="shared.css" />
   <link rel="stylesheet" href="styles.css" />
+  <script src="db.js"></script>
 </head>
 <body>
   <div class="app">
@@ -23,14 +24,15 @@
         <div class="nav-group-label">Dr. Pablo</div>
         <a class="nav-link" href="index.html"><i class="ph ph-squares-four"></i>Dashboard</a>
         <a class="nav-link" href="revisar-anamnese.html" aria-current="page"><i class="ph ph-clipboard-text"></i>Revisar anamnese</a>
-        <a class="nav-link" href="montar-protocolo.html"><i class="ph ph-list-checks"></i>Montar protocolo</a>
+        <a class="nav-link" href="montar-protocolo.html?p=maria"><i class="ph ph-list-checks"></i>Montar protocolo</a>
       </nav>
       <nav class="nav-group nav-group--patient" aria-label="App do paciente">
-        <div class="nav-group-label">App do paciente</div>
-        <a class="nav-link" href="anamnese.html"><i class="ph ph-path"></i>Anamnese</a>
-        <a class="nav-link" href="hoje.html"><i class="ph ph-sun-horizon"></i>Hoje</a>
-        <a class="nav-link" href="plano.html"><i class="ph ph-notebook"></i>Plano</a>
-        <a class="nav-link" href="progresso.html"><i class="ph ph-chart-line-up"></i>Progresso</a>
+        <div class="nav-group-label">App do paciente (PWA)</div>
+        <a class="nav-link" href="app.html?view=anamnese"><i class="ph ph-path"></i>Anamnese</a>
+        <a class="nav-link" href="app.html?view=hoje"><i class="ph ph-sun-horizon"></i>Hoje</a>
+        <a class="nav-link" href="app.html?view=treino"><i class="ph ph-barbell"></i>Treino</a>
+        <a class="nav-link" href="app.html?view=plano"><i class="ph ph-notebook"></i>Plano</a>
+        <a class="nav-link" href="app.html?view=progresso"><i class="ph ph-chart-line-up"></i>Progresso</a>
       </nav>
     </aside>
 
@@ -50,202 +52,82 @@
         </div>
       </header>
 
-      <main class="content">
-        <a class="breadcrumb" href="index.html"><i class="ph ph-arrow-left"></i>Dashboard</a>
-        <div class="page-head" style="display:flex; align-items:flex-end; justify-content:space-between; gap:1rem; flex-wrap:wrap;">
-          <div>
-            <p class="eyebrow">Triagem · Anamnese concluída há 2 dias</p>
-            <h1>João Mendes <span style="font-family:var(--font-body);font-weight:400;font-size:1rem;color:var(--color-text-muted);">· 41 anos · Desinflamação</span></h1>
-          </div>
-          <a class="btn btn-accent" href="montar-protocolo.html"><i class="ph ph-list-checks"></i>Montar protocolo</a>
-        </div>
-
-        <!-- ACIMA DA DOBRA: resumo (cards por categoria) + flags -->
-        <div class="triage-grid reveal">
-          <section aria-labelledby="resumo-t">
-            <div class="section-title"><i class="ph ph-sparkle"></i><h2 id="resumo-t">Resumo automático</h2></div>
-            <div class="summary-cards">
-              <div class="summary-card">
-                <div class="lbl"><i class="ph ph-target"></i>Objetivo</div>
-                <div class="val">Desinflamação</div>
-              </div>
-              <div class="summary-card">
-                <div class="lbl"><i class="ph ph-heartbeat"></i>Saúde</div>
-                <div class="val">Hipertensão controlada (losartana); cirurgia no joelho em 2021</div>
-              </div>
-              <div class="summary-card">
-                <div class="lbl"><i class="ph ph-intersect"></i>Intestino</div>
-                <div class="val">Lactose confirmada; distensão após comer; fezes alternadas</div>
-              </div>
-              <div class="summary-card">
-                <div class="lbl"><i class="ph ph-person-simple-run"></i>Atividade</div>
-                <div class="val">Moderada, 3–4×/semana; disposição "Boa"</div>
-              </div>
-            </div>
-          </section>
-
-          <section class="flags-panel" aria-labelledby="flags-t">
-            <div class="section-title"><i class="ph-duotone ph-flag" style="color:var(--color-semantic-danger)"></i><h2 id="flags-t">Flags de risco</h2><span class="chip chip-danger" style="margin-left:auto"><i class="ph ph-warning-octagon"></i>3 clínicas · 1 estilo de vida</span></div>
-            <div class="flag-row danger">
-              <i class="ph-duotone ph-warning-octagon ic"></i>
-              <div class="ft"><strong>Medicamento contínuo</strong><span>losartana 50 mg</span></div>
-              <span class="chip chip-danger flag-sev"><i class="ph ph-pill"></i>Risco clínico</span>
-            </div>
-            <div class="flag-row danger">
-              <i class="ph-duotone ph-warning-octagon ic"></i>
-              <div class="ft"><strong>Cirurgia</strong><span>joelho · 2021 (menisco direito)</span></div>
-              <span class="chip chip-danger flag-sev"><i class="ph ph-bandaids"></i>Risco clínico</span>
-            </div>
-            <div class="flag-row danger">
-              <i class="ph-duotone ph-warning-octagon ic"></i>
-              <div class="ft"><strong>Intolerância</strong><span>lactose confirmada</span></div>
-              <span class="chip chip-danger flag-sev"><i class="ph ph-prohibit"></i>Risco clínico</span>
-            </div>
-            <div class="flag-row warning">
-              <i class="ph-duotone ph-warning ic"></i>
-              <div class="ft"><strong>Estresse</strong><span>7/10 · fonte: trabalho · sono 6h</span></div>
-              <span class="chip chip-warning flag-sev"><i class="ph ph-brain"></i>Estilo de vida</span>
-            </div>
-          </section>
-        </div>
-
-        <!-- ABAIXO DA DOBRA: acordeao das 7 etapas (leitura) -->
-        <section aria-labelledby="acc-t">
-          <div class="section-title" style="margin-top:0.5rem"><i class="ph ph-list-bullets"></i><h2 id="acc-t">Respostas por etapa</h2><span class="pc-goal" style="margin-left:auto">7 etapas · modo leitura</span></div>
-          <div class="accordion" id="accordion">
-
-            <div class="acc-item" data-open="true">
-              <button class="acc-head" aria-expanded="true"><span class="acc-step">1</span><span class="at">Dados pessoais</span><i class="ph ph-caret-down chev"></i></button>
-              <div class="acc-panel">
-                <dl>
-                  <div class="kv"><dt>Nome</dt><dd>João Mendes</dd></div>
-                  <div class="kv"><dt>Idade · Sexo</dt><dd class="mono">41 · Masculino</dd></div>
-                  <div class="kv"><dt>Altura · Peso</dt><dd class="mono">1,78 m · 94 kg</dd></div>
-                  <div class="kv"><dt>Objetivo</dt><dd>Desinflamação</dd></div>
-                  <div class="kv"><dt>DEXA</dt><dd>Sim · 28% gordura</dd></div>
-                </dl>
-              </div>
-            </div>
-
-            <div class="acc-item" data-open="false">
-              <button class="acc-head" aria-expanded="false"><span class="acc-step">2</span><span class="at">Saúde intestinal</span><i class="ph ph-caret-down chev"></i></button>
-              <div class="acc-panel">
-                <dl>
-                  <div class="kv"><dt>Diagnóstico</dt><dd>Disbiose</dd></div>
-                  <div class="kv"><dt>Lactose</dt><dd>Confirmada</dd></div>
-                  <div class="kv"><dt>Glúten</dt><dd>Não</dd></div>
-                  <div class="kv"><dt>Fezes</dt><dd>Alternadas</dd></div>
-                  <div class="kv"><dt>Gases</dt><dd>Sim</dd></div>
-                  <div class="kv"><dt>Distensão</dt><dd>Depois de comer</dd></div>
-                  <div class="kv"><dt>Desconforto</dt><dd>"leite e pão integral"</dd></div>
-                </dl>
-              </div>
-            </div>
-
-            <div class="acc-item" data-open="false">
-              <button class="acc-head" aria-expanded="false"><span class="acc-step">3</span><span class="at">Mental &amp; sono</span><i class="ph ph-caret-down chev"></i></button>
-              <div class="acc-panel">
-                <dl>
-                  <div class="kv"><dt>Estresse</dt><dd class="mono">7/10 · fonte: trabalho</dd></div>
-                  <div class="kv"><dt>Humor</dt><dd>Ansioso</dd></div>
-                  <div class="kv"><dt>Sono</dt><dd class="mono">6h · qualidade Ruim</dd></div>
-                  <div class="kv"><dt>Tela à noite</dt><dd>Sim, até na cama</dd></div>
-                  <div class="kv"><dt>Indutor de sono</dt><dd>"melatonina"</dd></div>
-                  <div class="kv"><dt>Café à noite</dt><dd>Sim</dd></div>
-                </dl>
-              </div>
-            </div>
-
-            <div class="acc-item" data-open="false">
-              <button class="acc-head" aria-expanded="false"><span class="acc-step">4</span><span class="at">Hidratação &amp; hábitos</span><i class="ph ph-caret-down chev"></i></button>
-              <div class="acc-panel">
-                <dl>
-                  <div class="kv"><dt>Água</dt><dd class="mono">1,5 L/dia</dd></div>
-                  <div class="kv"><dt>Bebidas</dt><dd>Café · Chimarrão · Álcool social</dd></div>
-                  <div class="kv"><dt>Refeições/dia</dt><dd class="mono">4</dd></div>
-                  <div class="kv"><dt>Doce</dt><dd>À noite</dd></div>
-                  <div class="kv"><dt>Ultraprocessados</dt><dd>Frequentemente</dd></div>
-                  <div class="kv"><dt>Frituras</dt><dd>Raramente</dd></div>
-                </dl>
-              </div>
-            </div>
-
-            <div class="acc-item" data-open="false">
-              <button class="acc-head" aria-expanded="false"><span class="acc-step">5</span><span class="at">Preferências alimentares</span><i class="ph ph-caret-down chev"></i></button>
-              <div class="acc-panel">
-                <dl>
-                  <div class="kv"><dt>Proteínas</dt><dd>Frango, patinho</dd></div>
-                  <div class="kv"><dt>Carboidratos</dt><dd>Arroz, batata-doce</dd></div>
-                  <div class="kv"><dt>Frutas</dt><dd>Banana, mamão</dd></div>
-                  <div class="kv"><dt>Vegetais</dt><dd>Abobrinha, cenoura</dd></div>
-                  <div class="kv"><dt>Evita</dt><dd>Queijo (lactose) · jiló</dd></div>
-                  <div class="kv"><dt>Piora intestino</dt><dd>Leite</dd></div>
-                </dl>
-              </div>
-            </div>
-
-            <div class="acc-item" data-open="false">
-              <button class="acc-head" aria-expanded="false"><span class="acc-step">6</span><span class="at">Atividade física</span><i class="ph ph-caret-down chev"></i></button>
-              <div class="acc-panel">
-                <dl>
-                  <div class="kv"><dt>Pratica</dt><dd>Sim · musculação + corrida</dd></div>
-                  <div class="kv"><dt>Frequência</dt><dd class="mono">3–4×/semana · Moderada</dd></div>
-                  <div class="kv"><dt>Aeróbico</dt><dd>Sim · disposição Boa</dd></div>
-                  <div class="kv"><dt>Lesão</dt><dd>"menisco direito"</dd></div>
-                  <div class="kv"><dt>Medicamentos</dt><dd>"losartana 50 mg"</dd></div>
-                  <div class="kv"><dt>Suplementos</dt><dd>"creatina, whey"</dd></div>
-                </dl>
-              </div>
-            </div>
-
-            <div class="acc-item" data-open="false">
-              <button class="acc-head" aria-expanded="false"><span class="acc-step">7</span><span class="at">Saúde &amp; expectativas</span><i class="ph ph-caret-down chev"></i></button>
-              <div class="acc-panel">
-                <dl>
-                  <div class="kv"><dt>Doença</dt><dd>"hipertensão"</dd></div>
-                  <div class="kv"><dt>Histórico familiar</dt><dd>"pai hipertenso, mãe diabética"</dd></div>
-                  <div class="kv"><dt>Cirurgia abdominal</dt><dd>Não</dd></div>
-                  <div class="kv"><dt>Incômodo</dt><dd>"inchaço e cansaço à tarde"</dd></div>
-                  <div class="kv"><dt>Acompanhamento</dt><dd>"Sim, mas parei"</dd></div>
-                  <div class="kv"><dt>Tempo de preparo</dt><dd>"Tempo limitado"</dd></div>
-                </dl>
-              </div>
-            </div>
-
-          </div>
-        </section>
-      </main>
+      <main class="content" id="content"></main>
     </div>
   </div>
 
   <div class="toast-host" id="toastHost" aria-live="polite"></div>
 
   <script>
-    /* ---- shared: avatar menu ---- */
-    (function () {
-      var btn = document.getElementById('avatarBtn'); var menu = document.getElementById('avatarMenu');
-      if (!btn) return;
-      function close() { menu.dataset.open = 'false'; btn.setAttribute('aria-expanded', 'false'); }
-      btn.addEventListener('click', function (e) { e.stopPropagation(); var open = menu.dataset.open === 'true'; menu.dataset.open = open ? 'false' : 'true'; btn.setAttribute('aria-expanded', String(!open)); });
-      document.addEventListener('click', function (e) { if (!menu.contains(e.target)) close(); });
-      document.addEventListener('keydown', function (e) { if (e.key === 'Escape') close(); });
-    })();
-    /* ---- shared: reveal ---- */
-    (function () {
-      if (!('IntersectionObserver' in window)) { document.querySelectorAll('.reveal').forEach(function (el) { el.classList.add('is-visible'); }); return; }
-      var io = new IntersectionObserver(function (entries) { entries.forEach(function (en) { if (en.isIntersecting) { en.target.classList.add('is-visible'); io.unobserve(en.target); } }); }, { threshold: 0.06 });
-      document.querySelectorAll('.reveal').forEach(function (el) { io.observe(el); });
-    })();
+    function esc(s){return String(s==null?'':s).replace(/[&<>"]/g,function(c){return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c];});}
+    function toast(msg, icon){var host=document.getElementById('toastHost');var t=document.createElement('div');t.className='toast';t.innerHTML='<i class="ph '+(icon||'ph-check-circle')+'"></i>'+esc(msg);host.appendChild(t);setTimeout(function(){t.style.opacity='0';t.style.transition='opacity 240ms';setTimeout(function(){t.remove();},240);},2400);}
+    (function(){var btn=document.getElementById('avatarBtn');var menu=document.getElementById('avatarMenu');function close(){menu.dataset.open='false';btn.setAttribute('aria-expanded','false');}btn.addEventListener('click',function(e){e.stopPropagation();var open=menu.dataset.open==='true';menu.dataset.open=open?'false':'true';btn.setAttribute('aria-expanded',String(!open));});document.addEventListener('click',function(e){if(!menu.contains(e.target))close();});document.addEventListener('keydown',function(e){if(e.key==='Escape')close();});})();
 
-    /* ---- triage: accordion expand/collapse das 7 etapas (handler 3) ---- */
-    document.querySelectorAll('.acc-head').forEach(function (head) {
-      head.addEventListener('click', function () {
-        var item = head.closest('.acc-item');
-        var open = item.dataset.open === 'true';
-        item.dataset.open = open ? 'false' : 'true';
-        head.setAttribute('aria-expanded', String(!open));
-      });
-    });
+    var ETAPAS = [
+      { k:'e1', t:'Dados pessoais', labels:{nome:'Nome',idadeSexo:'Idade · Sexo',alturaPeso:'Altura · Peso',objetivo:'Objetivo',dexa:'DEXA'} },
+      { k:'e2', t:'Saúde intestinal', labels:{diag:'Diagnóstico',lactose:'Lactose',gluten:'Glúten',fezes:'Fezes',gases:'Gases',distensao:'Distensão',desconforto:'Desconforto'} },
+      { k:'e3', t:'Mental & sono', labels:{estresse:'Estresse',humor:'Humor',sono:'Sono',tela:'Tela à noite',indutor:'Indutor de sono',cafeNoite:'Café à noite'} },
+      { k:'e4', t:'Hidratação & hábitos', labels:{agua:'Água',bebidas:'Bebidas',refeicoes:'Refeições/dia',doce:'Doce',ultra:'Ultraprocessados',frituras:'Frituras'} },
+      { k:'e5', t:'Preferências alimentares', labels:{proteinas:'Proteínas',carbo:'Carboidratos',frutas:'Frutas',vegetais:'Vegetais',evita:'Evita',pioraIntestino:'Piora intestino'} },
+      { k:'e6', t:'Atividade física', labels:{pratica:'Pratica',freq:'Frequência',aerobico:'Aeróbico',lesao:'Lesão',medicamentos:'Medicamentos',suplementos:'Suplementos'} },
+      { k:'e7', t:'Saúde & expectativas', labels:{doenca:'Doença',familiar:'Histórico familiar',cirurgia:'Cirurgia abdominal',incomodo:'Incômodo',acompanhamento:'Acompanhamento',preparo:'Tempo de preparo'} }
+    ];
+
+    function render(){
+      var PID = new URLSearchParams(location.search).get('p') || 'joao';
+      var pat = PVDB.patient(PID); var ana = PVDB.anamnese(PID);
+      var c = document.getElementById('content');
+      if(!pat){ c.innerHTML='<a class="breadcrumb" href="index.html"><i class="ph ph-arrow-left"></i>Dashboard</a><div class="empty" style="margin-top:3rem"><i class="ph-duotone ph-user-circle"></i><strong>Paciente não encontrado</strong></div>'; return; }
+
+      var head = '<a class="breadcrumb" href="index.html"><i class="ph ph-arrow-left"></i>Dashboard</a>'
+        + '<div class="page-head" style="display:flex;align-items:flex-end;justify-content:space-between;gap:1rem;flex-wrap:wrap"><div>'
+        + '<p class="eyebrow">Triagem'+(ana&&ana.submittedRel?' · Anamnese concluída '+esc(ana.submittedRel):'')+'</p>'
+        + '<h1>'+esc(pat.nome)+' <span style="font-family:var(--font-body);font-weight:400;font-size:1rem;color:var(--color-text-muted)">· '+esc(pat.idade||'—')+' anos · '+esc(pat.objetivo)+'</span></h1></div>'
+        + '<div style="display:flex;gap:0.5rem"><button class="btn btn-ghost" id="consultBtn"><i class="ph ph-video-camera"></i>Agendar consulta</button>'
+        + '<a class="btn btn-accent" href="montar-protocolo.html?p='+esc(PID)+'"><i class="ph ph-list-checks"></i>Montar protocolo</a></div></div>';
+
+      if(!ana || !ana.e1){
+        c.innerHTML = head + '<div class="empty" style="margin-top:2rem"><i class="ph-duotone ph-hourglass-medium"></i><strong>Anamnese ainda não preenchida</strong><span>'+esc(pat.nome)+' recebeu o link mas ainda não respondeu.</span></div>';
+        wireConsult(PID); return;
+      }
+
+      var consult = PVDB.consult(PID);
+      var consultBanner = consult ? '<div class="p-card" style="margin-bottom:1.25rem;display:flex;align-items:center;gap:0.75rem;padding:0.875rem 1rem"><i class="ph-duotone ph-video-camera" style="font-size:1.5rem;color:var(--color-action-primary)"></i><div style="flex:1"><strong style="font-family:var(--font-display)">Consulta agendada</strong><div style="font-size:0.8125rem;color:var(--color-text-secondary)">'+esc(consult.quando)+'</div></div><span class="chip chip-success"><i class="ph ph-check"></i>Marcada</span></div>' : '';
+
+      var resumo = ana.resumo ? '<div class="summary-cards">'
+        + card('ph-target','Objetivo',ana.resumo.objetivo)
+        + card('ph-heartbeat','Saúde',ana.resumo.saude)
+        + card('ph-intersect','Intestino',ana.resumo.intestino)
+        + card('ph-person-simple-run','Atividade',ana.resumo.atividade) + '</div>'
+        : '<div class="summary-card"><div class="val">Resumo automático indisponível para este paciente.</div></div>';
+
+      var flags = (ana.flags||[]);
+      var nDanger = flags.filter(function(f){return f.sev==='danger';}).length;
+      var nWarn = flags.filter(function(f){return f.sev==='warning';}).length;
+      var flagsHtml = flags.length ? flags.map(function(f){
+        return '<div class="flag-row '+esc(f.sev)+'"><i class="ph-duotone '+(f.sev==='danger'?'ph-warning-octagon':'ph-warning')+' ic"></i><div class="ft"><strong>'+esc(f.titulo)+'</strong><span>'+esc(f.det)+'</span></div><span class="chip chip-'+esc(f.sev)+' flag-sev"><i class="ph '+esc(f.icon||'ph-flag')+'"></i>'+esc(f.tag)+'</span></div>';
+      }).join('') : '<div class="flag-row"><div class="ft"><span>Nenhuma flag de risco.</span></div></div>';
+
+      var acc = ETAPAS.map(function(e,i){
+        var data = ana[e.k]; if(!data) return '';
+        var kv = Object.keys(e.labels).map(function(key){ if(data[key]==null) return ''; return '<div class="kv"><dt>'+esc(e.labels[key])+'</dt><dd>'+esc(data[key])+'</dd></div>'; }).join('');
+        return '<div class="acc-item" data-open="'+(i===0?'true':'false')+'"><button class="acc-head" aria-expanded="'+(i===0?'true':'false')+'"><span class="acc-step">'+(i+1)+'</span><span class="at">'+esc(e.t)+'</span><i class="ph ph-caret-down chev"></i></button><div class="acc-panel"><dl>'+kv+'</dl></div></div>';
+      }).join('');
+
+      c.innerHTML = head + consultBanner
+        + '<div class="triage-grid"><section><div class="section-title"><i class="ph ph-sparkle"></i><h2>Resumo automático</h2></div>'+resumo+'</section>'
+        + '<section class="flags-panel"><div class="section-title"><i class="ph-duotone ph-flag" style="color:var(--color-semantic-danger)"></i><h2>Flags de risco</h2>'+(flags.length?'<span class="chip chip-danger" style="margin-left:auto"><i class="ph ph-warning-octagon"></i>'+nDanger+' clínicas · '+nWarn+' estilo de vida</span>':'')+'</div>'+flagsHtml+'</section></div>'
+        + '<section><div class="section-title" style="margin-top:0.5rem"><i class="ph ph-list-bullets"></i><h2>Respostas por etapa</h2><span class="pc-goal" style="margin-left:auto">modo leitura</span></div><div class="accordion">'+acc+'</div></section>';
+
+      document.querySelectorAll('.acc-head').forEach(function(h){h.addEventListener('click',function(){var it=h.closest('.acc-item');var o=it.dataset.open==='true';it.dataset.open=o?'false':'true';h.setAttribute('aria-expanded',String(!o));});});
+      wireConsult(PID);
+    }
+    function card(ic,lbl,val){ return '<div class="summary-card"><div class="lbl"><i class="ph '+ic+'"></i>'+esc(lbl)+'</div><div class="val">'+esc(val||'—')+'</div></div>'; }
+    function wireConsult(PID){
+      var b=document.getElementById('consultBtn'); if(!b) return;
+      b.addEventListener('click',function(){ PVDB.scheduleConsult(PID,'Amanhã, 14:00 · Google Meet'); toast('Consulta agendada — o paciente verá no app','ph-video-camera'); render(); });
+    }
+    render();
   </script>
 </body>
 </html>
