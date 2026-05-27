@@ -80,7 +80,7 @@
     .rest-timer button:hover { background: oklch(1 0 0 / 0.24); }
     .ex-thumb { position: relative; width: 44px; height: 44px; border-radius: 10px; flex: none; background: var(--color-surface-subtle); border: 1px solid var(--color-border-subtle); display: grid; place-items: center; overflow: hidden; color: var(--color-text-muted); cursor: pointer; }
     .ex-thumb i { font-size: 1.4rem; }
-    .ex-thumb img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; opacity: 0; filter: grayscale(1) contrast(1.03); transition: opacity 200ms var(--ease-out); }
+    .ex-thumb img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; background: oklch(1 0 0); opacity: 0; transition: opacity 200ms var(--ease-out); }
     .ex-thumb img.ok { opacity: 1; }
     .ex-thumb:hover { border-color: var(--color-action-primary); }
     .ex-modal { position: fixed; inset: 0; z-index: 60; display: none; align-items: flex-end; justify-content: center; background: oklch(0.18 0.02 264 / 0.5); }
@@ -307,7 +307,7 @@
       proto.treino.forEach(function (ex, ei) {
         var sets = ex.sets || [], rest = ex.rest || 0;
         var exIc = /min|cont[íi]nu|corr/i.test((ex.n || '') + ' ' + ((ex.sets && ex.sets[0] && ex.sets[0].reps) || '')) ? 'ph-heartbeat' : 'ph-barbell';
-        var thumb = '<button class="ex-thumb" data-demo="' + ei + '" aria-label="Ver execução de ' + esc(ex.n) + '"><i class="ph ' + exIc + '"></i>' + (ex.img ? '<img src="https://cdn.jsdelivr.net/gh/yuhonas/free-exercise-db@main/exercises/' + esc(ex.img) + '/0.jpg" alt="" />' : '') + '</button>';
+        var thumb = '<button class="ex-thumb" data-demo="' + ei + '" aria-label="Ver execução de ' + esc(ex.n) + '"><i class="ph ' + exIc + '"></i>' + (ex.gif ? '<img src="' + esc(ex.gif) + '" alt="" loading="lazy" />' : '') + '</button>';
         html += '<div class="ex-block"><div class="ex-head">' + thumb + '<span class="ex-name">' + esc(ex.n) + '</span></div>';
         html += '<div class="ex-controls"><label class="metodo-wrap"><span>Método</span><select class="metodo-sel" data-metodo="' + ei + '" aria-label="Método de ' + esc(ex.n) + '">' + METODOS.map(function (m) { return '<option value="' + m[0] + '"' + (ex.metodo === m[0] ? ' selected' : '') + '>' + m[1] + '</option>'; }).join('') + '</select></label><span class="rest-pill"><i class="ph ph-timer"></i>' + (rest ? rest + 's' : '—') + '</span></div>';
         if (ex.metodo === 'drop-set' && ex.drops) html += '<div class="ex-hint"><i class="ph ph-info"></i>' + esc(ex.drops) + '</div>';
@@ -430,11 +430,11 @@
       document.getElementById('exDemoSteps').innerHTML = steps.length ? steps.map(function (s) { return '<li>' + esc(s) + '</li>'; }).join('') : '<li>Sem instruções cadastradas.</li>';
       var img = document.getElementById('exDemoImg'), ph = document.getElementById('exDemoPh');
       img.style.display = 'none'; ph.style.display = 'flex';
-      if (ex.img) {
+      if (ex.gif) {
         img.alt = 'Execução: ' + ex.n;
         img.onload = function () { img.style.display = 'block'; ph.style.display = 'none'; };
         img.onerror = function () { img.style.display = 'none'; ph.style.display = 'flex'; };
-        img.src = 'https://cdn.jsdelivr.net/gh/yuhonas/free-exercise-db@main/exercises/' + ex.img + '/0.jpg';
+        img.src = ex.gif;
       } else { img.removeAttribute('src'); }
       var m = document.getElementById('exModal'); m.classList.add('show'); m.setAttribute('aria-hidden', 'false');
     }

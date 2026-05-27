@@ -5,13 +5,13 @@
    NÃO é backend real. v3: treino com séries/reps/kg/método + rastreio por série.
    ========================================================================== */
 (function (global) {
-  var KEY = 'pv_db_v4';
+  var KEY = 'pv_db_v5';
   function todayISO() { return new Date().toISOString().slice(0, 10); }
 
   function seed() {
     var t = todayISO();
     var s = {
-      meta: { version: 4, seededAt: new Date().toISOString(), today: t },
+      meta: { version: 5, seededAt: new Date().toISOString(), today: t },
       currentPatientId: 'maria',
       patients: [
         { id: 'joao',   nome: 'João Mendes',       idade: 41, sexo: 'Masculino', altura: '1,78 m', peso: '94 kg', objetivo: 'Desinflamação',  status: 'triagem',   submittedRel: 'há 2 dias', flags: 3 },
@@ -59,11 +59,11 @@
           ],
           treinoHorario: '18:00',
           treino: [
-            { n: 'Agachamento livre', metodo: 'reta', rest: 90, musculo: 'Quadríceps e glúteos', equip: 'Barra', img: 'Barbell_Squat', instr: ['Barra apoiada no trapézio, pés na largura dos ombros.', 'Desça empurrando o quadril para trás até as coxas ficarem paralelas ao chão.', 'Suba empurrando pelos calcanhares, sem arredondar a lombar.', 'Core firme e olhar à frente o tempo todo.'], sets: [ { reps: '10' }, { reps: '10' }, { reps: '8' }, { reps: '8' } ] },
-            { n: 'Supino reto', metodo: 'piramide', rest: 75, musculo: 'Peitoral e tríceps', equip: 'Barra + banco', img: 'Barbell_Bench_Press_-_Medium_Grip', instr: ['Deitado no banco, pegada um pouco mais aberta que os ombros.', 'Desça a barra até tocar de leve o peito, controlando.', 'Empurre até estender os cotovelos, sem travar.', 'Escápulas retraídas; evite arquear demais a lombar.'], sets: [ { reps: '12' }, { reps: '10' }, { reps: '8' }, { reps: '6' } ] },
-            { n: 'Cadeira extensora', metodo: 'drop-set', rest: 60, drops: 'após a falha, baixe ~20% do peso e continue (2 quedas, sem descanso)', musculo: 'Quadríceps', equip: 'Máquina', img: 'Leg_Extensions', instr: ['Ajuste o encosto e o apoio logo acima dos tornozelos.', 'Estenda os joelhos até quase travar, expirando.', 'Segure 1s no topo, contraindo o quadríceps.', 'Desça devagar, sem deixar o peso bater.'], sets: [ { reps: '12 → falha' }, { reps: '12 → falha' }, { reps: 'até a falha' } ] },
-            { n: 'Remada curvada', metodo: 'reta', rest: 60, musculo: 'Dorsais e romboides', equip: 'Barra', img: 'Bent_Over_Barbell_Row', instr: ['Tronco inclinado ~45°, coluna neutra, joelhos semiflexionados.', 'Puxe a barra em direção ao abdômen baixo.', 'Aperte as escápulas no topo do movimento.', 'Desça controlando, sem usar impulso.'], sets: [ { reps: '10' }, { reps: '10' }, { reps: '10' } ] },
-            { n: 'Corrida leve', metodo: 'reta', rest: 0, musculo: 'Cardio / pernas', equip: 'Esteira ou rua', img: '', instr: ['Ritmo confortável — dá pra conversar enquanto corre.', '20 minutos contínuos.', 'Postura ereta, passada leve, ombros relaxados.', 'Hidrate-se antes e depois.'], sets: [ { reps: '20 min contínuo' } ] }
+            { n: 'Agachamento livre', metodo: 'reta', rest: 90, musculo: 'Quadríceps e glúteos', equip: 'Barra', img: 'Barbell_Squat', gif: 'gifs/0043.gif', instr: ['Barra apoiada no trapézio, pés na largura dos ombros.', 'Desça empurrando o quadril para trás até as coxas ficarem paralelas ao chão.', 'Suba empurrando pelos calcanhares, sem arredondar a lombar.', 'Core firme e olhar à frente o tempo todo.'], sets: [ { reps: '10' }, { reps: '10' }, { reps: '8' }, { reps: '8' } ] },
+            { n: 'Supino reto', metodo: 'piramide', rest: 75, musculo: 'Peitoral e tríceps', equip: 'Barra + banco', img: 'Barbell_Bench_Press_-_Medium_Grip', gif: 'gifs/0025.gif', instr: ['Deitado no banco, pegada um pouco mais aberta que os ombros.', 'Desça a barra até tocar de leve o peito, controlando.', 'Empurre até estender os cotovelos, sem travar.', 'Escápulas retraídas; evite arquear demais a lombar.'], sets: [ { reps: '12' }, { reps: '10' }, { reps: '8' }, { reps: '6' } ] },
+            { n: 'Cadeira extensora', metodo: 'drop-set', rest: 60, drops: 'após a falha, baixe ~20% do peso e continue (2 quedas, sem descanso)', musculo: 'Quadríceps', equip: 'Máquina', img: 'Leg_Extensions', gif: 'gifs/0585.gif', instr: ['Ajuste o encosto e o apoio logo acima dos tornozelos.', 'Estenda os joelhos até quase travar, expirando.', 'Segure 1s no topo, contraindo o quadríceps.', 'Desça devagar, sem deixar o peso bater.'], sets: [ { reps: '12 → falha' }, { reps: '12 → falha' }, { reps: 'até a falha' } ] },
+            { n: 'Remada curvada', metodo: 'reta', rest: 60, musculo: 'Dorsais e romboides', equip: 'Barra', img: 'Bent_Over_Barbell_Row', gif: 'gifs/0027.gif', instr: ['Tronco inclinado ~45°, coluna neutra, joelhos semiflexionados.', 'Puxe a barra em direção ao abdômen baixo.', 'Aperte as escápulas no topo do movimento.', 'Desça controlando, sem usar impulso.'], sets: [ { reps: '10' }, { reps: '10' }, { reps: '10' } ] },
+            { n: 'Corrida leve', metodo: 'reta', rest: 0, musculo: 'Cardio / pernas', equip: 'Esteira ou rua', img: '', gif: 'gifs/3666.gif', instr: ['Ritmo confortável — dá pra conversar enquanto corre.', '20 minutos contínuos.', 'Postura ereta, passada leve, ombros relaxados.', 'Hidrate-se antes e depois.'], sets: [ { reps: '20 min contínuo' } ] }
           ],
           habitos: { agua: '2,5 L', sono: '8 h' }
         }
@@ -106,7 +106,7 @@
   function write(s) { try { localStorage.setItem(KEY, JSON.stringify(s)); } catch (e) { mem = s; } }
   function load() {
     var s = read();
-    if (!s || !s.meta || s.meta.version !== 4) { s = seed(); write(s); return s; }
+    if (!s || !s.meta || s.meta.version !== 5) { s = seed(); write(s); return s; }
     var t = todayISO();
     if (!s.logs.maria || !s.logs.maria[t]) { seedTodayLog(s); write(s); }
     if (!s.timeline) { var fr = seed(); s.timeline = fr.timeline; s.resumoProgresso = fr.resumoProgresso; write(s); }
