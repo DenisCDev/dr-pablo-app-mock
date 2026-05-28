@@ -256,4 +256,7 @@
   .kv dt { font-size: 0.75rem; }
   .acc-panel { padding-left: 1.25rem; padding-right: 1rem; }
   .flags-panel { padding: 1rem; }
+  .page-actions { width: 100%; flex-direction: column; }
+  .page-actions .btn { width: 100%; justify-content: center; }
+  .section-title { flex-wrap: wrap; }
 }

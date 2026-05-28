@@ -73,10 +73,10 @@
       if(!pat){ c.innerHTML='<a class="breadcrumb" href="index.html"><i class="ph ph-arrow-left"></i>Dashboard</a><div class="empty" style="margin-top:3rem"><i class="ph-duotone ph-user-circle"></i><strong>Paciente não encontrado</strong></div>'; return; }
 
       var head = '<a class="breadcrumb" href="index.html"><i class="ph ph-arrow-left"></i>Dashboard</a>'
-        + '<div class="page-head" style="display:flex;align-items:flex-end;justify-content:space-between;gap:1rem;flex-wrap:wrap"><div>'
+        + '<div class="page-head" style="display:flex;align-items:flex-end;justify-content:space-between;gap:1rem;flex-wrap:wrap"><div style="min-width:0">'
         + '<p class="eyebrow">Triagem'+(ana&&ana.submittedRel?' · Anamnese concluída '+esc(ana.submittedRel):'')+'</p>'
         + '<h1>'+esc(pat.nome)+' <span style="font-family:var(--font-body);font-weight:400;font-size:1rem;color:var(--color-text-muted)">· '+esc(pat.idade||'—')+' anos · '+esc(pat.objetivo)+'</span></h1></div>'
-        + '<div style="display:flex;gap:0.5rem"><button class="btn btn-ghost" id="consultBtn"><i class="ph ph-video-camera"></i>Agendar consulta</button>'
+        + '<div class="page-actions" style="display:flex;gap:0.5rem"><button class="btn btn-ghost" id="consultBtn"><i class="ph ph-video-camera"></i>Agendar consulta</button>'
         + '<a class="btn btn-accent" href="montar-protocolo.html?p='+esc(PID)+'"><i class="ph ph-list-checks"></i>Montar protocolo</a></div></div>';
 
       if(!ana || !ana.e1){
